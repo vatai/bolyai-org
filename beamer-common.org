@@ -1,6 +1,5 @@
 #+AUTHOR: Emil Vatai
 #+EMAIL: vatai@inf.elte.hu
-#+STARTUP: beamer
 #+CREATOR: Emacs 24.3.1 (Org mode 8.2.7c)
 #+DESCRIPTION:
 #+EXCLUDE_TAGS: noexport

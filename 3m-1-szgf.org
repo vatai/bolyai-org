@@ -1,8 +1,9 @@
 # -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
 
+#+STARTUP: beamer
 #+INCLUDE: "beamer-common.org"
-#+TITLE: Számítógépek felépítése 
 #+DATE: 2014-2015
+#+TITLE: Számítógépek felépítése 
 
 
 
