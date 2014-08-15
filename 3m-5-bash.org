@@ -1,0 +1,7 @@
+* A paranccsor 
+** Terminál
+* stdin, stdout és stderr
+* Átirányítás
+* Átirányíáts haladóknak
+* Pipe
+* Változók
