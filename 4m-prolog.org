@@ -1,0 +1,5 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+#+TITLE: Prolog
+
+18+14 alkalom
+

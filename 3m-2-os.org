@@ -1,0 +1,8 @@
+#+TITLE: Operációs rendszerek
+* Folyamatok, szálak
+* Driver
+* Fájl-rendszerek
+* Hállózat kezelés (socket)
+* Példa réteges felépítésre Linux, iOS, Windows 3.11
+* Ellenpélda régi Win95
+* Virtuális memória

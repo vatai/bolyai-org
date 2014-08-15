@@ -1,0 +1,79 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+#+TITLE: Assembly
+
+18+18 alkalom
+* Áttekintés
+** Első félév
+| Hardver+szoftver        |  2 |
+| Linux                   |  2 |
+| bash                    |  2 |
+| Assembly Hello world    |  1 |
+| Szám ábrázolás          |  1 |
+| CPU regiszterek memória |  3 |
+| Paraméterek             |  1 |
+| Fájl kezelés            |  2 |
+| Összeadás kivonás       |  1 |
+| Szorzás Osztás          |  2 |
+| Ellenőrzők              |  2 |
+|-------------------------+----|
+|                         | 19 |
+#+TBLFM: @>$2=vsum(@1$2..@-1$2)
+
+** Második félév
+| Elágazások és ciklusok    |  4 |
+| Függvények                |  3 |
+| Makrók                    |  2 |
+| Linkelés                  |  1 |
+| Beillesztés más nyelvekbe |  2 |
+| Párhuzamos programozás    |  2 |
+| Ellenőrzők                |  3 |
+|---------------------------+----|
+|                           | 17 |
+#+TBLFM: @>$2=vsum(@1$2..@-1$2)
+* Hardver és szoftver
+** [[file:3m-1-szgf.org][Számítógépek felépítése]] [1]
+** [[file:3m-2-os.org][Operációs rendszerek]] [2]
+** Ötletek 
+*** Endian
+*** Piplince
+*** Vektor regiszterek
+** 3 Neumann elvű számítógépek
+*** A program is adat
+    - Program és adat is egy helyen tárolódik
+** 4
+** 5
+** 6
+** 7
+** 8
+** 9
+** 10
+** 11
+** 12
+** 13
+** 14
+** 15
+** 16
+** 17
+** 18
+** 19
+** 20
+** 21
+** 22
+** 23
+** 24
+** 25
+** 26
+** 27
+** 28
+** 29
+** 30
+** 31
+** 32
+** 33
+** 34
+** 35
+** 36
+
+
+
+
