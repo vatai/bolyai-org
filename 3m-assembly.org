@@ -7,7 +7,6 @@
 | Hardver+szoftver        |  2 |
 | Linux                   |  2 |
 | bash                    |  2 |
-| Assembly Hello world    |  1 |
 | Szám ábrázolás          |  1 |
 | CPU regiszterek memória |  3 |
 | Paraméterek             |  1 |
@@ -16,9 +15,8 @@
 | Szorzás Osztás          |  2 |
 | Ellenőrzők              |  2 |
 |-------------------------+----|
-|                         | 19 |
+|                         | 18 |
 #+TBLFM: @>$2=vsum(@1$2..@-1$2)
-
 ** Második félév
 | Elágazások és ciklusok    |  4 |
 | Függvények                |  3 |
@@ -30,7 +28,8 @@
 |---------------------------+----|
 |                           | 17 |
 #+TBLFM: @>$2=vsum(@1$2..@-1$2)
-* Hardver és szoftver
+
+* Hardver és szoftver 1-2
 ** [[file:3m-1-szgf.org][1 Számítógépek felépítése]]
 ** [[file:3m-2-os.org][2 Operációs rendszerek]]
 ** Ötletek 
@@ -40,7 +39,7 @@
 *** Neumann elvű számítógépek
 **** A program is adat
      - Program és adat is egy helyen tárolódik
-* Linux
+* Linux 3-6
 ** 3 Linux elmélet 
 ** 4 Linux gyakor
 ** 5 Bash 
@@ -48,6 +47,7 @@
 *** Pipe
 *** Változók
 ** 6 Bash parancsok
+*** man
 *** mkdir
 *** cd
 *** touch
@@ -56,14 +56,24 @@
 *** sed
 *** cut
 *** tar
-*** ifconfig
+*** apt-get
+*** gcc és g++
+* Assembly 7-?
 ** 7 Assembly
-** 8
-** 9
-** 10
-** 11
-** 12
-** 13
+*** yasm
+*** "Hello world"
+*** Szintaxis
+*** Cimkék
+** 8 Számábrázolás
+*** Előjel nélküli egészek
+*** Előjeles egészek
+*** Lebegő pontos egyszeres pontosságú
+*** Lebegő pontos dupla pontosságú 
+** 9 ADD és SUB
+** 10 MUL és DIV
+** 11 CMP és Jxx
+** 12 Elágazások és ciklusok
+** 13 
 ** 14
 ** 15
 ** 16
