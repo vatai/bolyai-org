@@ -1,4 +1,10 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "beamer-common.org"
+#+DATE: 2014-2015
 #+TITLE: Operációs rendszerek
+
 * Folyamatok, szálak
 * Driver
 * Fájl-rendszerek
