@@ -5,7 +5,81 @@
 #+DATE: 2014-2015
 #+TITLE: Operációs rendszerek
 
-* Folyamatok, szálak
+* Példák
+** Microsoft "termékek"
+   + DOS: Disk operating system, win95 elődje
+   + Windows 95, NT, ME, 2000, XP, +Vista+, 7, 8
+     - Megjegyzés: Windows 1, 2, 3 nem oprendszer
+** Unix és utódjai
+   + GNU/Linux: Debian (Ubuntu, Mint), Red Hat (Fedora, Centos, Mandriva), Slackware (OpenSUSE), Arch, Gentoo, LFS (Linux From Scratch)
+   + Solaris: Opensolaris, OpenIndiana
+   + BSD (Berkeley Software Distribution): FreeBSD, OpenBSD, NetBSD
+   + Android, Mac OS X, iOS stb.
+* Operációs rendszer
+** Operációs rendszer  definíciója
+   :PROPERTIES:
+   :BEAMER_col: 0.6
+   :BEAMER_env: block
+   :END:
+   Az operációs rendszer, olyan szoftver együttes, amely kezeli a számítógép hardverét és biztosítja az alapvető szolgáltatásokat a programoknak.
+** Elhelyezkedése 
+   :PROPERTIES:
+   :BEAMER_col: 0.4
+   :BEAMER_env: block
+   :END:
+#+ATTR_LATEX: width=\textwidth
+[[file:images/layers.pdf]]
+
+* Felépítés és feladatok
+** Felépítés
+   - Kernel
+   - Rendszer szoftver
+     - Modulok, meghajtók (driver), rendszer szoftver
+     - Például: fájl rendszer, NIC meghajtó, tűzfal, 
+   - Segéd programok
+     - Például: notepad, explorer, cat, ls
+   - Kezelői felület (user interface - UI)
+     - Például: bash, zsh, Metro, Gnome, KDE, Ratpoison, i3, Xfce
+** Feladatok
+   + Folyamatok, memória, fájlrendszer, hálózat, hardver kezelése, biztonság, UI
+* Felosztás
+** Felosztás felépítés szerint
+   + Mikrokernel
+   + "Hybrid" kernel
+   + Monolithic (monolitikus) kernel
+   [[file:images/OS-structure2.pdf]]
+* Felosztás
+** Felosztás funkcionalitás szerint
+   + Valósidejű: gyors válaszidőket biztosító, idő kritikus,
+     speciális ütemezési algoritmusok.
+   + Több felhasználós: támogatja több felhasználónak a hozzáférést.
+   + Multitasking: támogatja a több program párhuzamos, 
+     illetve konkurens végrehajtását.
+   + Elosztott: több számítógépen fut, egységes rendszert alkot. 
+   + Beágyazott: egyszerű rendszerekhez, korlátozott erőforásokkal 
+     és/vagy autnómiával.
+* Folyamatok, szálak kezelése
+** Folyamat (process), szál (thread) 
+   + Egy program futó példányát /folyamatnak/ nevezzük.
+     Egy folyamat tartalmazza a program kódját és a pillanatnyi állapotát.
+     Egy folyamat több párhuzamosan futó szálból állhat.
+   + Végrehajtási szálak egy folyamat részei, 
+     melyek párhuzamosan (illetve konkurens módon) futnak.
+** Példák
+   + firefox.exe egy folyamat; egy-egy tab külön szálon fut
+   + chrome.exe minden tab egy folyamat; szálak párhuzamosan töltik le és
+     rajzolják ki a honlapot és futtatja benne a JavaScript-et.
+* Multitasking kezelése
+** Multitasking
+   + Több folyamat fut "párhuzamosan".
+   + Folyamatok ütemezése: prioritás és készenlét alapján (Real-time rendszerek).
+   + Folyamat tábla: folyamat azonosító (PID), állapot (fut, készenlét, blokkolt),
+     jogosultságok, stb.
+   + Környezet váltás (context switch): hardver támogatott, 
+     gyorsan cserélje a processzor állapotait a processzorban 
+     (egy folyamatot "kivesz" a CPU-ból másikat "betesz" hogy fusson egy 
+     rövid ideig).
+   + Folyamatok közötti kommunikáció (IPC - inter process communication).
 * Driver
 * Fájl-rendszerek
 * Hállózat kezelés (socket)
