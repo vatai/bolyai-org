@@ -155,8 +155,15 @@
      teszi lehetővé.
    + Biztonság: például tűzfal vagy adatfolyam titkosítása.
    + Hálózati fájlrendszer: NFS, Samba (Windows Share).
-* -----
-* Driver
-* Példa réteges felépítésre Linux, iOS, Windows 3.11
-* Ellenpélda régi Win95
-* Virtuális memória
+* Drivers & (G)UI
+** Illesztő programok (Driver)
+   + Azonos célú, viszont különböző kivitelezésű hardverek
+     számára, egységes csatlakozási felületet biztosít.
+   + Például: nem kell minden programmba beleírni minden
+     nyomtatónak a kezelését.
+** Kezelő felület - User Interface (UI)
+   + /CLI/: Command Line Interface, parancssor, terminál.
+     Például: bash, sh, ksh, csh, dos, Power Shell.
+   + /GUI/: Graphical User Interface, grafikus kezelői felület,
+     ablakok, menük stb. Például: Gnome, KDE, Xfce
+
