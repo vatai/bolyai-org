@@ -47,7 +47,7 @@
    + Mikrokernel
    + "Hybrid" kernel
    + Monolithic (monolitikus) kernel
-   [[file:images/OS-structure2.pdf]]
+   [[file:images/os-structure.pdf]]
 * Felosztás
 ** Felosztás funkcionalitás szerint
    + Valósidejű: gyors válaszidőket biztosító, idő kritikus,
@@ -80,6 +80,58 @@
      (egy folyamatot "kivesz" a CPU-ból másikat "betesz" hogy fusson egy 
      rövid ideig).
    + Folyamatok közötti kommunikáció (IPC - inter process communication).
+* Memória kezelés
+  + A folyamatok, egy nagy címezhető memóriatéret „látnak”
+    ami független a fizikai memóriától.
+  + A folyamatok nem férnek hozzá egymás adataihoz.
+  + Kivétel a megosztott (shared) memória, ami folyamatok
+    közötti kommunikációt biztosítja.
+  + Verem (stack) memória a folyamat saját memóriatere.
+  + Kupac (heap) memória „közös”, de védett memória
+    (dinamikus memória lefoglalás. Programozásban: new(),
+    malloc() stb.)
+  + Memória blokk (block) rögzített méretű, egy
+    folyamatokhoz rendelt (vagy megosztott).
+  + Változó méretű memória szegmenseket rendelünk
+    folyamatokhoz. Címzés: szegmens + offszet
+* Virtuális memória
+** Virtuális memória
+   :PROPERTIES:
+   :BEAMER_col: 0.7
+   :BEAMER_env: block
+   :END:
+   + A hordozhatóság miatt, a folyamatok
+     memóriatere „végtelen”.
+   + Memória lap (page): rögzített méretű egységek.
+   + Fizikai tár: lapok amelyre most szükség van.
+   + Merevlemez: lapok amelyekre valószínűleg
+     nem lesz szükség a közeljövőben.
+   + Logikai cím: amit a program „lát”.
+   + Fizikai cím: ami a sinen (bus) valóban
+     lemegy. A fordítást a hardver is támogatja.
+   + Lap hiba (Page fault): hivatkozás memória
+     területre ami a merevlemezen van (hardver
+     támogatott, megszakítás).
+** Ábrázolva
+   :PROPERTIES:
+   :BEAMER_col: 0.2
+   :BEAMER_env: block
+   :END:
+   [[file:images/virtual-memory.pdf]]
+* Biztonság és módok
+** Biztonság (Security)
+   + Jogosultságok kezelése: ki csinálhat? mit csinálhat?
+     mivel/min csinálhatja? (ACL, Access Control List).
+   + Több felhasználó (multiuser) rendszerek:
+   + Szerveren: több felhasználló párhuzamosan használhatja a
+     rendszert és futtathat programokat rajta.
+   + Munkaállomáson: a felhasznállók különböző beállításokat
+     tárolhatnak el (profil) egy gépen.
+** Módok
+   + Kernel/supervisor mode: teljes hozzáférés a hardverhez.
+   + Protected/user mode: operációs rendszeren keresztül
+     történik a hozzáférés.
+* -----
 * Driver
 * Fájl-rendszerek
 * Hállózat kezelés (socket)
