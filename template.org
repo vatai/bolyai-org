@@ -1,0 +1,7 @@
+** A column
+   :PROPERTIES:
+   :BEAMER_col: 0.4
+   :BEAMER_env: block
+   :END:
+#+ATTR_LATEX: :width \textwidth
+[[file:images/layers.pdf]]
