@@ -131,10 +131,32 @@
    + Kernel/supervisor mode: teljes hozzáférés a hardverhez.
    + Protected/user mode: operációs rendszeren keresztül
      történik a hozzáférés.
+* Fájl-rendszerek
+** Fájlrendszerek (File system) kezelése
+   + A merevlemez egy nagy összefüggő, (valahogyan)
+     címezhető tárterület.
+   + A filerendszerek algoritmusok szerint, a lemezre mentett
+     adatokat állományokba (file) és könyvtárakba (directory)
+     renszerezi.
+   + A programok nem látják a nyers adatot csak fájlokat.
+   + FAT12, FAT16, FAT32, NTFS, HFS,HFS+, HPFS, UFS,
+     ext2, ext3, ext4, btrfs, ISO 9660, Files-11, Veritas File
+     System, VMFS, ZFS, ReiserFS and UDF.
+   + Virtuális filerendszerek: =/proc=, =/sys=, RAMFS.
+* Hálózat kezelés (socket programozás)
+** Hálózat kezelés 
+   + A hálózati eszközöket kezelése és a protokolokat
+     (TCP/IP, UDP stb.) is manapság az operációs
+     rendszerekbe vannak implementálva.
+   + Nem a felhasználói programok kezelik a jeleket a
+     hálókábelből, hanem rendszer hívásokkal érhető el a
+     hálózat.
+   + A számítógép erőforrásainak megosztása és távoli elérésit
+     teszi lehetővé.
+   + Biztonság: például tűzfal vagy adatfolyam titkosítása.
+   + Hálózati fájlrendszer: NFS, Samba (Windows Share).
 * -----
 * Driver
-* Fájl-rendszerek
-* Hállózat kezelés (socket)
 * Példa réteges felépítésre Linux, iOS, Windows 3.11
 * Ellenpélda régi Win95
 * Virtuális memória
