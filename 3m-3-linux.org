@@ -7,7 +7,7 @@
 
 * Történelem
 ** Unix
-   + Ken Thompson, Dennis Ritchie (1941-2011)
+   + Ken Thompson, Dennis Ritchie (1941-2011) et al.
    + AT&T, Bell Labs kutató központ, 1970es évek elején
 ** Ken és Dennis
    #+ATTR_LATEX: :width 7cm
@@ -20,7 +20,7 @@
    :END:
    + GNU is Not Unix (rekurzió ld. rekurzió)
    + Richard Stallman
-   + *Free software foundation* - [[http://www.fsf.org/]]
+   + *Free software foundation* - [[http://www.fsf.org/][www.fsf.org]]
    + Free = ingyenes / szabad
    + Hangsúly a *szabadságon*
      - Bele tudjunk "nyúlni" a szoftverbe
@@ -31,22 +31,62 @@
    :BEAMER_env: block
    :END:
    [[file:images/Richard-Stallman.jpg]]
-** Linux
-   + Linus Torvalds
-   + 1991. Október 5.
-   + Feltette a netre és 
-* Felépítés
-** Minden file
-** Teljesen moduláris
-   + Sok kicsi teljesen jól működő (független) részek
+* Linux
+** Linux kernel [[https://www.kernel.org/][www.kernel.org]]
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+   + Linus Torvalds írta, 1991. Október 5.
+   + Nem volt kernel x86-os gépekhez a GNU Project-ben, ezért írt egyet!
+   + Az Interneten fejlődött tovább és a legnagyobb 
+   + Bárki hozzájárulhat, de még mindig Linus felügyelete alatt 
+   + Valószínűleg a legnagyobb kollaboráció.
+   + [[http://youtu.be/MShbP3OpASA][Aalto előadás]]
+** Linus Torvalds
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+   #+ATTR_LATEX: :width 4cm
+   [[file:images/Linus-Torvalds.jpeg]] 
 * Rokonok
-** BSD
-** Solaris
-** iOS
-** Android
-* Minden napi használat
+** A Unix család
+   + BSD, Solaris, iOS, Android
+     
+   #+ATTR_LATEX: :width 3cm
+   [[file:images/Tux.png]]
+   #+ATTR_LATEX: :width 3cm
+   [[file:images/Bsd_daemon.jpg]]
+   #+ATTR_LATEX: :width 3cm
+   [[file:images/openbsd.jpg]]
+   #+ATTR_LATEX: :width 3cm
+   [[file:images/android.png]]
+
+* Családfa
+  [[file:images/unix-family.png]]
+
+* Felépítés és filozófia
+** Teljesen moduláris
+   + Jól összekapcsolható részekből áll, a részek független fejlesztések!
+   + Sok kicsi egyszerű tökéletesen működő (független) részek (programok),
+     jobb mint egy nagy hibásan működő "mindenttudó csoda program".
+     - példa a =cat= program, ami azt írja ki amit beviszünk.
+** Minden file
+   + A különböző logikai (pl. egy hálózati kapcsolat, egy futó program) 
+     és fizikai (pl. a NIC, vagy a processzor) egységek fájlként érhetők el.
+   + Fájl írás/olvasással sok minden megoldható. 
+** A kód
+   + Nyílt forrású mag, és a többi részek is (általában) azok.
+   + Nagy részben POSIX kompatibilis
+* Disztribúciók
+* Alkalmazás
+** Server
+** Desktop
+** Embeded
+
+** Minden napi használat
 ** sudo
 ** Telepítés
 ** make && sudo make install
-** 
 * Mire jó és mire nem
