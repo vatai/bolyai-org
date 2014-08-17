@@ -9,6 +9,20 @@
 ** Terminál
 * stdin, stdout és stderr
 * Átirányítás
-* Átirányíáts haladóknak
+* Átirányíáts 2
 * Pipe
-* Változók
+* Behelyettesítés
+* BASH programozás
+** Változók
+** 
+* man
+* mkdir
+* cd
+* touch
+* echo
+* cat
+* sed
+* cut
+* tar
+* apt-get
+* gcc és g++

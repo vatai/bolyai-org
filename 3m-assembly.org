@@ -44,17 +44,6 @@
 ** 4 [[file:3m-4-linux-install.org][Linux telepítés]]
 ** 5 [[file:3m-5-bash.org][BASH]]
 ** 6 Bash parancsok
-*** man
-*** mkdir
-*** cd
-*** touch
-*** echo
-*** cat
-*** sed
-*** cut
-*** tar
-*** apt-get
-*** gcc és g++
 * Assembly 7-?
 ** 7 Assembly
 *** yasm
