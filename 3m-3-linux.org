@@ -4,3 +4,49 @@
 #+INCLUDE: "beamer-common.org"
 #+DATE: 2014-2015
 #+TITLE: Linux
+
+* Történelem
+** Unix
+   + Ken Thompson, Dennis Ritchie (1941-2011)
+   + AT&T, Bell Labs kutató központ, 1970es évek elején
+** Ken és Dennis
+   #+ATTR_LATEX: :width 7cm
+   [[file:images/Ken_n_dennis.jpg]]
+* GNU Project
+** GNU Project
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+   + GNU is Not Unix (rekurzió ld. rekurzió)
+   + Richard Stallman
+   + *Free software foundation* - [[http://www.fsf.org/]]
+   + Free = ingyenes / szabad
+   + Hangsúly a *szabadságon*
+     - Bele tudjunk "nyúlni" a szoftverbe
+     - Mi mondjuk meg mit csináljon a gép és ne fordítva
+** St. IGNUcius
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+   [[file:images/Richard-Stallman.jpg]]
+** Linux
+   + Linus Torvalds
+   + 1991. Október 5.
+   + Feltette a netre és 
+* Felépítés
+** Minden file
+** Teljesen moduláris
+   + Sok kicsi teljesen jól működő (független) részek
+* Rokonok
+** BSD
+** Solaris
+** iOS
+** Android
+* Minden napi használat
+** sudo
+** Telepítés
+** make && sudo make install
+** 
+* Mire jó és mire nem
