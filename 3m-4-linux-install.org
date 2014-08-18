@@ -4,3 +4,7 @@
 #+INCLUDE: "beamer-common.org"
 #+DATE: 2014-2015
 #+TITLE: Linux telepítése
+
+** sudo
+** Telepítés
+** make && sudo make install

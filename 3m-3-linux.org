@@ -85,8 +85,4 @@
 ** Desktop
 ** Embeded
 
-** Minden napi használat
-** sudo
-** Telepítés
-** make && sudo make install
 * Mire jó és mire nem
