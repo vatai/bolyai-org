@@ -80,9 +80,65 @@
    + Nyílt forrású mag, és a többi részek is (általában) azok.
    + Nagy részben POSIX kompatibilis
 * Disztribúciók
+** Disztribúció
+   + A Linux (azaz a GNU/Linux mint operációs rendszer) sok, 
+     függetlenül fejlesztett szoftverből állítható össze többféleképpen.
+     - Egy-egy feladatot más-más szoftver láthat el: a kezelő felület lehet 
+       szöveges vagy grafikus (ezek közül is van több fajta).
+   + Egy (többé-kevésbé) teljes (szállítható) operációs rendszerré 
+     összecsomagolt (Linux kernellel) ellátott szoftver csomagot nevezünk 
+     /Linux disztribúciónak/ (röviden distro). [[http://distrowatch.com/][distrowatch.com]]
+   + Az egyik fő jellemvonása egy disztribúciónak a "csomag kezelője" 
+     (package manager).
+     - Ez kb olyan mint az "App Store" a mobilokon (és most már a komerciális
+       operációs rendszereken is).
+     - Egy adatbázis ahonnan programokat lehet letölteni, (vagy megvásárolni).
+* Disztribúciók csomag kezelők szerint
+** Debian család
+   + =.deb= csomagok, =apt-get= csomag kezelő (PPA személyes repo-k)
+     - Debian (Ubuntu, Mint, stb.)
+** RedHat család
+   + =.rpm= csomagok, =yum= csomag kezelő
+     - RedHat, CentOS, Fedora, SuSe
+** Mások
+   + Arch linux (=pacman=), Gentoo meta-disztribúció (=emerge=), 
+     Slackware (=slackpkg=), stb.
 * Alkalmazás
 ** Server
-** Desktop
+   + Web szerverek, domain és céges (belső) szerverek, tűzfalak, otthoni 
+     fájl és nyomtató szerverek stb.
 ** Embeded
+   + RasPi, router-ek, játék konzolok stb.
+** Workstation
+   + Munkaállomásként is tökéletesen működnek, azaz "mindennapi használatra"
+     emailek küldésére és web böngészésre tökéletes 
+     (akár még játszásra is, ld. Steam).
+* Miben különbözik a Windowstól?
+** Windows
+   + Zárt forrású 
+   + FAT vagy NTFS fájlrendszer
+   + Jól működik Microsoft termékekkel (ld Office)
+** Linux
+   + Nyílt forrású (szerelhető)
+   + ext2, ext3, ext4, FAT, NTFS, RaiserFS, ZFS stb. fájlrendszer
+   + Jól működik minden mással
+** Közös
+   + Támogatnak egy csomó szabványt: ISO 9660 (CD fájlrendszer), TCP/IP, 
+     OpenGL stb.
+   + WINE segítségével részleges bináris 
+     kompatibilitás érhető el
 
 * Mire jó és mire nem
+** Mikor érdemes Linuxot használni
+   + Ha érdekel a programozás és az informatika (mert akkor bírod "szerelni")
+   + Ha nem akarod megszegni a törvényt, olcsón
+   + Ha nem szeretnél vírust kapni
+   + Ha megbízható szervert akarsz csinálni
+   + Ha megfelelő hardvered van
+   + Ha fontos számodra a "testreszabhatóság" 
+** Mikor nem érdemes Linuxot használni
+   + Ha a cég/iskola ahol vagy kényszerít rá
+   + Ha csomó pénzt akarsz kidobni vagy törvényt akarsz szegni
+   + Ha szeretnél vírust kapni
+   + Ha a hardvered nem támogatja a Linuxot
+   + Ha meg vagy elégedve a Windows-zal
