@@ -72,34 +72,7 @@
    + GRUB (GNU GRand Unified Bootloader) egy populáris "Linuxos" bootloader.
      Általában az MBR-re (Master Boot Record) telepítődik, 
      így nem írja felül a Windows boot manager-ét.
-* Direktórium struktúra
-** Valódi fájlrendszerek 
-   + =/usr= felhasználói programok (pl LibreOffice) 
-     és közös dolgok (pl ikonok, háttérképek) mint pl a "Program Files"
-   + =*/bin= (vagy =*/sbin=) program (illetve rendszer program) fájlok
-   + (és =/usr/sbin=) a rendszer programok
-   + =/home= felhasználók könyvtárai ( =/home/vatai= = =~= = =$HOME=)
-   + =/etc= rendszer beállítások
-   + =/boot= GRUB és EFI dolgok, és az "image"
-   + =/lib*= könyvtárak (pl OpenGL, SDL)
-   + =/var= "gyűjtő" könyvtár (levelek a mailszerveren, loggok)
-   + =/mnt= állandóan csatlakozott meghajtók (régebbi pl HDD)
-   + =/media= ideiglenesen csatlakozott meghajtók (újabb USB)
-   + =/tmp= ideiglenes, megosztott fájlok
-* Virtuális fájlrendszerek
-** Virtuális direktóriumok
-   + =/dev= eszközök 
-     - Például =/dev/sda= az első diszk, =/dev/sdb= a második diszk
-       - =/dev/sda3= a harmadik partíció az első diszken
-       - =/dev/sdb4= a negyedik partíció a második diszken
-   + =/sys= és =/proc= információ a rendszerről a kernelről és a folyamatokról
-     + =/proc/=
-* ----
-* Felhasználók és biztonság
-** sudo
 
-* 
-
-
+* TODO Kimaradt
 ** Telepítés
 ** make && sudo make install

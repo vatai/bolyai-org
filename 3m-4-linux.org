@@ -103,6 +103,42 @@
 ** Mások
    + Arch linux (=pacman=), Gentoo meta-disztribúció (=emerge=), 
      Slackware (=slackpkg=), stb.
+* Direktórium struktúra
+** Valódi fájlrendszerek 
+   + =/usr= felhasználói programok (pl LibreOffice) 
+     és közös dolgok (pl ikonok, háttérképek) mint pl a "Program Files"
+   + =*/bin= (vagy =*/sbin=) program (illetve rendszer program) fájlok
+   + (és =/usr/sbin=) a rendszer programok
+   + =/home= felhasználók könyvtárai ( =/home/vatai= = =~= = =$HOME=)
+   + =/etc= rendszer beállítások
+   + =/boot= GRUB és EFI dolgok, és az "image"
+   + =/lib*= könyvtárak (pl OpenGL, SDL)
+   + =/var= "gyűjtő" könyvtár (levelek a mailszerveren, loggok)
+   + =/mnt= állandóan csatlakozott meghajtók (régebbi pl HDD)
+   + =/media= ideiglenesen csatlakozott meghajtók (újabb USB)
+   + =/tmp= ideiglenes, megosztott fájlok
+* Virtuális fájlrendszerek
+** Virtuális direktóriumok
+   + =/dev= eszközök 
+     - Például =/dev/sda= az első diszk, =/dev/sdb= a második diszk
+       - =/dev/sda3= a harmadik partíció az első diszken
+       - =/dev/sdb4= a negyedik partíció a második diszken
+   + =/sys= és =/proc= információ a rendszerről a kernelről és a folyamatokról
+     + =/proc/meminfo= memória illetve =/proc/cpuinfó=
+     + =/sys/class/thermal/thermal_zone0/temp= CPU vagy alaplap hőmérséklet
+
+* TODO Felhasználók és biztonság 
+** sudo
+
+** Vázlat
+   + Adminisztráció
+     * Felhasználók és jogosultságok
+       - Minden felhasználónak van felhasználóneve és egy vagy több csoportba tartozik
+     *  Programok
+       - =root= a "szuper felhasználó"
+       - =su= paranccsal tudunk felhasználót váltani logout nélkül (régi)
+       - =sudo= újabb, biztonságosabb, parancsonként alkalmazható
+	 + Például =sudo apt-get install git=
 * Alkalmazás
 ** Server
    + Web szerverek, domain és céges (belső) szerverek, tűzfalak, otthoni 
