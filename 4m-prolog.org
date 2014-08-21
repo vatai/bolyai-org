@@ -2,4 +2,45 @@
 #+TITLE: Prolog
 
 18+14 alkalom
-
+* Áttekintés
+| Anyagrérsz           | Órák | Hét |
+|----------------------+------+-----|
+| Bevezetés            |    4 |     |
+| Logikai formalizáció |    5 |     |
+| Logika               |   12 |     |
+| *Dolgozat 1*         |    3 |  12 |
+|----------------------+------+-----|
+| Prolog               |    6 |     |
+| IO                   |    4 |     |
+| Listák               |   12 |     |
+| Fák                  |    6 |     |
+| Vágás                |    3 |     |
+| *Dolgozat 2*         |    3 |  17 |
+|----------------------+------+-----|
+| Nyelvek              |    5 |     |
+| *Oszályzás           |    1 |     |
+|----------------------+------+-----|
+|                      |   32 | Hét |
+#+TBLFM: @5$3=vsum(@-I$2..@0$2)/2::@11$3=vsum(@-I$2..@0$2)/2::@14$2=vsum(@2..@-1)/2
+* Bevezetés 1-2
+** Ismerkedés (ciklus és/vagy értékadás mentes programozás)
+*** Programozási nyelvek és nyelvek 
+*** Hello World prolog 
+** Prolog definíciók 
+* Logikai alapok 3-6
+** Elsőrendű logika (lpn adatbázisok)
+** Behelyettesítés 
+** Gyakorlás (Bacus-Naur pascal)
+** Ellenőrző 
+* Logika 5-12
+** Rezolúció
+** Igazság táblák
+** Kanonikus formák
+** Másodrendű logika 
+** Változók hatásköre és kötöttsége, formulák nyitottsága
+** Matematikai modellek
+** Gyakorlás 
+** Ellenőrző
+* TRASH
+** Bizonyítási módszerek
+** Tautológiák
