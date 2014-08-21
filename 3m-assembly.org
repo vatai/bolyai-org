@@ -33,56 +33,60 @@
 ** Pipeline
 ** Vektor regiszterek
 ** Neumann elvű számítógépek
-*** A program is adat
-    - Program és adat is egy helyen tárolódik
-
+** FAP
 * Hardver és szoftver 1-2
-** [[file:3m-1-szgf.org][1 Számítógépek felépítése]]
-** [[file:3m-2-os.org][2 Operációs rendszerek]]
-* Linux 3-6
-** 3 [[file:3m-3-linux.org][Linux elmélet]]
-** 4 [[file:3m-4-linux-install.org][Linux telepítés]]
-** 5 [[file:3m-5-bash.org][BASH]]
-** 6 Bash parancsok
-* Assembly 7-?
-** 7 Assembly
+** [[file:3m-1-szgf.org][Számítógépek felépítése]] (telepítés)
+** [[file:3m-2-os.org][Operációs rendszerek]] 
+* Linux 3-7
+** [[file:3m-3-linux-install.org][Linux telepítés]] (firefox, apt-get)
+** [[file:3m-4-linux.org][Linux elmélet]] 
+** [[file:3m-5-bash.org][BASH]] (fpc, gcc, gedit)
+** Bash parancsok 
+** Ellenőrző (Bash gyakorlás)
+* Assembly intro 8-12
+** Assembly 
 *** yasm
 *** "Hello world"
 *** Szintaxis
+** GPR, Flag regiszter, MOV (make, watch)
 *** Cimkék
-** 8 Számábrázolás
+*** Direkt és indirekt címzés
+*** Visszatérési érték
+** Kiírás
+** Számábrázolás (makefile)
 *** Előjel nélküli egészek
 *** Előjeles egészek
 *** Lebegő pontos egyszeres pontosságú
 *** Lebegő pontos dupla pontosságú 
-** 9 ADD és SUB
-** 10 MUL és DIV
-** 11 CMP és Jxx
-** 12 Elágazások és ciklusok
-** 13 
-** 14
-** 15
-** 16
-** 17
-** 18
-** 19
-** 20
-** 21
-** 22
-** 23
-** 24
-** 25
-** 26
-** 27
-** 28
-** 29
-** 30
-** 31
-** 32
-** 33
-** 34
-** 35
-** 36
+** Ellenőrző
+* Assembly alapok 13-18
+** ADD és SUB (char2int)
+** MUL és DIV 
+** CMP és Jxx (gcd)
+** Elágazások és ciklusok 
+** Gyakorlás (ex-gcd)
+** Ellenőrző 
+* Függvények és makrók 19-24
+** Függvények és függvény hívások (szita)
+** Paraméterek és visszatérési érték
+** Gyakorlás (MMIX primek)
+** Makrók
+** Makró paraméterek
+** Ellenőrző
+* Assembly és más nyelvek 25-27
+** Assembly és C
+** Assembly és pascal
+** Ellenőrző
+* Optimalizáció 28-36
+** SSE regiszterek + műveletek
+** SSE műveletek 
+** OpenMP
+** MPI 
+** Kétszavas összeadás és szorzás
+** Kétszavas osztás
+** Ellenőrző
+** Javítások
+** Jegyek
 
 
 

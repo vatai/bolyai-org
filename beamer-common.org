@@ -17,6 +17,6 @@
 #+BEAMER_OUTER_THEME:
 #+LATEX_CLASS: beamer
 #+LATEX_HEADER: \usepackage[T1]{fontenc}
-#+LATEX_HEADER: \usepackage[hu]{babel}
+#+LATEX_HEADER: \usepackage[magyar]{babel}
 #+LATEX_HEADER: \usepackage[utf8]{inputenc}
 #+LATEX_HEADER: \usepackage{lmodern}

@@ -5,8 +5,6 @@
 #+DATE: 2014-2015
 #+TITLE: Számítógépek felépítése 
 
-
-
 * CPU - Central processing unit
 ** Központi végrehajtó egység
    - A programok és a többi, a számítógépben található eszköz, futását irányítja

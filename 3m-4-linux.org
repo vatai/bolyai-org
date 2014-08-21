@@ -124,21 +124,44 @@
        - =/dev/sda3= a harmadik partíció az első diszken
        - =/dev/sdb4= a negyedik partíció a második diszken
    + =/sys= és =/proc= információ a rendszerről a kernelről és a folyamatokról
-     + =/proc/meminfo= memória illetve =/proc/cpuinfó=
-     + =/sys/class/thermal/thermal_zone0/temp= CPU vagy alaplap hőmérséklet
+     - =/proc/meminfo= memória illetve =/proc/cpuinfó=
+     - =/sys/class/thermal/thermal_zone0/temp= alaplap hőmérséklet
+** Alap parancsok
+   + =ls= fájlok listázása (=ls -l= részletes)
+   + =cd= change directory, azaz könyvtár váltás
+   + =pwd= print working directory, az aktuális könyvtár kiírása
+   + =cat file= a "file" nevű (szöveges) fájl tartalmának kiírása
+   + TAB COMPLETION!!!
+* Adminisztráció
+** Felhasználók és jogosultságok
+   + Minden felhasználónak van felhasználóneve és csoportja(i)
+#+BEGIN_SRC 
+vatai@mayfly ~ % ls /tmp -l
+total 40
+# ...
+-rw-rw-r-- 1 vatai vatai 4398 Aug 20 19:57 tmpFu6taf
+drwx------ 2 root  root  4096 Aug 20 19:56 tmpjflga4ur
+-rw-rw-r-- 1 vatai vatai    0 Aug 19 13:20 unity...
+#+END_SRC     
 
-* TODO Felhasználók és biztonság 
-** sudo
-
-** Vázlat
-   + Adminisztráció
-     * Felhasználók és jogosultságok
-       - Minden felhasználónak van felhasználóneve és egy vagy több csoportba tartozik
-     *  Programok
-       - =root= a "szuper felhasználó"
-       - =su= paranccsal tudunk felhasználót váltani logout nélkül (régi)
-       - =sudo= újabb, biztonságosabb, parancsonként alkalmazható
-	 + Például =sudo apt-get install git=
+** Programok
+   + =root= a "szuper felhasználó"
+   + =su= paranccsal tudunk felhasználót váltani logout nélkül (régi)
+   + =sudo= újabb, biztonságosabb, parancsonként alkalmazható
+     - Például =sudo apt-get install git=
+* Programok telepítése
+** Csomagkezelőből
+   + Ubuntu szoftver center
+   + Parancssorból
+     - Debian =sudo apt-get install git=
+     - RedHat =sudo yum install git=
+     - Arch =sudo pacman -S git=
+   + Frissítés (update) automatikus
+   + Külön csomagokat (deb vagy rpm) is lehet telepíteni
+** Kézi telepítés forrásból
+   + Forrás =.tar.gz=, =.tgz= vagy más fájlt ki kell csomagolni
+   + Általában =make= majd =sudo make install= kell (pontos útmutató a README-ben)
+     - Újabb programoknál szükséges előtte =./configure=
 * Alkalmazás
 ** Server
    + Web szerverek, domain és céges (belső) szerverek, tűzfalak, otthoni 

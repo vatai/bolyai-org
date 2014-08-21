@@ -6,15 +6,14 @@
 #+TITLE: Operációs rendszerek
 
 * A paranccsor 
-** Terminál
+** Története
 * stdin, stdout és stderr
 * Átirányítás
-* Átirányíáts 2
 * Pipe
 * Behelyettesítés
 * BASH programozás
 ** Változók
-** 
+** Program struktúrák
 * man
 * mkdir
 * cd
