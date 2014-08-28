@@ -23,24 +23,29 @@
 |                      |   32 | Hét |
 #+TBLFM: @5$3=vsum(@-I$2..@0$2)/2::@11$3=vsum(@-I$2..@0$2)/2::@14$2=vsum(@2..@-1)/2
 * Bevezetés 1-2
-** Ismerkedés (ciklus és/vagy értékadás mentes programozás)
+** Prolog bevezető 
+** Logika bevezető (ciklus és/vagy értékadás mentes programozás)
 *** Programozási nyelvek és nyelvek 
 *** Hello World prolog 
-** Prolog definíciók 
-* Logikai alapok 3-6
-** Elsőrendű logika (lpn adatbázisok)
-** Behelyettesítés 
-** Gyakorlás (Bacus-Naur pascal)
-** Ellenőrző 
-* Logika 5-12
-** Rezolúció
-** Igazság táblák
-** Kanonikus formák
+* Logika
+** Nyelvek, elsőrendű logika, műveletek
+** Rezolúció, Kanonikus formák
 ** Másodrendű logika 
 ** Változók hatásköre és kötöttsége, formulák nyitottsága
-** Matematikai modellek
+** Matematikai modellek, gyakorlás
+** Ellenőrző
+
+* Prolog
+** Alapfogalmak
+** Egyesítés, bizonyítás keresés
 ** Gyakorlás 
 ** Ellenőrző
+
+* Blokkok
+** Ciklus és értékadás mentes programok
+
 * TRASH
 ** Bizonyítási módszerek
 ** Tautológiák
+* Ötletek
+** Halmazelmélet 
