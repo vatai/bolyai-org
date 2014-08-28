@@ -1,0 +1,219 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Prolog bevezető 
+
+* Qick sort C-ben
+** =qsort(a,0,n-1)=
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+
+   Sort array =a[]= of size =n= 
+#+BEGIN_SRC C
+  void 
+  qsort(int a[], int lo, int hi){
+    int h, l, p, t;
+    if (lo < hi) {
+      l = lo;
+      h = hi;
+      p = a[hi];
+      do {
+        while ((l < h) && 
+          (a[l] <= p)) l = l+1;
+        while ((h > l) && 
+          (a[h] >= p)) h = h-1;
+#+END_SRC
+** folyt.
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC C
+        if (l < h) {
+            t = a[l];
+            a[l] = a[h];
+            a[h] = t;
+        }
+      } while (l < h);
+
+      a[hi] = a[l];
+      a[l] = p;
+
+      qsort( a, lo, l-1 );
+      qsort( a, l+1, hi );
+    }
+  }
+#+END_SRC
+* Qick sort Prologban
+** Prolog
+   #+BEGIN_SRC prolog
+     quick_sort([],[]).
+     quick_sort([H|T],Sorted):-
+             pivoting(H,T,L1,L2),
+             quick_sort(L1,Sorted1),quick_sort(L2,Sorted2),
+             append(Sorted1,[H|Sorted2]).
+        
+     pivoting(H,[],[],[]).
+     pivoting(H,[X|T],[X|L],G):-X=<H,pivoting(H,T,L,G).
+     pivoting(H,[X|T],L,[X|G]):-X>H,pivoting(H,T,L,G).
+   #+END_SRC
+
+** Haskell
+   #+BEGIN_SRC haskell
+     qsort (p:xs) = qsort [x | x<-xs, x<p] ++ [p] ++ 
+       qsort [x | x<-xs, x>=p]
+   #+END_SRC
+* Program nyelvek típusai
+** Felosztás
+   + Procedurális nyelvek
+     - Pascal, C, Java
+   + Deklaratív
+     - Funkcionális programozás: Haskell, LISP (Scheme, eLisp), Scala, 
+       F#, OCaml, Erlang, Mathematica, Python
+     - Logikai programozás: PROgramming with LOGic azaz Prolog, ASP, Datalog
+* Összehasonlítás
+** Deklaratív
+   + Deklarálni = kijelenteni
+   + Azt fogalmazzunk meg, hogy mit várunk (mi legyen az eredmény),
+     - nem azt, hogyan csinálja.
+** Procedurális vagy imperatív
+   + Procedúra = eljárás vagy imperatív = parancsoló
+   + Azt fogalmazzuk meg, hogy mit (azaz hogyan) kell csinálni,
+     - nem azt, hogy mit várunk.
+* Összehasonlítás
+** Procedurális és deklaratív nyelvek
+| Procedurális | Deklaratív                |
+|--------------+---------------------------|
+| Értékadás    | Függvény paraméterek      |
+| Ciklus       | Függvény hívás (rekurzió) |
+| Elágazás     | Függvény deklaráció       |
+* Értékadás és mellékhatások
+** Mellékhatás
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC C
+  int x = 7;
+  void wr(int a){printf("%d%d",a,x);x=3;}
+
+  int main(){
+    wr(2);
+    wr(2);
+    return 0;
+  }
+#+END_SRC   
+   + Nem csak a bemenettől függ a függvény viselkedése.
+   + A globális változók implicit paraméterek.
+
+** Értékadás és egyenlőség vizsgálat
+   :PROPERTIES:
+   :BEAMER_col: 0.5
+   :BEAMER_env: block
+   :END:
+   + "X legyen egyenlő öttel" illetve "X egyenlő öttel".
+   + Pascaban ":=" és "=", C-ben "=" és "==".
+   + Az egyenlőség vizsgálat egy $T\times T \to \{\uparrow, \downarrow\}$ 
+     leképezés (függvény).
+   + Az értékadás egy parancs/művelet, ami egy "jobb" és egy "bal" 
+     értékre vonatkozik, és a mellékhatása miatt használjuk.
+
+* Nyelvek
+** Nyelvek tanulmányozása
+   + Noam Chomsky
+   + Természetes nyelvek (Angol, Magyar, Német, Szerb stb)
+   + Programozási nyelvek (C, Pascal, Java, Prolog stb.)
+   + Formális nyelvek = eszköz a nyelvek vizsgálásához, elemzéséhez, és 
+     segédeszköz a fordítók írásánál
+** Formális nyelvek
+   + $\mathcal L\subset A^*$ nyelv, ahol az $A^*$ az $A$ ábécé betűiből alkotott
+     véges szavak halmaza vagyis.
+     $A^*=\{a_1a_2\cdots a_n| a_i \in A, 1\le i \le n, n\in \mathbb{N}\}$
+   + $G$ (formális) grammatika, egy szabályrendszer amely generálja az 
+     $\mathcal L$ nyelvet.
+* Formális nyelvek
+** Konkatenáció
+   + Az $A^*$ szavakon értelmezett az "egymásután írás", azaz konkatenáció
+     művelete
+   + az $abc$ és $xyz$ (ilyen sorrendben való) konkatenációja (egymásután írása)
+     az $abcxyz$ szó
+   + A konkatenációt a szorzással, azaz "$\cdot$" (vagy semmivel) szokták 
+     jelölni
+** Az üres szó az egység elem
+   + $\varepsilon$ jelöli az üres szót
+   + $\varepsilon$ az konkatenáció egységeleme mivel $\forall\alpha\in A^*$ szóra 
+     $\alpha = \varepsilon \alpha = \alpha \varepsilon$
+   + $A^+ = A^* \setminus \{\varepsilon\}$ a legalább egy hosszú szavak halmaza
+   + $(A^*,\cdot,\varepsilon)$ szabad egységelemes félcsoportot alkot 
+     (ld. free monoid)
+* Extended Backus–Naur Form (EBNF)
+** EBNF nyelv leíró szabvány
+| *Szabály*  | *Jelölés* | *Szabály*     | *Jelölés*      |
+|------------+-----------+---------------+----------------|
+| /          | >         |               |                |
+| legyen     | =         | nem kötelező  | [..]           |
+| utána írás | ,         | ismétlődő     | {..}           |
+| vége       | ;         | csoportosítás | (..)           |
+| vagy       | $\vert$   | string        | '..' vagy ".." |
+** Természetes pozitív szám
+   + ~pos := nonzero, {digit};~
+   + ~nonzero := '1' | '2' | ... | '9';~
+   + ~digit := '0' | nonzero;~
+** Egész szám
+   + ~int := 0 | [ '+' | '-' ], pos;~
+
+* Tudásbázis 1 =kb1.pl=
+#+BEGIN_SRC prolog :tangle kb1.pl
+  % -*- mode: prolog -*-
+  % ez egy comment
+  /* ez is egy comment */
+  woman(mia). 
+  woman(jody). 
+  woman(yolanda). 
+  playsAirGuitar(jody). 
+  party.
+#+END_SRC
+* Lekérdezések
+#+BEGIN_SRC prolog
+  ?- woman(mia).
+  true.
+  ?- woman(jody).
+  true.
+  ?- woman(vincent).
+  false.
+  ?- playsAirGuitar(jody).
+  true.
+  ?- playsAirGuitar(mia).
+  false.
+  ?- party.
+  true.
+  ?- rockConcert.
+  false. % (vagy error)
+#+END_SRC
+* Tudásbázis 2 =kb2.pl=
+#+BEGIN_SRC prolog :tangle kb2.pl
+  % -*- mode: prolog -*-
+  happy(yolanda). 
+  listens2Music(mia). 
+  listens2Music(yolanda)  :-  happy(yolanda). 
+  playsAirGuitar(mia)     :-  listens2Music(mia). 
+  playsAirGuitar(yolanda) :-  listens2Music(yolanda).
+#+END_SRC
+* Lekérdezések
+** Tudásbázis 3 =kb3.pl=
+#+BEGIN_SRC prolog :tangle kb3.pl
+  % -*- mode: prolog -*-
+  happy(vincent). 
+  listens2Music(butch). 
+  playsAirGuitar(vincent):- 
+      listens2Music(vincent), 
+      happy(vincent). 
+  playsAirGuitar(butch):- 
+      happy(butch). 
+  playsAirGuitar(butch):- 
+      listens2Music(butch).
+#+END_SRC
