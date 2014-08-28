@@ -29,10 +29,14 @@
 |                           | 17 |
 #+TBLFM: @>$2=vsum(@1$2..@-1$2)
 * TODO Ötletek 
+** Paraméter átadás
 ** Endian
 ** Pipeline
 ** Vektor regiszterek
 ** Neumann elvű számítógépek
+** gyors expmod
+** gyors lagrange
+** gyors euklid
 ** FAP
 * Hardver és szoftver 1-2
 ** [[file:3m-1-szgf.org][Számítógépek felépítése]] (telepítés)
