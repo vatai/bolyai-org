@@ -1,0 +1,39 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Logika bevezető
+
+* Logika tárgya
+Logikai alapozás alkalmazásokhoz - Pásztorné Varga Katalin - ELTE Budapest 1997
+** A logika tárgya a gondolkodás!
+   + A logika a megismerés feltételeit vizsgálja
+   + A logika mint a helyes gondolkodási és következtetési formák kidolgozója, segíti az egyes tudományokat a valóság megismerésében, a megismert tényekből való helyes következtetések elérésében.
+** A logika feladata
+   + A logika feladataa helyes gondolkodásformák és a helyes következtetési szabályok kidolgozása.  
+   + A logika a gondolkodás tárgyát képező konkrét problémáktól, tartalmi információktól függetleníti magát és a gondolkodásban résztvevő elemek vagy megállapítások közös, a következtetések szempontjából lényeges tartalmat használj fel.
+* Logika felépítése
+** Alapfogalmak
+   + Igazságértékek $\mathbb{L}=\{\text{igaz},\text{hamis}\}$
+     | igaz  | $i$ | $\uparrow$   | 1 | $\top$  | true  | T |
+     | hamis | $h$ | $\downarrow$ | 0 | $\perp$ | false | F |
+   + Logikai műveletek
+     | és         | vagy        | nem     | ha, .. akkor  | akk. és csak akk. |
+     | konjunkció | diszjunkció | negáció | implikáció    | ekvivalencia      |
+     | $\land$    | $\lor$      | $\lnot$ | $\Rightarrow$ | $\Leftrightarrow$ |
+   + Egy $U$ alaphalmaz/univerzum, ami a vizsgált elemeket tartalmazza
+     - Például: $U=\mathbb{N}$ vagy $U=\{\text{a 4m osztály diákjai}\}$
+* 0-ad rendű logika
+** Predikátumok
+   + Összekötik a vizsgálandó ($U$-beli) elemeket logikai értékekkel.
+   + $P\colon U^n \to \mathbb{L}$ (C-ben =bool P(U t1, ..., U tn);=)
+   + Állításoknak felel meg
+     - Példa: $P(x,y)=$ $x$ osztója $y$-nak, $R(x)=$ $x$ nő
+** Term (tagok, értékek, konstansok)
+   + Egy elméletben az elemek között kapcsolat van (függvények)
+   + Jólformált term:
+     - Egy $x$ változó szimbólum
+     - Ha $f$ egy $n$-változós függvényszimbólum, $t_1$, ..., $t_n$ termek, akkor 
+       $f(t_1,\ldots,t_n)$ is term.
+     - Minden term az előző két szabály véges sokszori alkalmazásával áll elő.

@@ -1,4 +1,7 @@
 *.pdf
 *.tex
 *~
+*.pl
+*.pas
+*.asm
 ignored

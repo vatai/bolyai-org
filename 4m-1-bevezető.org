@@ -166,6 +166,18 @@
 ** Egész szám
    + ~int := 0 | [ '+' | '-' ], pos;~
 
+* Prolog alap fogalmai ismertetése
+** Változók
+   + Nagybetűvel vagy aláhúzással "~_~" kezdődnek
+     - Például: A, Student, _head
+** Konstansok
+   + Atomok (string konstans): kisbetűvel kezdődnek, betűt, számot vagy aláhúzást tartalmaznak "~_~", vagy
+     aposztrófok közötti tetszőleges karakterek.
+     - Például: a, almaFa, mogyoro_bokor, 'Sárga Rigó'
+   + Sámok: ..., -2, -1, 0, 1, 2, ... 
+     - A valós számok nem olyan érdekesek
+** Összetett termek
+   + Aritás, a paraméterek száma.
 * Tudásbázis 1 =kb1.pl=
 #+BEGIN_SRC prolog :tangle kb1.pl
   % -*- mode: prolog -*-
@@ -177,8 +189,15 @@
   playsAirGuitar(jody). 
   party.
 #+END_SRC
+** Tudásbázis beolvasása
+   + Prolog elindítása: SWI-Prolog a startmenüben Windowsban, vagy
+     Linuxban terminálból a =prolog= paranccsal.
+   + Tudásbázis beolvasása: a futó Prolog-ban 
+     "=[kb1].=" vagy "=['/path/to/kb1.pl'].=" vagy 
+     =File>Consult file= (csak a Windowsos Prologban).
 * Lekérdezések
 #+BEGIN_SRC prolog
+  ?- [kb1]. 
   ?- woman(mia).
   true.
   ?- woman(jody).
@@ -204,7 +223,14 @@
   playsAirGuitar(yolanda) :-  listens2Music(yolanda).
 #+END_SRC
 * Lekérdezések
-** Tudásbázis 3 =kb3.pl=
+#+BEGIN_SRC prolog
+  ?- playsAirGuitar(mia).
+  true.
+
+  ?- playsAirGuitar(yolanda).
+  true.
+#+END_SRC
+* Tudásbázis 3 =kb3.pl=
 #+BEGIN_SRC prolog :tangle kb3.pl
   % -*- mode: prolog -*-
   happy(vincent). 
@@ -212,8 +238,84 @@
   playsAirGuitar(vincent):- 
       listens2Music(vincent), 
       happy(vincent). 
+
+  % playsAirGuitar(butch):- 
+  %   happy(butch); 
+  %   listens2Music(butch).
   playsAirGuitar(butch):- 
       happy(butch). 
   playsAirGuitar(butch):- 
       listens2Music(butch).
+#+END_SRC
+* Lekérdezések
+#+BEGIN_SRC prolog
+  ?- playsAirGuitar(vincent).
+  false.
+
+  ?- playsAirGuitar(butch).
+  true.
+#+END_SRC
+** Konjunkció és diszjunkció
+   | Logika  | Magyar | Prolog            |
+   |---------+--------+-------------------|
+   | $\land$ | és     | , (vessző)        |
+   | $\lor$  | and    | ; (pontos vessző) |
+* Tudásbázis 4 =kb4.pl=
+#+BEGIN_SRC prolog :tangle kb4.pl
+  % -*- mode: prolog -*-
+  woman(mia). 
+  woman(jody). 
+  woman(yolanda). 
+
+  loves(vincent,mia). 
+  loves(marsellus,mia). 
+  loves(pumpkin,honey_bunny). 
+  loves(honey_bunny,pumpkin).
+#+END_SRC
+* Lekérdezések
+#+BEGIN_SRC prolog
+  ?- woman(X).
+  X  =  mia  ; 
+  X  =  jody  ; 
+  X  =  yolanda
+
+  ?-  loves(marsellus,X),  woman(X).
+  X = mia.
+#+END_SRC
+
+* Tudásbázis 5 =kb5.pl=
+** =kb5.pl=
+#+BEGIN_SRC prolog :tangle kb5.pl
+  % -*- mode: prolog -*-
+  loves(vincent,mia). 
+  loves(marsellus,mia). 
+  loves(pumpkin,honey_bunny). 
+  loves(honey_bunny,pumpkin). 
+
+  jealous(X,Y):-  loves(X,Z),  loves(Y,Z).
+#+END_SRC
+** Lekérdezések
+#+BEGIN_SRC prolog
+  ?-  jealous(marsellus,W).
+  W  =  vincent.
+#+END_SRC
+
+* Tudásbázis 6 
+** =family.pl=
+#+BEGIN_SRC prolog :tangle family.pl
+  % -*- mode: prolog -*-
+  parent('Imre','István').
+  parent('Imre','Gizella').
+  parent('István','Géza').
+  parent('István','Sarolta').
+  parent('Gizella','Civakodó Henrik').
+  parent('Gizella','Burgundi Gizella').
+
+  granparent(Child, GrandParent) :-
+      parent(Child, Parent),
+      parent(Parent, GrandParent).
+#+END_SRC
+** Lekérdezés
+#+BEGIN_SRC 
+  ?- granparent('Imre',X).
 #+END_SRC
