@@ -8,7 +8,7 @@
 * Példák
 ** Microsoft "termékek"
    + DOS: Disk operating system, win95 elődje
-   + Windows 95, NT, ME, 2000, XP, +Vista+, 7, 8
+   + Windows 95, *NT*, +ME+, 2000, *XP*, +Vista+, 7, 8
      - Megjegyzés: Windows 1, 2, 3 nem oprendszer
 ** Unix és utódjai
    + GNU/Linux: Debian (Ubuntu, Mint), Red Hat (Fedora, Centos, Mandriva), Slackware (OpenSUSE), Arch, Gentoo, LFS (Linux From Scratch)

@@ -5,6 +5,19 @@
 #+DATE: 2014-2015
 #+TITLE: Számítógépek felépítése 
 
+* Mérték egységek
+** Bit 
+   + A legkisebb információ egység
+   + Értéke 0 vagy 1
+** Byte
+   + 1byte = 8bit
+   + A legkisebb címezhető része a memóriának
+** Word (szó, gépi szó)
+   + 2, 4 vagy 8 byte
+   + Processzor függő
+   + Az amit a processzor egyszerre ("egy falatban") fel tud dolgozni
+   + Történelmi okok miatt, az Intel szóhasználata szerint
+     - 2byte = word, 4byte = double word, 8byte = quad word
 * CPU - Central processing unit
 ** Központi végrehajtó egység
    - A programok és a többi, a számítógépben található eszköz, futását irányítja
