@@ -29,6 +29,16 @@
 |                           | 17 |
 #+TBLFM: @>$2=vsum(@1$2..@-1$2)
 * TODO Ötletek 
+** Összeadás xor, and és shift-tel
+   - Legyen A=1011=11 és B=0011=3
+   - Akkor A+B=11+3=14=1110
+   - A processzorban:
+     - (A xor B) xor ( (A and B) << 1) =
+     - = 1000 xor (0011<<1) =
+     - = 1000 xor 0110 = 1110
+       - (<< bal eltolást jelent)
+   - [[http://en.wikipedia.org/wiki/Adder_(electronics)][Wikipedai: Adder cikk]]
+** Cache memóriák
 ** Paraméter átadás
 ** Endian
 ** Pipeline
