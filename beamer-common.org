@@ -1,22 +1,13 @@
 #+AUTHOR: Emil Vatai
 #+EMAIL: vatai@inf.elte.hu
-#+CREATOR: Emacs 24.3.1 (Org mode 8.2.7c)
-#+DESCRIPTION:
-#+EXCLUDE_TAGS: noexport
-#+KEYWORDS:
 #+LANGUAGE: hu
 #+SELECT_TAGS: export
 
-#+OPTIONS: toc:nil
-#+OPTIONS: H:1
+#+BEAMER_HEADER:
+#+OPTIONS: toc:t H:3
 #+BEAMER_THEME: AnnArbor
 #+BEAMER_COLOR_THEME: spruce
-#+BEAMER_FONT_THEME:
-#+BEAMER_HEADER:
-#+BEAMER_INNER_THEME:
-#+BEAMER_OUTER_THEME:
 #+LATEX_CLASS: beamer
-#+LATEX_HEADER: \usepackage[T1]{fontenc}
-#+LATEX_HEADER: \usepackage[magyar]{babel}
-#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage[]{babel}
 #+LATEX_HEADER: \usepackage{lmodern}
+

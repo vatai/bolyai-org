@@ -6,23 +6,26 @@
 #+TITLE: Operációs rendszerek
 
 * Példák
-** Microsoft "termékek"
-   + DOS: Disk operating system, win95 elődje
-   + Windows 95, *NT*, +ME+, 2000, *XP*, +Vista+, 7, 8
-     - Megjegyzés: Windows 1, 2, 3 nem oprendszer
-** Unix és utódjai
-   + GNU/Linux: Debian (Ubuntu, Mint), Red Hat (Fedora, Centos, Mandriva), Slackware (OpenSUSE), Arch, Gentoo, LFS (Linux From Scratch)
-   + Solaris: Opensolaris, OpenIndiana
-   + BSD (Berkeley Software Distribution): FreeBSD, OpenBSD, NetBSD
-   + Android, Mac OS X, iOS stb.
-* Operációs rendszer
-** Operációs rendszer  definíciója
-   :PROPERTIES:
-   :BEAMER_col: 0.6
-   :BEAMER_env: block
-   :END:
-   Az operációs rendszer, olyan szoftver együttes, amely kezeli a számítógép hardverét és biztosítja az alapvető szolgáltatásokat a programoknak.
-** Elhelyezkedése 
+*** Példák
+**** Microsoft "termékek"
+     + DOS: Disk operating system, win95 elődje
+     + Windows 95, *NT*, +ME+, 2000, *XP*, +Vista+, 7, 8
+       - Megjegyzés: Windows 1, 2, 3 nem oprendszer
+**** Unix és utódjai
+     + GNU/Linux: Debian (Ubuntu, Mint), Red Hat (Fedora, Centos, Mandriva), Slackware (OpenSUSE), Arch, Gentoo, LFS (Linux From Scratch)
+     + Solaris: Opensolaris, OpenIndiana
+     + BSD (Berkeley Software Distribution): FreeBSD, OpenBSD, NetBSD
+     + Android, Mac OS X, iOS stb.
+* Alap fogalmak
+** Definíció
+*** Operációs rendszer
+**** Operációs rendszer definíciója
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :BEAMER_env: block
+     :END:
+     Az operációs rendszer, olyan szoftver együttes, amely kezeli a számítógép hardverét és biztosítja az alapvető szolgáltatásokat a programoknak.
+**** Elhelyezkedése 
    :PROPERTIES:
    :BEAMER_col: 0.4
    :BEAMER_env: block
@@ -30,140 +33,143 @@
 #+ATTR_LATEX: width=\textwidth
 [[file:images/layers.pdf]]
 
-* Felépítés és feladatok
-** Felépítés
-   - Kernel
-   - Rendszer szoftver
-     - Modulok, meghajtók (driver), rendszer szoftver
-     - Például: fájl rendszer, NIC meghajtó, tűzfal, 
-   - Segéd programok
-     - Például: notepad, explorer, cat, ls
-   - Kezelői felület (user interface - UI)
-     - Például: bash, zsh, Metro, Gnome, KDE, Ratpoison, i3, Xfce
+* Operációs rendszerek elemzése
+** Áttekintés
+*** Felépítés és feladatok
+**** Felépítés
+     - Kernel
+     - Rendszer szoftver
+       - Modulok, meghajtók (driver), rendszer szoftver
+       - Például: fájl rendszer, NIC meghajtó, tűzfal, 
+     - Segéd programok
+       - Például: notepad, explorer, cat, ls
+     - Kezelői felület (user interface - UI)
+       - Például: bash, zsh, Metro, Gnome, KDE, Ratpoison, i3, Xfce
+**** Feladatok
+     + Folyamatok, memória, fájlrendszer, hálózat, hardver kezelése, biztonság, UI
+*** Felosztás
+**** Felosztás felépítés szerint
+     + Mikrokernel
+     + "Hybrid" kernel
+     + Monolithic (monolitikus) kernel
+     [[file:images/os-structure.pdf]]
+*** Felosztás
+**** Felosztás funkcionalitás szerint
+     + Valósidejű: gyors válaszidőket biztosító, idő kritikus,
+       speciális ütemezési algoritmusok.
+     + Több felhasználós: támogatja több felhasználónak a hozzáférést.
+     + Multitasking: támogatja a több program párhuzamos, 
+       illetve konkurens végrehajtását.
+     + Elosztott: több számítógépen fut, egységes rendszert alkot. 
+     + Beágyazott: egyszerű rendszerekhez, korlátozott erőforásokkal 
+       és/vagy autnómiával.
 ** Feladatok
-   + Folyamatok, memória, fájlrendszer, hálózat, hardver kezelése, biztonság, UI
-* Felosztás
-** Felosztás felépítés szerint
-   + Mikrokernel
-   + "Hybrid" kernel
-   + Monolithic (monolitikus) kernel
-   [[file:images/os-structure.pdf]]
-* Felosztás
-** Felosztás funkcionalitás szerint
-   + Valósidejű: gyors válaszidőket biztosító, idő kritikus,
-     speciális ütemezési algoritmusok.
-   + Több felhasználós: támogatja több felhasználónak a hozzáférést.
-   + Multitasking: támogatja a több program párhuzamos, 
-     illetve konkurens végrehajtását.
-   + Elosztott: több számítógépen fut, egységes rendszert alkot. 
-   + Beágyazott: egyszerű rendszerekhez, korlátozott erőforásokkal 
-     és/vagy autnómiával.
-* Folyamatok, szálak kezelése
-** Folyamat (process), szál (thread) 
-   + Egy program futó példányát /folyamatnak/ nevezzük.
-     Egy folyamat tartalmazza a program kódját és a pillanatnyi állapotát.
-     Egy folyamat több párhuzamosan futó szálból állhat.
-   + Végrehajtási szálak egy folyamat részei, 
-     melyek párhuzamosan (illetve konkurens módon) futnak.
-** Példák
-   + firefox.exe egy folyamat; egy-egy tab külön szálon fut
-   + chrome.exe minden tab egy folyamat; szálak párhuzamosan töltik le és
-     rajzolják ki a honlapot és futtatja benne a JavaScript-et.
-* Multitasking kezelése
-** Multitasking
-   + Több folyamat fut "párhuzamosan".
-   + Folyamatok ütemezése: prioritás és készenlét alapján (Real-time rendszerek).
-   + Folyamat tábla: folyamat azonosító (PID), állapot (fut, készenlét, blokkolt),
-     jogosultságok, stb.
-   + Környezet váltás (context switch): hardver támogatott, 
-     gyorsan cserélje a processzor állapotait a processzorban 
-     (egy folyamatot "kivesz" a CPU-ból másikat "betesz" hogy fusson egy 
-     rövid ideig).
-   + Folyamatok közötti kommunikáció (IPC - inter process communication).
-* Memória kezelés
-  + A folyamatok, egy nagy címezhető memóriatéret „látnak”
-    ami független a fizikai memóriától.
-  + A folyamatok nem férnek hozzá egymás adataihoz.
-  + Kivétel a megosztott (shared) memória, ami folyamatok
-    közötti kommunikációt biztosítja.
-  + Verem (stack) memória a folyamat saját memóriatere.
-  + Kupac (heap) memória „közös”, de védett memória
-    (dinamikus memória lefoglalás. Programozásban: new(),
-    malloc() stb.)
-  + Memória blokk (block) rögzített méretű, egy
-    folyamatokhoz rendelt (vagy megosztott).
-  + Változó méretű memória szegmenseket rendelünk
-    folyamatokhoz. Címzés: szegmens + offszet
-* Virtuális memória
-** Virtuális memória
-   :PROPERTIES:
-   :BEAMER_col: 0.7
-   :BEAMER_env: block
-   :END:
-   + A hordozhatóság miatt, a folyamatok
-     memóriatere „végtelen”.
-   + Memória lap (page): rögzített méretű egységek.
-   + Fizikai tár: lapok amelyre most szükség van.
-   + Merevlemez: lapok amelyekre valószínűleg
-     nem lesz szükség a közeljövőben.
-   + Logikai cím: amit a program „lát”.
-   + Fizikai cím: ami a sinen (bus) valóban
-     lemegy. A fordítást a hardver is támogatja.
-   + Lap hiba (Page fault): hivatkozás memória
-     területre ami a merevlemezen van (hardver
-     támogatott, megszakítás).
-** Ábrázolva
-   :PROPERTIES:
-   :BEAMER_col: 0.2
-   :BEAMER_env: block
-   :END:
-   [[file:images/virtual-memory.pdf]]
-* Biztonság és módok
-** Biztonság (Security)
-   + Jogosultságok kezelése: ki csinálhat? mit csinálhat?
-     mivel/min csinálhatja? (ACL, Access Control List).
-   + Több felhasználó (multiuser) rendszerek:
-   + Szerveren: több felhasználló párhuzamosan használhatja a
-     rendszert és futtathat programokat rajta.
-   + Munkaállomáson: a felhasznállók különböző beállításokat
-     tárolhatnak el (profil) egy gépen.
-** Módok
-   + Kernel/supervisor mode: teljes hozzáférés a hardverhez.
-   + Protected/user mode: operációs rendszeren keresztül
-     történik a hozzáférés.
-* Fájl-rendszerek
-** Fájlrendszerek (File system) kezelése
-   + A merevlemez egy nagy összefüggő, (valahogyan)
-     címezhető tárterület.
-   + A filerendszerek algoritmusok szerint, a lemezre mentett
-     adatokat állományokba (file) és könyvtárakba (directory)
-     renszerezi.
-   + A programok nem látják a nyers adatot csak fájlokat.
-   + FAT12, FAT16, FAT32, NTFS, HFS,HFS+, HPFS, UFS,
-     ext2, ext3, ext4, btrfs, ISO 9660, Files-11, Veritas File
-     System, VMFS, ZFS, ReiserFS and UDF.
-   + Virtuális filerendszerek: =/proc=, =/sys=, RAMFS.
-* Hálózat kezelés (socket programozás)
-** Hálózat kezelés 
-   + A hálózati eszközöket kezelése és a protokolokat
-     (TCP/IP, UDP stb.) is manapság az operációs
-     rendszerekbe vannak implementálva.
-   + Nem a felhasználói programok kezelik a jeleket a
-     hálókábelből, hanem rendszer hívásokkal érhető el a
-     hálózat.
-   + A számítógép erőforrásainak megosztása és távoli elérésit
-     teszi lehetővé.
-   + Biztonság: például tűzfal vagy adatfolyam titkosítása.
-   + Hálózati fájlrendszer: NFS, Samba (Windows Share).
-* Drivers & (G)UI
-** Illesztő programok (Driver)
-   + Azonos célú, viszont különböző kivitelezésű hardverek
-     számára, egységes csatlakozási felületet biztosít.
-   + Például: nem kell minden programmba beleírni minden
-     nyomtatónak a kezelését.
-** Kezelő felület - User Interface (UI)
-   + /CLI/: Command Line Interface, parancssor, terminál.
-     Például: bash, sh, ksh, csh, dos, Power Shell.
-   + /GUI/: Graphical User Interface, grafikus kezelői felület,
-     ablakok, menük stb. Például: Gnome, KDE, Xfce
+*** Folyamatok, szálak kezelése
+**** Folyamat (process), szál (thread) 
+     + Egy program futó példányát /folyamatnak/ nevezzük.
+       Egy folyamat tartalmazza a program kódját és a pillanatnyi állapotát.
+       Egy folyamat több párhuzamosan futó szálból állhat.
+     + Végrehajtási szálak egy folyamat részei, 
+       melyek párhuzamosan (illetve konkurens módon) futnak.
+**** Példák
+     + firefox.exe egy folyamat; egy-egy tab külön szálon fut
+     + chrome.exe minden tab egy folyamat; szálak párhuzamosan töltik le és
+       rajzolják ki a honlapot és futtatja benne a JavaScript-et.
+*** Multitasking kezelése
+**** Multitasking
+     + Több folyamat fut "párhuzamosan".
+     + Folyamatok ütemezése: prioritás és készenlét alapján (Real-time rendszerek).
+     + Folyamat tábla: folyamat azonosító (PID), állapot (fut, készenlét, blokkolt),
+       jogosultságok, stb.
+     + Környezet váltás (context switch): hardver támogatott, 
+       gyorsan cserélje a processzor állapotait a processzorban 
+       (egy folyamatot "kivesz" a CPU-ból másikat "betesz" hogy fusson egy 
+       rövid ideig).
+     + Folyamatok közötti kommunikáció (IPC - inter process communication).
+*** Memória kezelés
+    + A folyamatok, egy nagy címezhető memóriatéret „látnak”
+      ami független a fizikai memóriától.
+    + A folyamatok nem férnek hozzá egymás adataihoz.
+    + Kivétel a megosztott (shared) memória, ami folyamatok
+      közötti kommunikációt biztosítja.
+    + Verem (stack) memória a folyamat saját memóriatere.
+    + Kupac (heap) memória „közös”, de védett memória
+      (dinamikus memória lefoglalás. Programozásban: new(),
+      malloc() stb.)
+    + Memória blokk (block) rögzített méretű, egy
+      folyamatokhoz rendelt (vagy megosztott).
+    + Változó méretű memória szegmenseket rendelünk
+      folyamatokhoz. Címzés: szegmens + offszet
+*** Virtuális memória
+**** Virtuális memória
+     :PROPERTIES:
+     :BEAMER_col: 0.7
+     :BEAMER_env: block
+     :END:
+     + A hordozhatóság miatt, a folyamatok
+       memóriatere „végtelen”.
+     + Memória lap (page): rögzített méretű egységek.
+     + Fizikai tár: lapok amelyre most szükség van.
+     + Merevlemez: lapok amelyekre valószínűleg
+       nem lesz szükség a közeljövőben.
+     + Logikai cím: amit a program „lát”.
+     + Fizikai cím: ami a sinen (bus) valóban
+       lemegy. A fordítást a hardver is támogatja.
+     + Lap hiba (Page fault): hivatkozás memória
+       területre ami a merevlemezen van (hardver
+       támogatott, megszakítás).
+**** Ábrázolva
+     :PROPERTIES:
+     :BEAMER_col: 0.2
+     :BEAMER_env: block
+     :END:
+     [[file:images/virtual-memory.pdf]]
+*** Biztonság és módok
+**** Biztonság (Security)
+     + Jogosultságok kezelése: ki csinálhat? mit csinálhat?
+       mivel/min csinálhatja? (ACL, Access Control List).
+     + Több felhasználó (multiuser) rendszerek:
+     + Szerveren: több felhasználló párhuzamosan használhatja a
+       rendszert és futtathat programokat rajta.
+     + Munkaállomáson: a felhasznállók különböző beállításokat
+       tárolhatnak el (profil) egy gépen.
+**** Módok
+     + Kernel/supervisor mode: teljes hozzáférés a hardverhez.
+     + Protected/user mode: operációs rendszeren keresztül
+       történik a hozzáférés.
+*** Fájl-rendszerek
+**** Fájlrendszerek (File system) kezelése
+     + A merevlemez egy nagy összefüggő, (valahogyan)
+       címezhető tárterület.
+     + A filerendszerek algoritmusok szerint, a lemezre mentett
+       adatokat állományokba (file) és könyvtárakba (directory)
+       renszerezi.
+     + A programok nem látják a nyers adatot csak fájlokat.
+     + FAT12, FAT16, FAT32, NTFS, HFS,HFS+, HPFS, UFS,
+       ext2, ext3, ext4, btrfs, ISO 9660, Files-11, Veritas File
+       System, VMFS, ZFS, ReiserFS and UDF.
+     + Virtuális filerendszerek: =/proc=, =/sys=, RAMFS.
+*** Hálózat kezelés (socket programozás)
+**** Hálózat kezelés 
+     + A hálózati eszközöket kezelése és a protokolokat
+       (TCP/IP, UDP stb.) is manapság az operációs
+       rendszerekbe vannak implementálva.
+     + Nem a felhasználói programok kezelik a jeleket a
+       hálókábelből, hanem rendszer hívásokkal érhető el a
+       hálózat.
+     + A számítógép erőforrásainak megosztása és távoli elérésit
+       teszi lehetővé.
+     + Biztonság: például tűzfal vagy adatfolyam titkosítása.
+     + Hálózati fájlrendszer: NFS, Samba (Windows Share).
+*** Drivers & (G)UI
+**** Illesztő programok (Driver)
+     + Azonos célú, viszont különböző kivitelezésű hardverek
+       számára, egységes csatlakozási felületet biztosít.
+     + Például: nem kell minden programmba beleírni minden
+       nyomtatónak a kezelését.
+**** Kezelő felület - User Interface (UI)
+     + /CLI/: Command Line Interface, parancssor, terminál.
+       Például: bash, sh, ksh, csh, dos, Power Shell.
+     + /GUI/: Graphical User Interface, grafikus kezelői felület,
+       ablakok, menük stb. Például: Gnome, KDE, Xfce
 

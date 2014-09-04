@@ -5,199 +5,121 @@
 #+DATE: 2014-2015
 #+TITLE: Linux
 
-* Történelem
-** Unix
-   + Ken Thompson, Dennis Ritchie (1941-2011) et al.
-   + AT&T, Bell Labs kutató központ, 1970es évek elején
-** Ken és Dennis
-   #+ATTR_LATEX: :width 7cm
-   [[file:images/Ken_n_dennis.jpg]]
-* GNU Project
-** GNU Project
-   :PROPERTIES:
-   :BEAMER_col: 0.5
-   :BEAMER_env: block
-   :END:
-   + GNU is Not Unix (rekurzió ld. rekurzió)
-   + Richard Stallman
-   + *Free software foundation* - [[http://www.fsf.org/][www.fsf.org]]
-   + Free = ingyenes / szabad
-   + Hangsúly a *szabadságon*
-     - Bele tudjunk "nyúlni" a szoftverbe
-     - Mi mondjuk meg mit csináljon a gép és ne fordítva
-** St. IGNUcius
-   :PROPERTIES:
-   :BEAMER_col: 0.5
-   :BEAMER_env: block
-   :END:
-   [[file:images/Richard-Stallman.jpg]]
-* Linux
-** Linux kernel [[https://www.kernel.org/][www.kernel.org]]
-   :PROPERTIES:
-   :BEAMER_col: 0.5
-   :BEAMER_env: block
-   :END:
-   + Linus Torvalds írta, 1991. Október 5.
-   + Nem volt kernel x86-os gépekhez a GNU Project-ben, ezért írt egyet!
-   + Az Interneten fejlődött tovább és a legnagyobb 
-   + Bárki hozzájárulhat, de még mindig Linus felügyelete alatt 
-   + Valószínűleg a legnagyobb kollaboráció.
-   + [[http://youtu.be/MShbP3OpASA][Aalto előadás]]
-** Linus Torvalds
-   :PROPERTIES:
-   :BEAMER_col: 0.5
-   :BEAMER_env: block
-   :END:
-   #+ATTR_LATEX: :width 4cm
-   [[file:images/Linus-Torvalds.jpeg]] 
-* Rokonok
-** A Unix család
-   + BSD, Solaris, iOS, Android
-     
-   #+ATTR_LATEX: :width 3cm
-   [[file:images/Tux.png]]
-   #+ATTR_LATEX: :width 3cm
-   [[file:images/Bsd_daemon.jpg]]
-   #+ATTR_LATEX: :width 3cm
-   [[file:images/openbsd.jpg]]
-   #+ATTR_LATEX: :width 3cm
-   [[file:images/android.png]]
+* Ismertető
+** Bevezető
+*** Történelem
+**** Unix
+     + Ken Thompson, Dennis Ritchie (1941-2011) et al.
+     + AT&T, Bell Labs kutató központ, 1970es évek elején
+**** Ken és Dennis
+     #+ATTR_LATEX: :width 7cm
+     [[file:images/Ken_n_dennis.jpg]]
+*** GNU Project
+**** GNU Project
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     + GNU is Not Unix (rekurzió ld. rekurzió)
+     + Richard Stallman
+     + *Free software foundation* - [[http://www.fsf.org/][www.fsf.org]]
+     + Free = ingyenes / szabad
+     + Hangsúly a *szabadságon*
+       - Bele tudjunk "nyúlni" a szoftverbe
+       - Mi mondjuk meg mit csináljon a gép és ne fordítva
+**** St. IGNUcius
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     [[file:images/Richard-Stallman.jpg]]
+*** Linux
+**** Linux kernel [[https://www.kernel.org/][www.kernel.org]]
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     + Linus Torvalds írta, 1991. Október 5.
+     + Nem volt kernel x86-os gépekhez a GNU Project-ben, ezért írt egyet!
+     + Az Interneten fejlődött tovább és a legnagyobb 
+     + Bárki hozzájárulhat, de még mindig Linus felügyelete alatt 
+     + Valószínűleg a legnagyobb kollaboráció.
+     + [[http://youtu.be/MShbP3OpASA][Aalto előadás]]
+**** Linus Torvalds
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     #+ATTR_LATEX: :width 4cm
+     [[file:images/Linus-Torvalds.jpeg]] 
+*** Rokonok
+**** A Unix család
+     + BSD, Solaris, iOS, Android
+       
+     #+ATTR_LATEX: :width 3cm
+     [[file:images/Tux.png]]
+     #+ATTR_LATEX: :width 3cm
+     [[file:images/Bsd_daemon.jpg]]
+     #+ATTR_LATEX: :width 3cm
+     [[file:images/openbsd.jpg]]
+     #+ATTR_LATEX: :width 3cm
+     [[file:images/android.png]]
 
-* Családfa
-  [[file:images/unix-family.png]]
+*** Családfa
+    [[file:images/unix-family.png]]
+** Disztribúciók
+*** Disztribúciók
+**** Disztribúció
+     + A Linux (azaz a GNU/Linux mint operációs rendszer) sok, 
+       függetlenül fejlesztett szoftverből állítható össze többféleképpen.
+       - Egy-egy feladatot más-más szoftver láthat el: a kezelő felület lehet 
+       	 szöveges vagy grafikus (ezek közül is van több fajta).
+     + Egy (többé-kevésbé) teljes (szállítható) operációs rendszerré 
+       összecsomagolt (Linux kernellel) ellátott szoftver csomagot nevezünk 
+       /Linux disztribúciónak/ (röviden distro). [[http://distrowatch.com/][distrowatch.com]]
+     + Az egyik fő jellemvonása egy disztribúciónak a "csomag kezelője" 
+       (package manager).
+       - Ez kb olyan mint az "App Store" a mobilokon (és most már a komerciális
+       	 operációs rendszereken is).
+       - Egy adatbázis ahonnan programokat lehet letölteni, (vagy megvásárolni).
+*** Disztribúciók csomag kezelők szerint
+**** Debian család
+     + =.deb= csomagok, =apt-get= csomag kezelő (PPA személyes repo-k)
+       - Debian (Ubuntu, Mint, stb.)
+**** RedHat család
+     + =.rpm= csomagok, =yum= csomag kezelő
+       - RedHat, CentOS, Fedora, SuSe
+**** Mások
+     + Arch linux (=pacman=), Gentoo meta-disztribúció (=emerge=), 
+       Slackware (=slackpkg=), stb.
 
-* Felépítés és filozófia
-** Teljesen moduláris
-   + Jól összekapcsolható részekből áll, a részek független fejlesztések!
-   + Sok kicsi egyszerű tökéletesen működő (független) részek (programok),
-     jobb mint egy nagy hibásan működő "mindenttudó csoda program".
-     - példa a =cat= program, ami azt írja ki amit beviszünk.
-** Minden file
-   + A különböző logikai (pl. egy hálózati kapcsolat, egy futó program) 
-     és fizikai (pl. a NIC, vagy a processzor) egységek fájlként érhetők el.
-   + Fájl írás/olvasással sok minden megoldható. 
-** A kód
-   + Nyílt forrású mag, és a többi részek is (általában) azok.
-   + Nagy részben POSIX kompatibilis
-* Disztribúciók
-** Disztribúció
-   + A Linux (azaz a GNU/Linux mint operációs rendszer) sok, 
-     függetlenül fejlesztett szoftverből állítható össze többféleképpen.
-     - Egy-egy feladatot más-más szoftver láthat el: a kezelő felület lehet 
-       szöveges vagy grafikus (ezek közül is van több fajta).
-   + Egy (többé-kevésbé) teljes (szállítható) operációs rendszerré 
-     összecsomagolt (Linux kernellel) ellátott szoftver csomagot nevezünk 
-     /Linux disztribúciónak/ (röviden distro). [[http://distrowatch.com/][distrowatch.com]]
-   + Az egyik fő jellemvonása egy disztribúciónak a "csomag kezelője" 
-     (package manager).
-     - Ez kb olyan mint az "App Store" a mobilokon (és most már a komerciális
-       operációs rendszereken is).
-     - Egy adatbázis ahonnan programokat lehet letölteni, (vagy megvásárolni).
-* Disztribúciók csomag kezelők szerint
-** Debian család
-   + =.deb= csomagok, =apt-get= csomag kezelő (PPA személyes repo-k)
-     - Debian (Ubuntu, Mint, stb.)
-** RedHat család
-   + =.rpm= csomagok, =yum= csomag kezelő
-     - RedHat, CentOS, Fedora, SuSe
-** Mások
-   + Arch linux (=pacman=), Gentoo meta-disztribúció (=emerge=), 
-     Slackware (=slackpkg=), stb.
-* Direktórium struktúra
-** Valódi fájlrendszerek 
-   + =/usr= felhasználói programok (pl LibreOffice) 
-     és közös dolgok (pl ikonok, háttérképek) mint pl a "Program Files"
-   + =*/bin= (vagy =*/sbin=) program (illetve rendszer program) fájlok
-   + (és =/usr/sbin=) a rendszer programok
-   + =/home= felhasználók könyvtárai ( =/home/vatai= = =~= = =$HOME=)
-   + =/etc= rendszer beállítások
-   + =/boot= GRUB és EFI dolgok, és az "image"
-   + =/lib*= könyvtárak (pl OpenGL, SDL)
-   + =/var= "gyűjtő" könyvtár (levelek a mailszerveren, loggok)
-   + =/mnt= állandóan csatlakozott meghajtók (régebbi pl HDD)
-   + =/media= ideiglenesen csatlakozott meghajtók (újabb USB)
-   + =/tmp= ideiglenes, megosztott fájlok
-* Virtuális fájlrendszerek
-** Virtuális direktóriumok
-   + =/dev= eszközök 
-     - Például =/dev/sda= az első diszk, =/dev/sdb= a második diszk
-       - =/dev/sda3= a harmadik partíció az első diszken
-       - =/dev/sdb4= a negyedik partíció a második diszken
-   + =/sys= és =/proc= információ a rendszerről a kernelről és a folyamatokról
-     - =/proc/meminfo= memória illetve =/proc/cpuinfó=
-     - =/sys/class/thermal/thermal_zone0/temp= alaplap hőmérséklet
-** Alap parancsok
-   + =ls= fájlok listázása (=ls -l= részletes)
-   + =cd= change directory, azaz könyvtár váltás
-   + =pwd= print working directory, az aktuális könyvtár kiírása
-   + =cat file= a "file" nevű (szöveges) fájl tartalmának kiírása
-   + TAB COMPLETION!!!
-* Adminisztráció
-** Felhasználók és jogosultságok
-   + Minden felhasználónak van felhasználóneve és csoportja(i)
-#+BEGIN_SRC 
-vatai@mayfly ~ % ls /tmp -l
-total 40
-# ...
--rw-rw-r-- 1 vatai vatai 4398 Aug 20 19:57 tmpFu6taf
-drwx------ 2 root  root  4096 Aug 20 19:56 tmpjflga4ur
--rw-rw-r-- 1 vatai vatai    0 Aug 19 13:20 unity...
-#+END_SRC     
-
-** Programok
-   + =root= a "szuper felhasználó"
-   + =su= paranccsal tudunk felhasználót váltani logout nélkül (régi)
-   + =sudo= újabb, biztonságosabb, parancsonként alkalmazható
-     - Például =sudo apt-get install git=
-* Programok telepítése
-** Csomagkezelőből
-   + Ubuntu szoftver center
-   + Parancssorból
-     - Debian =sudo apt-get install git=
-     - RedHat =sudo yum install git=
-     - Arch =sudo pacman -S git=
-   + Frissítés (update) automatikus
-   + Külön csomagokat (deb vagy rpm) is lehet telepíteni
-** Kézi telepítés forrásból
-   + Forrás =.tar.gz=, =.tgz= vagy más fájlt ki kell csomagolni
-   + Általában =make= majd =sudo make install= kell (pontos útmutató a README-ben)
-     - Újabb programoknál szükséges előtte =./configure=
-* Alkalmazás
-** Server
-   + Web szerverek, domain és céges (belső) szerverek, tűzfalak, otthoni 
-     fájl és nyomtató szerverek stb.
-** Embeded
-   + RasPi, router-ek, játék konzolok stb.
-** Workstation
-   + Munkaállomásként is tökéletesen működnek, azaz "mindennapi használatra"
-     emailek küldésére és web böngészésre tökéletes 
-     (akár még játszásra is, ld. Steam).
-* Miben különbözik a Windowstól?
-** Windows
-   + Zárt forrású 
-   + FAT vagy NTFS fájlrendszer
-   + Jól működik Microsoft termékekkel (ld Office)
-** Linux
-   + Nyílt forrású (szerelhető)
-   + ext2, ext3, ext4, FAT, NTFS, RaiserFS, ZFS stb. fájlrendszer
-   + Jól működik minden mással
-** Közös
-   + Támogatnak egy csomó szabványt: ISO 9660 (CD fájlrendszer), TCP/IP, 
-     OpenGL stb.
-   + WINE segítségével részleges bináris 
-     kompatibilitás érhető el
-
-* Mire jó és mire nem
-** Mikor érdemes Linuxot használni
-   + Ha érdekel a programozás és az informatika (mert akkor bírod "szerelni")
-   + Ha nem akarod megszegni a törvényt, olcsón
-   + Ha nem szeretnél vírust kapni
-   + Ha megbízható szervert akarsz csinálni
-   + Ha megfelelő hardvered van
-   + Ha fontos számodra a "testreszabhatóság" 
-** Mikor nem érdemes Linuxot használni
-   + Ha a cég/iskola ahol vagy kényszerít rá
-   + Ha csomó pénzt akarsz kidobni vagy törvényt akarsz szegni
-   + Ha szeretnél vírust kapni
-   + Ha a hardvered nem támogatja a Linuxot
-   + Ha meg vagy elégedve a Windows-zal
+* Összehasonlítás
+** Más operációs rendszerek
+*** Miben különbözik a Windowstól?
+**** Windows
+     + Zárt forrású 
+     + FAT vagy NTFS fájlrendszer
+     + Jól működik Microsoft termékekkel (ld Office)
+**** Linux
+     + Nyílt forrású (szerelhető)
+     + ext2, ext3, ext4, FAT, NTFS, RaiserFS, ZFS stb. fájlrendszer
+     + Jól működik minden mással
+**** Közös
+     + Támogatnak egy csomó szabványt: ISO 9660 (CD fájlrendszer), TCP/IP, 
+       OpenGL stb.
+     + WINE segítségével részleges bináris 
+       kompatibilitás érhető el
+*** Mire jó és mire nem
+**** Mikor érdemes Linuxot használni
+     + Ha érdekel a programozás és az informatika (mert akkor bírod "szerelni")
+     + Ha nem akarod megszegni a törvényt, olcsón
+     + Ha nem szeretnél vírust kapni
+     + Ha megbízható szervert akarsz csinálni
+     + Ha megfelelő hardvered van
+     + Ha fontos számodra a "testreszabhatóság" 
+**** Mikor nem érdemes Linuxot használni
+     + Ha a cég/iskola ahol vagy kényszerít rá
+     + Ha csomó pénzt akarsz kidobni vagy törvényt akarsz szegni
+     + Ha szeretnél vírust kapni
+     + Ha a hardvered nem támogatja a Linuxot
+     + Ha meg vagy elégedve a Windows-zal

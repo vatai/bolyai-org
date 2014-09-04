@@ -5,101 +5,108 @@
 #+DATE: 2014-2015
 #+TITLE: Számítógépek felépítése 
 
-* Mérték egységek
-** Bit 
-   + A legkisebb információ egység
-   + Értéke 0 vagy 1
-** Byte
-   + 1byte = 8bit
-   + A legkisebb címezhető része a memóriának
-** Word (szó, gépi szó)
-   + 2, 4 vagy 8 byte
-   + Processzor függő
-   + Az amit a processzor egyszerre ("egy falatban") fel tud dolgozni
-   + Történelmi okok miatt, az Intel szóhasználata szerint
-     - 2byte = word, 4byte = double word, 8byte = quad word
-* CPU - Central processing unit
-** Központi végrehajtó egység
-   - A programok és a többi, a számítógépben található eszköz, futását irányítja
-   - Több mag
-* Óra
-** Clock
-   - Összhangba tartja a számítógép különböző részeit
-   - Megmondja milyen gyorsan hajtódnak végre az utasítások
-   - GHz-ben mérik
-* Regiszterek
-** GPR - Általános regiszterek
-   - Pici memória egységek a processzoron belül
-   - Tipikus méret manapság 32 de inkább 64 bit (4 azaz 8 byte)
-   - Van 8, 16 vagy 128 bit méretű is
-   - Regiszter méret = szó méret (általában) = ~sizeof(int)~
-   - Adatok, címek tárolása
-   - Pontosabban műveletek eredménye és operandusai 
-** SPR - Speciális regiszterek
-   - IR - utasítás (instruction) regiszter 
-   - BP, SP - bázis (base) illetve verem (stack) pointer
-   - Flag regiszter
-* ALU, matematikai processzor
-** Segéd processzorok
-   - Aritmetikai és Logikai egység: egész számos és logikai műveletek
-   - Lebegőpontos egység: lebegő pontos műveletek
-   - További segédprocesszorok: pl vektor processzorok 
-* Architektúrák
-** ISA (instruction set architecture)
-   - utasítás készlet
-   - architektúra = a processzor által támogatott utasítások
-   - pl van-e kávé főző utasítás?
-   - pl van-e osztás?
-   - pl van-e vektor összeadás?
-* Architektúrák RISC vs CISC
-** RISC = reduced instruction set
-   - kevés utasítás
-   - jellegzetesség: csak regisztereken tudunk utasításokat végrehajtani
-   - PowerPC (Macintosh, GameCube, Wii), ARM (mobil telefonok), Cell (PS3)
-** CISC = complex (complete) instruction set
-   - sok utasítás
-   - valójában RISC mikroprogrammal
-   - jellegzetesség: vannak "közvetlen" memóriát elérő utasításai is
-   - példa x86: pl. átlagos PC 
-* Memória (vagy tár, tároló)
-  - Adatok (és programok) tárolására szolgáló eszköz.
-  - RAM - Random access memory
-    - (Általában) byte-onként címezhető.
-    - Nem ROM (read only memory),
-    - és nem is szallag, hogy csak szekvenciálisan érhető el
-    - nem is merev lemez, hogy szektorokat érjünk el.
-** Memória hierarchia
-   - Mint egy piramis
-     - A csúcson kicsi de gyors memóriák
-     - Alul nagy kapacitású de lassú tárolók
-   - Regiszter, (L1, L2, L3) cache, RAM, merevlemez (backup szalagok)
-* Intel memória modell
-** Szegmentált memória modell
-   - Data, Code, Stack, Extra segment
-   - Régebbi, kis regiszterekkel rendelkező gépek használták
-   - Pl 16bit-es regiszter -> 2^16 byte címezhető = 2^6 Kbyte = 64Kbyte
-   - Több memória címezhető (és érhető el) ha nem csak 1 regisztert használunk
-     - pl Memória cím = (bázis regiszter)*10h + (cím regiszter)
-     - és így már van komoly 1Mbyte
-* DMI
-** Direct memory access
-   - Közvetlen memória elérés
-   - A CPU indítja a memória átvitelt egy eszköz (pl HDD vagy GPU) és a RAM között
-   - Amíg az adatok másolódnak, a CPU nincs lefoglalva (azaz teheti a dolgát)
-* Sín 
-** Busz
-  - Northbridge, Front side bus vagy belső sín: CPU $\leftrightarrow$  memória 
-  - Southbridge, külső sín: CPU (és memória) $\leftrightarrow$ a többi eszköz
-  - Például: PCIe
-* Programozó barát műveletek
-** Ugrások és elágazások
-   - Az IR (utasítás regiszter) felülírása
-   - Nincsen ``lokális változó''
-** Verem 
-   - Rekurzív függvény hívás megvalósítása veremmel 
-   - pl Faktoriális hívás n=4-re
-** Állapot váltás (Context switching)
-   - Multitasking
-   - Párhuzamos folyamatok egymagos gépen (vagy 10 folyamat 4 magos gépen)
-   - Hardver támogatott állapot mentés
+* Alap fogalmak
+** Bit, Byte, Word
+*** Mérték egységek
+**** Bit 
+     + A legkisebb információ egység
+     + Értéke 0 vagy 1
+**** Byte
+     + 1byte = 8bit
+     + A legkisebb címezhető része a memóriának
+**** Word (szó, gépi szó)
+     + 2, 4 vagy 8 byte
+     + Processzor függő
+     + Az amit a processzor egyszerre ("egy falatban") fel tud dolgozni
+     + Történelmi okok miatt, az Intel szóhasználata szerint
+       - 2byte = word, 4byte = double word, 8byte = quad word
+* Számítógép részei
+** A processzor részei
+*** CPU - Central processing unit
+**** Központi végrehajtó egység
+     - A programok és a többi, a számítógépben található eszköz, futását irányítja
+     - Több mag
+*** Óra
+**** Clock
+     - Összhangba tartja a számítógép különböző részeit
+     - Megmondja milyen gyorsan hajtódnak végre az utasítások
+     - GHz-ben mérik
+*** Regiszterek
+**** GPR - Általános regiszterek
+     - Pici memória egységek a processzoron belül
+     - Tipikus méret manapság 32 de inkább 64 bit (4 azaz 8 byte)
+     - Van 8, 16 vagy 128 bit méretű is
+     - Regiszter méret = szó méret (általában) = ~sizeof(int)~
+     - Adatok, címek tárolása
+     - Pontosabban műveletek eredménye és operandusai 
+**** SPR - Speciális regiszterek
+     - IR - utasítás (instruction) regiszter 
+     - BP, SP - bázis (base) illetve verem (stack) pointer
+     - Flag regiszter
+*** ALU, matematikai processzor
+**** Segéd processzorok
+     - Aritmetikai és Logikai egység: egész számos és logikai műveletek
+     - Lebegőpontos egység: lebegő pontos műveletek
+     - További segédprocesszorok: pl vektor processzorok 
+** Processzor architektúrák
+*** Architektúrák
+**** ISA (instruction set architecture)
+     - utasítás készlet
+     - architektúra = a processzor által támogatott utasítások
+     - pl van-e kávé főző utasítás?
+     - pl van-e osztás?
+     - pl van-e vektor összeadás?
+*** Architektúrák RISC vs CISC
+**** RISC = reduced instruction set
+     - kevés utasítás
+     - jellegzetesség: csak regisztereken tudunk utasításokat végrehajtani
+     - PowerPC (Macintosh, GameCube, Wii), ARM (mobil telefonok), Cell (PS3)
+**** CISC = complex (complete) instruction set
+     - sok utasítás
+     - valójában RISC mikroprogrammal
+     - jellegzetesség: vannak "közvetlen" memóriát elérő utasításai is
+     - példa x86: pl. átlagos PC 
+** Memória
+*** Memória (vagy tár, tároló)
+    - Adatok (és programok) tárolására szolgáló eszköz.
+    - RAM - Random access memory
+      - (Általában) byte-onként címezhető.
+      - Nem ROM (read only memory),
+      - és nem is szallag, hogy csak szekvenciálisan érhető el
+      - nem is merev lemez, hogy szektorokat érjünk el.
+**** Memória hierarchia
+     - Mint egy piramis
+       - A csúcson kicsi de gyors memóriák
+       - Alul nagy kapacitású de lassú tárolók
+     - Regiszter, (L1, L2, L3) cache, RAM, merevlemez (backup szalagok)
+*** Intel memória modell
+**** Szegmentált memória modell
+     - Data, Code, Stack, Extra segment
+     - Régebbi, kis regiszterekkel rendelkező gépek használták
+     - Pl 16bit-es regiszter -> 2^16 byte címezhető = 2^6 Kbyte = 64Kbyte
+     - Több memória címezhető (és érhető el) ha nem csak 1 regisztert használunk
+       - pl Memória cím = (bázis regiszter)*10h + (cím regiszter)
+       - és így már van komoly 1Mbyte
+*** DMI
+**** Direct memory access
+     - Közvetlen memória elérés
+     - A CPU indítja a memória átvitelt egy eszköz (pl HDD vagy GPU) és a RAM között
+       - Amíg az adatok másolódnak, a CPU nincs lefoglalva (azaz teheti a dolgát)
+*** Sín 
+**** Busz
+    - Northbridge, Front side bus vagy belső sín: CPU $\leftrightarrow$  memória 
+    - Southbridge, külső sín: CPU (és memória) $\leftrightarrow$ a többi eszköz
+    - Például: PCIe
+** Támogatás
+*** Programozó barát műveletek
+**** Ugrások és elágazások
+     - Az IR (utasítás regiszter) felülírása
+     - Nincsen ``lokális változó''
+**** Verem 
+     - Rekurzív függvény hívás megvalósítása veremmel 
+     - pl Faktoriális hívás n=4-re
+**** Állapot váltás (Context switching)
+     - Multitasking
+     - Párhuzamos folyamatok egymagos gépen (vagy 10 folyamat 4 magos gépen)
+     - Hardver támogatott állapot mentés
 

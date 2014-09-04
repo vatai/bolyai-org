@@ -5,72 +5,75 @@
 #+DATE: 2014-2015
 #+TITLE: Linux telepítése
 
-* Első lépés
-** A választás
-   + A szabadság azzal jár, hogy el kell döntenünk mit szeretnénk kezdeni. 
-   + Először ki kell választani egy disztribúciót.
-** Lehetőségek
-   + Ubuntu: user-friendly, csicsás GUI. Gnome+Unity az alap, van Kubuntu (KDE), 
-       Xubuntu (XFCE), Gnome Ubuntu (Gnome-Shell).
-   + Linux Mint: Ubuntu alapú, klasszikus GUI. 
-     Cinnamon: kicsit kicsit csicsásabb, de funkcionalitásra klasszikus.
-     Mate: klasszikus és erőforrás barát.
-   + Arch linux: nehezebb konfigurálni, de nagyon testreszabható, 
-     roling release (végtelenségig jönnek az update-ek) és mindig cutting-edge
-   + Debian: stabil, kicsit nehezebb konfigurálni.
-     CentOS: stabil, szervereknek tökéletes. 
-     Elementary OS: nagyon szép (Ubuntu alapú).
-* Letöltés
-** Mit kell letölteni
-   + Egy =.iso= vagy =.img= fájlt kell letölteni
-   + Általában egy checksum-ot is mellékelnek, ami meg kell hogy egyezzen a 
-     letöltött fájl checksum-jával.
-     - például Linux Mint 17 "Qiana" Cinnamon (64-bit) md5-ös checksum-ja
-       =3d8c3c3e82916e2110f965111b0ee944=
-** A megfelelő honlapról letölthető vagy http://distrowatch.com/
-   + [[http://www.ubuntu.com/]]
-   + [[http://www.linuxmint.com/]]
-   + https://www.archlinux.org/
-   + https://www.debian.org/
-   + http://www.centos.org/
-   + http://elementaryos.org/
-* Live tároló elkészítése
-** Miről telepíthető
-   + Bármiről amiről a gép tud boot-olni. Javasol CD, DVD vagy USB.
-** CD/DVD
-   + Az =.iso= és =.img= fájlokat többnyire minden CD/DVD író szoftver 
-     tud kezelni (például ImgBurn Windows alatt)
-** USB
-   + Windows: Universal USB Installer (vagyis UUI)
-   + Linux: Ubuntu-ban Startup Disk Creator, vagy USB image writer, stb.
-     (végső esetben =dd= parancssoros program, minden Linuxban megtalálható)
-* Particionálás
-** Partition table
-   + Ha támogatja az (U)EFI-t az alaplap, akkor lehet 
-     GPT (GUID Partition table) partíciós táblázatot használni.
-     - Ha EFI-t és GPT-t választunk akkor olyan USB-ről kell bootolni
-   + Ha régebbi a gép akkor csak a klasszikus msdos partíciós táblázat van
-     - Csak négy elsődleges (primary) partíciónk lehet, és ezt a korlátot csak 
-       bővített (extended) partíciókkal lehet túllépni.
-   + Kell egy swap partíció is (linux swap fájlrendszerrel)
-** Fájlrendszer
-   + Külön partícióra megy mint a Windows.
-     - Lehet "Windows alá" egy "fájlba" telepíteni, ami kicsit lassabb.
-   + Az alapértelmezett fájlrendszer =ext4= (vagy korábban =ext2= vagy =ext3=)
-     de lehet más is választani
 * Telepítés
-** Particionálás
-   + Gparted programmal lehet könnyen újra méretezni (vagy törölni)
-   + Régi msdos particionált gépeken felismeri a Windows
-     - Felismeri a Windowst és "mellé" tud telepíteni.
-     - Lehet csak particionálatlan helyet hagyni vagy,
-     - Kell egy partíciót a "=/=" gyökér könyvtárra =mount=-olni
-** Bootloader
-   + A BIOS (beolvasása után) a megadott diszk (vagy az első partíció) 
-     "első" byte-jait olvassa és az ott található programot kezdi beolvasni
-   + Windows(ok) a partícióba írják a bootloader-t (vagyis a boot managert)
-   + GRUB (GNU GRand Unified Bootloader) egy populáris "Linuxos" bootloader.
-     Általában az MBR-re (Master Boot Record) telepítődik, 
-     így nem írja felül a Windows boot manager-ét.
+** Telepítés előtt
+*** Első lépés
+**** A választás
+     + A szabadság azzal jár, hogy el kell döntenünk mit szeretnénk kezdeni. 
+     + Először ki kell választani egy disztribúciót.
+**** Lehetőségek
+     + Ubuntu: user-friendly, csicsás GUI. Gnome+Unity az alap, van Kubuntu (KDE), 
+       	 Xubuntu (XFCE), Gnome Ubuntu (Gnome-Shell).
+     + Linux Mint: Ubuntu alapú, klasszikus GUI. 
+       Cinnamon: kicsit kicsit csicsásabb, de funkcionalitásra klasszikus.
+       Mate: klasszikus és erőforrás barát.
+     + Arch linux: nehezebb konfigurálni, de nagyon testreszabható, 
+       roling release (végtelenségig jönnek az update-ek) és mindig cutting-edge
+     + Debian: stabil, kicsit nehezebb konfigurálni.
+       CentOS: stabil, szervereknek tökéletes. 
+       Elementary OS: nagyon szép (Ubuntu alapú).
+*** Letöltés
+**** Mit kell letölteni
+     + Egy =.iso= vagy =.img= fájlt kell letölteni
+     + Általában egy checksum-ot is mellékelnek, ami meg kell hogy egyezzen a 
+       letöltött fájl checksum-jával.
+       - például Linux Mint 17 "Qiana" Cinnamon (64-bit) md5-ös checksum-ja
+       	 =3d8c3c3e82916e2110f965111b0ee944=
+**** A megfelelő honlapról letölthető vagy http://distrowatch.com/
+     + [[http://www.ubuntu.com/]]
+     + [[http://www.linuxmint.com/]]
+     + https://www.archlinux.org/
+     + https://www.debian.org/
+     + http://www.centos.org/
+     + http://elementaryos.org/
+*** Live tároló elkészítése
+**** Miről telepíthető
+     + Bármiről amiről a gép tud boot-olni. Javasol CD, DVD vagy USB.
+**** CD/DVD
+     + Az =.iso= és =.img= fájlokat többnyire minden CD/DVD író szoftver 
+       tud kezelni (például ImgBurn Windows alatt)
+**** USB
+     + Windows: Universal USB Installer (vagyis UUI)
+     + Linux: Ubuntu-ban Startup Disk Creator, vagy USB image writer, stb.
+       (végső esetben =dd= parancssoros program, minden Linuxban megtalálható)
+** Telepítés közben
+*** Particionálás
+**** Partition table
+     + Ha támogatja az (U)EFI-t az alaplap, akkor lehet 
+       GPT (GUID Partition table) partíciós táblázatot használni.
+       - Ha EFI-t és GPT-t választunk akkor olyan USB-ről kell bootolni
+     + Ha régebbi a gép akkor csak a klasszikus msdos partíciós táblázat van
+       - Csak négy elsődleges (primary) partíciónk lehet, és ezt a korlátot csak 
+       	 bővített (extended) partíciókkal lehet túllépni.
+     + Kell egy swap partíció is (linux swap fájlrendszerrel)
+**** Fájlrendszer
+     + Külön partícióra megy mint a Windows.
+       - Lehet "Windows alá" egy "fájlba" telepíteni, ami kicsit lassabb.
+     + Az alapértelmezett fájlrendszer =ext4= (vagy korábban =ext2= vagy =ext3=)
+       de lehet más is választani
+*** Telepítés
+**** Particionálás
+     + Gparted programmal lehet könnyen újra méretezni (vagy törölni)
+     + Régi msdos particionált gépeken felismeri a Windows
+       - Felismeri a Windowst és "mellé" tud telepíteni.
+       - Lehet csak particionálatlan helyet hagyni vagy,
+       - Kell egy partíciót a "=/=" gyökér könyvtárra =mount=-olni
+**** Bootloader
+     + A BIOS (beolvasása után) a megadott diszk (vagy az első partíció) 
+       "első" byte-jait olvassa és az ott található programot kezdi beolvasni
+     + Windows(ok) a partícióba írják a bootloader-t (vagyis a boot managert)
+     + GRUB (GNU GRand Unified Bootloader) egy populáris "Linuxos" bootloader.
+       Általában az MBR-re (Master Boot Record) telepítődik, 
+       így nem írja felül a Windows boot manager-ét.
 
 

@@ -5,8 +5,10 @@
 #+DATE: 2014-2015
 #+TITLE: Prolog bevezető 
 
-* Qick sort C-ben
-** =qsort(a,0,n-1)=
+* A nyelvről
+** Összehasonlítás
+*** Qick sort C-ben
+**** =qsort(a,0,n-1)=
    :PROPERTIES:
    :BEAMER_col: 0.5
    :BEAMER_env: block
@@ -27,7 +29,7 @@
         while ((h > l) && 
           (a[h] >= p)) h = h-1;
 #+END_SRC
-** folyt.
+**** folyt.
    :PROPERTIES:
    :BEAMER_col: 0.5
    :BEAMER_env: block
@@ -48,51 +50,63 @@
     }
   }
 #+END_SRC
-* Qick sort Prologban
-** Prolog
-   #+BEGIN_SRC prolog
-     quick_sort([],[]).
-     quick_sort([H|T],Sorted):-
-             pivoting(H,T,L1,L2),
-             quick_sort(L1,Sorted1),quick_sort(L2,Sorted2),
-             append(Sorted1,[H|Sorted2]).
-        
-     pivoting(H,[],[],[]).
-     pivoting(H,[X|T],[X|L],G):-X=<H,pivoting(H,T,L,G).
-     pivoting(H,[X|T],L,[X|G]):-X>H,pivoting(H,T,L,G).
-   #+END_SRC
-
-** Haskell
-   #+BEGIN_SRC haskell
-     qsort (p:xs) = qsort [x | x<-xs, x<p] ++ [p] ++ 
-       qsort [x | x<-xs, x>=p]
-   #+END_SRC
-* Program nyelvek típusai
-** Felosztás
-   + Procedurális nyelvek
-     - Pascal, C, Java
-   + Deklaratív
-     - Funkcionális programozás: Haskell, LISP (Scheme, eLisp), Scala, 
-       F#, OCaml, Erlang, Mathematica, Python
-     - Logikai programozás: PROgramming with LOGic azaz Prolog, ASP, Datalog
-* Összehasonlítás
-** Deklaratív
-   + Deklarálni = kijelenteni
-   + Azt fogalmazzunk meg, hogy mit várunk (mi legyen az eredmény),
-     - nem azt, hogyan csinálja.
-** Procedurális vagy imperatív
-   + Procedúra = eljárás vagy imperatív = parancsoló
-   + Azt fogalmazzuk meg, hogy mit (azaz hogyan) kell csinálni,
-     - nem azt, hogy mit várunk.
-* Összehasonlítás
-** Procedurális és deklaratív nyelvek
+*** Qick sort Prologban
+**** Prolog
+#+BEGIN_SRC prolog
+  quick_sort([],[]).
+  quick_sort([H|T],Sorted):-
+                            pivoting(H,T,L1,L2),
+                            quick_sort(L1,Sorted1),
+                            quick_sort(L2,Sorted2),
+                            append(Sorted1,[H|Sorted2]).
+     
+  pivoting(H,[],[],[]).
+  pivoting(H,[X|T],[X|L],G):-X=<H,pivoting(H,T,L,G).
+  pivoting(H,[X|T],L,[X|G]):-X>H,pivoting(H,T,L,G).
+#+END_SRC
+*** Rövidebben
+****  Prolog
+     #+BEGIN_SRC prolog
+       qs([],[]).
+       qs([H|T],S):-p(H,T,L1,L2),
+                    qs(L1,S1),qs(L2,S2),append(S1,[H|S2]).
+          
+       p(H,[],[],[]).
+       p(H,[X|T],[X|L],G):-X=<H,p(H,T,L,G).
+       p(H,[X|T],L,[X|G]):-X>H,p(H,T,L,G).
+     #+END_SRC
+**** Haskell
+     #+BEGIN_SRC haskell
+       qsort (p:xs) = qsort [x | x<-xs, x<p] ++ [p] ++ 
+       	 qsort [x | x<-xs, x>=p]
+     #+END_SRC
+** Program nyelvek
+*** Program nyelvek típusai
+**** Felosztás
+     + Procedurális nyelvek
+       - Pascal, C, Java
+     + Deklaratív
+       - Funkcionális programozás: Haskell, LISP (Scheme, eLisp), Scala, 
+       	 F#, OCaml, Erlang, Mathematica, Python
+       - Logikai programozás: PROgramming with LOGic azaz Prolog, ASP, Datalog
+*** Összehasonlítás
+**** Deklaratív
+     + Deklarálni = kijelenteni
+     + Azt fogalmazzunk meg, hogy mit várunk (mi legyen az eredmény),
+       - nem azt, hogyan csinálja.
+**** Procedurális vagy imperatív
+     + Procedúra = eljárás vagy imperatív = parancsoló
+     + Azt fogalmazzuk meg, hogy mit (azaz hogyan) kell csinálni,
+       - nem azt, hogy mit várunk.
+*** Összehasonlítás
+**** Procedurális és deklaratív nyelvek
 | Procedurális | Deklaratív                |
 |--------------+---------------------------|
 | Értékadás    | Függvény paraméterek      |
 | Ciklus       | Függvény hívás (rekurzió) |
 | Elágazás     | Függvény deklaráció       |
-* Értékadás és mellékhatások
-** Mellékhatás
+*** Értékadás és mellékhatások
+**** Mellékhatás
    :PROPERTIES:
    :BEAMER_col: 0.5
    :BEAMER_env: block
@@ -110,48 +124,50 @@
    + Nem csak a bemenettől függ a függvény viselkedése.
    + A globális változók implicit paraméterek.
 
-** Értékadás és egyenlőség vizsgálat
-   :PROPERTIES:
-   :BEAMER_col: 0.5
-   :BEAMER_env: block
-   :END:
-   + "X legyen egyenlő öttel" illetve "X egyenlő öttel".
-   + Pascaban ":=" és "=", C-ben "=" és "==".
-   + Az egyenlőség vizsgálat egy $T\times T \to \{\uparrow, \downarrow\}$ 
-     leképezés (függvény).
-   + Az értékadás egy parancs/művelet, ami egy "jobb" és egy "bal" 
-     értékre vonatkozik, és a mellékhatása miatt használjuk.
+**** Értékadás és egyenlőség vizsgálat
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     + "X legyen egyenlő öttel" illetve "X egyenlő öttel".
+     + Pascaban ":=" és "=", C-ben "=" és "==".
+     + Az egyenlőség vizsgálat egy $T\times T \to \{\uparrow, \downarrow\}$ 
+       leképezés (függvény).
+     + Az értékadás egy parancs/művelet, ami egy "jobb" és egy "bal" 
+       értékre vonatkozik, és a mellékhatása miatt használjuk.
 
 * Nyelvek
-** Nyelvek tanulmányozása
-   + Noam Chomsky
-   + Természetes nyelvek (Angol, Magyar, Német, Szerb stb)
-   + Programozási nyelvek (C, Pascal, Java, Prolog stb.)
-   + Formális nyelvek = eszköz a nyelvek vizsgálásához, elemzéséhez, és 
-     segédeszköz a fordítók írásánál
 ** Formális nyelvek
-   + $\mathcal L\subset A^*$ nyelv, ahol az $A^*$ az $A$ ábécé betűiből alkotott
-     véges szavak halmaza vagyis.
-     $A^*=\{a_1a_2\cdots a_n| a_i \in A, 1\le i \le n, n\in \mathbb{N}\}$
-   + $G$ (formális) grammatika, egy szabályrendszer amely generálja az 
-     $\mathcal L$ nyelvet.
-* Formális nyelvek
-** Konkatenáció
-   + Az $A^*$ szavakon értelmezett az "egymásután írás", azaz konkatenáció
-     művelete
-   + az $abc$ és $xyz$ (ilyen sorrendben való) konkatenációja (egymásután írása)
-     az $abcxyz$ szó
-   + A konkatenációt a szorzással, azaz "$\cdot$" (vagy semmivel) szokták 
-     jelölni
-** Az üres szó az egység elem
-   + $\varepsilon$ jelöli az üres szót
-   + $\varepsilon$ az konkatenáció egységeleme mivel $\forall\alpha\in A^*$ szóra 
-     $\alpha = \varepsilon \alpha = \alpha \varepsilon$
-   + $A^+ = A^* \setminus \{\varepsilon\}$ a legalább egy hosszú szavak halmaza
-   + $(A^*,\cdot,\varepsilon)$ szabad egységelemes félcsoportot alkot 
-     (ld. free monoid)
-* Extended Backus–Naur Form (EBNF)
-** EBNF nyelv leíró szabvány
+*** Nyelvek
+**** Nyelvek tanulmányozása
+     + Noam Chomsky
+     + Természetes nyelvek (Angol, Magyar, Német, Szerb stb)
+     + Programozási nyelvek (C, Pascal, Java, Prolog stb.)
+     + Formális nyelvek = eszköz a nyelvek vizsgálásához, elemzéséhez, és 
+       segédeszköz a fordítók írásánál
+**** Formális nyelvek
+     + $\mathcal L\subset A^*$ nyelv, ahol az $A^*$ az $A$ ábécé betűiből alkotott
+       véges szavak halmaza vagyis.
+       $A^*=\{a_1a_2\cdots a_n| a_i \in A, 1\le i \le n, n\in \mathbb{N}\}$
+     + $G$ (formális) grammatika, egy szabályrendszer amely generálja az 
+       $\mathcal L$ nyelvet.
+*** Formális nyelvek
+**** Konkatenáció
+     + Az $A^*$ szavakon értelmezett az "egymásután írás", azaz konkatenáció
+       művelete
+     + az $abc$ és $xyz$ (ilyen sorrendben való) konkatenációja (egymásután írása)
+       az $abcxyz$ szó
+     + A konkatenációt a szorzással, azaz "$\cdot$" (vagy semmivel) szokták 
+       jelölni
+**** Az üres szó az egység elem
+     + $\varepsilon$ jelöli az üres szót
+     + $\varepsilon$ az konkatenáció egységeleme mivel $\forall\alpha\in A^*$ szóra 
+       $\alpha = \varepsilon \alpha = \alpha \varepsilon$
+     + $A^+ = A^* \setminus \{\varepsilon\}$ a legalább egy hosszú szavak halmaza
+     + $(A^*,\cdot,\varepsilon)$ szabad egységelemes félcsoportot alkot 
+       (ld. free monoid)
+*** Extended Backus–Naur Form (EBNF)
+**** EBNF nyelv leíró szabvány
 | *Szabály*  | *Jelölés* | *Szabály*     | *Jelölés*      |
 |------------+-----------+---------------+----------------|
 | /          | >         |               |                |
@@ -159,26 +175,29 @@
 | utána írás | ,         | ismétlődő     | {..}           |
 | vége       | ;         | csoportosítás | (..)           |
 | vagy       | $\vert$   | string        | '..' vagy ".." |
-** Természetes pozitív szám
-   + ~pos := nonzero, {digit};~
-   + ~nonzero := '1' | '2' | ... | '9';~
-   + ~digit := '0' | nonzero;~
-** Egész szám
-   + ~int := 0 | [ '+' | '-' ], pos;~
+**** Természetes pozitív szám
+     + ~pos := nonzero, {digit};~
+     + ~nonzero := '1' | '2' | ... | '9';~
+     + ~digit := '0' | nonzero;~
+**** Egész szám
+     + ~int := 0 | [ '+' | '-' ], pos;~
 
-* Prolog alap fogalmai ismertetése
-** Változók
-   + Nagybetűvel vagy aláhúzással "~_~" kezdődnek
-     - Például: A, Student, _head
-** Konstansok
-   + Atomok (string konstans): kisbetűvel kezdődnek, betűt, számot vagy aláhúzást tartalmaznak "~_~", vagy
-     aposztrófok közötti tetszőleges karakterek.
-     - Például: a, almaFa, mogyoro_bokor, 'Sárga Rigó'
-   + Sámok: ..., -2, -1, 0, 1, 2, ... 
-     - A valós számok nem olyan érdekesek
-** Összetett termek
-   + Aritás, a paraméterek száma.
-* Tudásbázis 1 =kb1.pl=
+* Prolog
+** Bevezető
+*** Prolog alap fogalmai ismertetése
+**** Változók
+     + Nagybetűvel vagy aláhúzással "~_~" kezdődnek
+       - Például: A, Student, _head
+**** Konstansok
+     + Atomok (string konstans): kisbetűvel kezdődnek, betűt, számot vagy aláhúzást tartalmaznak "~_~", vagy
+       aposztrófok közötti tetszőleges karakterek.
+       - Például: a, almaFa, mogyoro_bokor, 'Sárga Rigó'
+     + Sámok: ..., -2, -1, 0, 1, 2, ... 
+       - A valós számok nem olyan érdekesek
+**** Összetett termek
+     + Aritás, a paraméterek száma.
+** Gyakorlás
+*** Tudásbázis 1 =kb1.pl=
 #+BEGIN_SRC prolog :tangle kb1.pl
   % -*- mode: prolog -*-
   % ez egy comment
@@ -189,13 +208,13 @@
   playsAirGuitar(jody). 
   party.
 #+END_SRC
-** Tudásbázis beolvasása
-   + Prolog elindítása: SWI-Prolog a startmenüben Windowsban, vagy
-     Linuxban terminálból a =prolog= paranccsal.
-   + Tudásbázis beolvasása: a futó Prolog-ban 
-     "=[kb1].=" vagy "=['/path/to/kb1.pl'].=" vagy 
-     =File>Consult file= (csak a Windowsos Prologban).
-* Lekérdezések
+**** Tudásbázis beolvasása
+     + Prolog elindítása: SWI-Prolog a startmenüben Windowsban, vagy
+       Linuxban terminálból a =prolog= paranccsal.
+     + Tudásbázis beolvasása: a futó Prolog-ban 
+       "=[kb1].=" vagy "=['/path/to/kb1.pl'].=" vagy 
+       =File>Consult file= (csak a Windowsos Prologban).
+*** Lekérdezések
 #+BEGIN_SRC prolog
   ?- [kb1]. 
   ?- woman(mia).
@@ -213,7 +232,7 @@
   ?- rockConcert.
   false. % (vagy error)
 #+END_SRC
-* Tudásbázis 2 =kb2.pl=
+*** Tudásbázis 2 =kb2.pl=
 #+BEGIN_SRC prolog :tangle kb2.pl
   % -*- mode: prolog -*-
   happy(yolanda). 
@@ -222,7 +241,7 @@
   playsAirGuitar(mia)     :-  listens2Music(mia). 
   playsAirGuitar(yolanda) :-  listens2Music(yolanda).
 #+END_SRC
-* Lekérdezések
+*** Lekérdezések
 #+BEGIN_SRC prolog
   ?- playsAirGuitar(mia).
   true.
@@ -230,7 +249,7 @@
   ?- playsAirGuitar(yolanda).
   true.
 #+END_SRC
-* Tudásbázis 3 =kb3.pl=
+*** Tudásbázis 3 =kb3.pl=
 #+BEGIN_SRC prolog :tangle kb3.pl
   % -*- mode: prolog -*-
   happy(vincent). 
@@ -247,7 +266,7 @@
   playsAirGuitar(butch):- 
       listens2Music(butch).
 #+END_SRC
-* Lekérdezések
+*** Lekérdezések
 #+BEGIN_SRC prolog
   ?- playsAirGuitar(vincent).
   false.
@@ -255,12 +274,12 @@
   ?- playsAirGuitar(butch).
   true.
 #+END_SRC
-** Konjunkció és diszjunkció
-   | Logika  | Magyar | Prolog            |
-   |---------+--------+-------------------|
-   | $\land$ | és     | , (vessző)        |
-   | $\lor$  | and    | ; (pontos vessző) |
-* Tudásbázis 4 =kb4.pl=
+**** Konjunkció és diszjunkció
+     | Logika  | Magyar | Prolog            |
+     |---------+--------+-------------------|
+     | $\land$ | és     | , (vessző)        |
+     | $\lor$  | and    | ; (pontos vessző) |
+*** Tudásbázis 4 =kb4.pl=
 #+BEGIN_SRC prolog :tangle kb4.pl
   % -*- mode: prolog -*-
   woman(mia). 
@@ -272,7 +291,7 @@
   loves(pumpkin,honey_bunny). 
   loves(honey_bunny,pumpkin).
 #+END_SRC
-* Lekérdezések
+*** Lekérdezések
 #+BEGIN_SRC prolog
   ?- woman(X).
   X  =  mia  ; 
@@ -283,8 +302,8 @@
   X = mia.
 #+END_SRC
 
-* Tudásbázis 5 =kb5.pl=
-** =kb5.pl=
+*** Tudásbázis 5 =kb5.pl=
+**** =kb5.pl=
 #+BEGIN_SRC prolog :tangle kb5.pl
   % -*- mode: prolog -*-
   loves(vincent,mia). 
@@ -294,14 +313,14 @@
 
   jealous(X,Y):-  loves(X,Z),  loves(Y,Z).
 #+END_SRC
-** Lekérdezések
+**** Lekérdezések
 #+BEGIN_SRC prolog
   ?-  jealous(marsellus,W).
   W  =  vincent.
 #+END_SRC
 
-* Tudásbázis 6 
-** =family.pl=
+*** Tudásbázis 6 
+**** =family.pl=
 #+BEGIN_SRC prolog :tangle family.pl
   % -*- mode: prolog -*-
   parent('Imre','István').
@@ -315,7 +334,7 @@
       parent(Child, Parent),
       parent(Parent, GrandParent).
 #+END_SRC
-** Lekérdezés
+**** Lekérdezés
 #+BEGIN_SRC 
   ?- granparent('Imre',X).
 #+END_SRC
