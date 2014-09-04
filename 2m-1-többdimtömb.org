@@ -1,0 +1,128 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Többdimenziós tömbök
+
+* Többdimenziós tömbök 
+** Deklaráció
+*** Szintaxis
+**** Egydimenziós tömbök
+#+BEGIN_SRC pascal
+  var 
+    A : array [1..10] of integer;
+    B : array [1..20] of real;
+#+END_SRC
+**** Általános definíció
+#+BEGIN_SRC pascal
+  var 
+    TÖMBNÉV : array [1..10] of TÍPUS;
+#+END_SRC
+**** Többdimenziós tömb
+     - "tömbök tömbje" vagy két index tartomány  
+     - például =array[1..5] of array [1..6] of integer;=
+     - vagy =array [1..5,1..6] of integer=
+*** Tagok elérése
+**** Több indexű tömb
+     - =A[i,j]= vagy
+**** Tömbök tömbje
+     - =A[i]= egy résztömb (j. oszlopa), =A[i][j]= az elem (i. sor j. oszlop)
+**** Több dimenziós tömböknél hasonlóan
+     - =S : array[1..10] of array[1.20] of array[1.30] of real;=
+     - ~S[1,2,3]=S[1][2][3]~
+* Konstansok és típusok
+** Deklaráció
+** Szintaxis
+**** Konstans deklarációk
+    - Általában a =var= előtt (a =program= után)
+    - =const KONSTANSNÉV = ÉRTÉK=
+**** Típus deklarációk
+    - Általában a =const= és a =var= között
+    - =type TÍPUSNÉV = TÍPUS=
+**** Példa
+#+BEGIN_SRC pascal :tangle pascal/2m-1-const-type.pas
+  { -*- mode: pascal; compile-command: "fpc 2m-1-const-type.pas && ./2m-1-const-type.pas" -*- }
+  program typedemo;
+  const
+     MAXDIM = 1000;
+  type
+     Matrix = array[1..MAXDIM] of array[1..MAXDIM] of integer;
+  begin {...} end.
+#+END_SRC
+*** Konstansok és típus nevek
+**** Konstansok
+     - A programban többször használt konstansok elnevezése
+     - Előfordulhat, hogy nem lehet változót használni.
+       - Például a tömb méretei
+     - Ha többször használjuk egy programban, és javítani kell, 
+       akkor előfordulhat, hogy hibázunk, rosszul javítjuk
+     - Ha konstansnak deklaráljuk, akkor csak a definíciónál kell 
+       módosítani
+**** Összetett típusok elnevezése
+     - A konstansokkal értékeket lehet elnevezni, típusokat nem
+     - A típusokat is többször használhatjuk és az iméntiek
+       itt is érvényesek
+     - Ezen felül, egy összetett típust hosszú legépelni
+* Gyakorlás
+*** Feladatok
+**** Írjunk ki egy véletlen egészekkel feltöltött mátrixot
+     - Külön eljárással töltsük fel a mátrixot: =RandMat()=
+     - Külön eljárással írjuk ki: =WriteMat()=
+     - A mátrix legyen $\mathbb{Z}^{n\times n}$ és $n$ legyen konstans
+     - Használjunk =type= elnevezést a mátrixra
+     - A mátrix elemeire teljesüljön az hogy $1\le$ és $\le100$
+*** Megoldás (randmat-decl)
+#+NAME: randmat-decl 
+#+BEGIN_SRC pascal
+  program randmat;
+  const
+     MAXDIM = 5;
+  type
+     matrix = array[1..MAXDIM] of array[1..MAXDIM] of integer;
+
+#+END_SRC
+*** Megoldás (randmat-randmat)
+#+NAME: randmat-randmat 
+#+BEGIN_SRC pascal
+  function randmat : matrix;
+  var 
+     i,j : integer;
+  begin
+     randomize;
+     for i := 1 to MAXDIM do
+        for j := 1 to MAXDIM do
+           randmat[i][j] := random(100)+1;
+  end;
+#+END_SRC
+*** Megoldás (randmat-writemat)
+#+NAME: randmat-writemat
+#+BEGIN_SRC pascal
+  procedure writemat(M : matrix);
+  var i,j : integer;
+  begin
+     for j := 1 to MAXDIM do begin
+        for i := 1 to MAXDIM do begin
+           write(M[i][j]:3);
+           write(' ');
+        end;
+        writeln;
+     end;
+  end;
+#+END_SRC
+*** Megoldás (randmat)
+#+BEGIN_SRC pascal :tangle pascal/2m-1-randmat.pas :noweb no-export
+  <<randmat-decl>>
+  <<randmat-randmat>>
+  <<randmat-writemat>>
+  var A : matrix;
+  begin
+     A := randmat;
+     writemat(A);
+  end.
+
+#+END_SRC
+*** Feladat
+**** Mátrix szorzás
+     - Töltsünk fel két mátrixot véletlen egészekkel
+     - Írjunk függvényt ami kiszámolja a szorzatukat

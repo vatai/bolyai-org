@@ -1,7 +1,8 @@
 *.pdf
 *.tex
 *~
-*.pl
-*.pas
-*.asm
 ignored
+*.vrb
+pascal/*
+!pascal/*.pas
+*.o
