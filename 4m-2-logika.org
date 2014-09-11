@@ -5,35 +5,146 @@
 #+DATE: 2014-2015
 #+TITLE: Logika bevezető
 
-* Logika tárgya
+* Bevezető
+** Általános
+*** Logika tárgya
 Logikai alapozás alkalmazásokhoz - Pásztorné Varga Katalin - ELTE Budapest 1997
-** A logika tárgya a gondolkodás!
-   + A logika a megismerés feltételeit vizsgálja
-   + A logika mint a helyes gondolkodási és következtetési formák kidolgozója, segíti az egyes tudományokat a valóság megismerésében, a megismert tényekből való helyes következtetések elérésében.
-** A logika feladata
-   + A logika feladataa helyes gondolkodásformák és a helyes következtetési szabályok kidolgozása.  
-   + A logika a gondolkodás tárgyát képező konkrét problémáktól, tartalmi információktól függetleníti magát és a gondolkodásban résztvevő elemek vagy megállapítások közös, a következtetések szempontjából lényeges tartalmat használj fel.
-* Logika felépítése
+**** A logika tárgya a gondolkodás!
+     + A logika a megismerés feltételeit vizsgálja
+     + A logika mint a helyes gondolkodási és következtetési formák kidolgozója, segíti az egyes tudományokat a valóság megismerésében, a megismert tényekből való helyes következtetések elérésében.
+**** A logika feladata
+     + A logika feladata helyes gondolkodásformák és a helyes következtetési szabályok kidolgozása.  
+     + A logika a gondolkodás tárgyát képező konkrét problémáktól, tartalmi információktól függetleníti magát és a gondolkodásban résztvevő elemek vagy megállapítások közös, a következtetések szempontjából lényeges tartalmat használj fel.
 ** Alapfogalmak
-   + Igazságértékek $\mathbb{L}=\{\text{igaz},\text{hamis}\}$
-     | igaz  | $i$ | $\uparrow$   | 1 | $\top$  | true  | T |
-     | hamis | $h$ | $\downarrow$ | 0 | $\perp$ | false | F |
-   + Logikai műveletek
-     | és         | vagy        | nem     | ha, .. akkor  | akk. és csak akk. |
-     | konjunkció | diszjunkció | negáció | implikáció    | ekvivalencia      |
-     | $\land$    | $\lor$      | $\lnot$ | $\Rightarrow$ | $\Leftrightarrow$ |
-   + Egy $U$ alaphalmaz/univerzum, ami a vizsgált elemeket tartalmazza
-     - Például: $U=\mathbb{N}$ vagy $U=\{\text{a 4m osztály diákjai}\}$
-* 0-ad rendű logika
-** Predikátumok
-   + Összekötik a vizsgálandó ($U$-beli) elemeket logikai értékekkel.
-   + $P\colon U^n \to \mathbb{L}$ (C-ben =bool P(U t1, ..., U tn);=)
-   + Állításoknak felel meg
-     - Példa: $P(x,y)=$ $x$ osztója $y$-nak, $R(x)=$ $x$ nő
-** Term (tagok, értékek, konstansok)
-   + Egy elméletben az elemek között kapcsolat van (függvények)
-   + Jólformált term:
-     - Egy $x$ változó szimbólum
-     - Ha $f$ egy $n$-változós függvényszimbólum, $t_1$, ..., $t_n$ termek, akkor 
-       $f(t_1,\ldots,t_n)$ is term.
-     - Minden term az előző két szabály véges sokszori alkalmazásával áll elő.
+*** Igazságérték, műveletek, univerzum
+**** Alapfogalmak
+     + Igazságértékek $\mathbb{L}=\{\text{igaz},\text{hamis}\}$
+       | igaz  | $i$ | $\uparrow$   | 1 | $\top$  | true  | T |
+       | hamis | $h$ | $\downarrow$ | 0 | $\perp$ | false | F |
+       - Az $A\in \mathbb{L}$ változók ítélet változók
+     + Logikai műveletek
+       | és         | vagy        | nem     | ha, .. akkor  | akk. és csak akk. |
+       | konjunkció | diszjunkció | negáció | implikáció    | ekvivalencia      |
+       | $\land$    | $\lor$      | $\lnot$ | $\rightarrow$ | $\leftrightarrow$ |
+     + Egy $U$ alaphalmaz/univerzum, ami a vizsgált elemeket tartalmazza
+       - Például: $U=\mathbb{N}$ vagy $U=\{\text{a 4m osztály diákjai}\}$
+     + Az $x\in U$ változókat individuum változók 
+*** Predikátumok és termek
+**** Term (tagok, értékek, konstansok)
+     + Egy elméletben az elemek között kapcsolat van (függvények)
+     + Jólformált term:
+       1) Egy $x$ (individuum) változó szimbólum.
+       2) Ha $f$ egy $n$-változós függvényszimbólum, $t_1$, ..., $t_n$ termek, akkor 
+       	 $f(t_1,\ldots,t_n)$ is term.
+       3) Minden term az előző két szabály véges sokszori alkalmazásával áll elő.
+**** Predikátumok
+     + Összekötik a vizsgálandó ($U$-beli) elemeket logikai értékekkel.
+     + $P\colon U^n \to \mathbb{L}$ (C-ben =bool P(U t1, ..., U tn);=)
+     + Állításoknak felelnek meg.
+*** Példák. Legyen $U=\mathbb{N}$
+**** Termek
+     + Az aritmetikai műveletek, pl $+,-,\times,/$, kétváltozós (két aritású) termeknek felelnek meg.
+     + Az $1+2$ helyett írhatunk, $+(1,2)$-t is. 
+#       - Innen látszik hogy az $f\gets +$, $t_1\gets 1$, 
+#         $t_2\gets 2$ megfeleltetéssel megkapjuk a definíciók
+     + Az négyzetgyökvonás vagy az "előjel váltás" (azaz $-1$-gyel
+       való szorzás) egyváltozós, egy aritású műveletek
+**** Predikátumok
+     - $P(x,y)$ pontosan akkor igaz, ha $x$ osztója $y$-nak
+       - $P(2,3)=\perp$, $P(2,4)=\top$
+     - $Q(x)$ pontosan akkor igaz, ha $x$ páros
+     - $S(x,y,z)$ pontosan akkor igaz ha $x^2+y^2=c^2$
+** Műveletek
+*** Kétváltozós (2-aritású)
+**** Konjunkció, diszjunkció
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+     
+| $\land$ | $\top$  | $\perp$ |
+|---------+---------+---------|
+| /       | <       |         |
+| $\top$  | $\top$  | $\perp$ |
+| $\perp$ | $\perp$ | $\perp$ |
+    
+| $\lor$  | $\top$ | $\perp$ |
+|---------+--------+---------|
+| /       | <      |         |
+| $\top$  | $\top$ | $\top$  |
+| $\perp$ | $\top$ | $\perp$ |
+
+**** Implikáció, ekvivalencia
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+| $\rightarrow$ | $\top$ | $\perp$ |
+|---------------+--------+---------|
+| /             | <      |         |
+| $\top$        | $\top$ | $\perp$ |
+| $\perp$       | $\top$ | $\top$  |
+
+| $\leftrightarrow$ | $\top$  | $\perp$ |
+|-------------------+---------+---------|
+| /                 | <       |         |
+| $\top$            | $\top$  | $\perp$ |
+| $\perp$           | $\perp$ | $\top$  |
+
+*** Kétváltozós (1-aritású)
+**** Negáció
+| $A$     | $\lnot A$ |
+|---------+-----------|
+| $\top$  | $\perp$   |
+| $\perp$ | $\top$    |
+
+* Különböző rendű logikák
+** Bevezetés
+*** Miért vannak különböző rendű logikák?
+    - A rend a kifejező erőt jelöli
+    - 0-adrendű logika egyszerű állítások, melyekről egyértelműen eldönthető, hogy igaz vagy hamis
+    - Elsőrendű logika: 0-adrendű + minden és létezik kvantor
+      - Az univerzumról is mond valamit
+    - Másod rendű logika: elsőrendű + predikátum változók is kvantálhatók
+      - Ezzel nem nagyon foglalkozunk
+      - lásd példa később
+** 0-adrendű logika
+*** Definíció
+**** A 0-adrendű logika jólformált formulái:
+    1) Ha $P$ egy $n$ változós ($n$-aritású) predikátumszimbólum
+       $t_1,t_2,\ldots,t_n$ termek, akkor $P(t_1,t_2,\ldots,t_n)$
+       jólformált formula (atomi formula).
+    2) Ha $A$ és $B$ jólformált formulák akkor
+       $A\land B$, $A \lor B$, $A \rightarrow B$, 
+       $A \leftrightarrow B$, $\lnot B$ és $(A)$ is jólformált formula.
+    3) Minden jólformált formula az előző szabályok véges sokszori alkalmazásával áll elő.
+** Elsőrendű logika
+*** Definíció
+**** A elsőrendű logika jólformált formulái:
+     1) Ha $P$ egy $n$ változós ($n$-aritású) predikátumszimbólum
+       	$t_1,t_2,\ldots,t_n$ termek, akkor $P(t_1,t_2,\ldots,t_n)$
+       	jólformált formula (atomi formula).
+     2) Ha $A$ és $B$ jólformált formulák akkor
+       	$A\land B$, $A \lor B$, $A \rightarrow B$, 
+       	$A \leftrightarrow B$, $\lnot B$ és $(A)$ is jólformált formula.
+     3) Ha $A$ jólformált formula, $x$ egy individuum változó, 
+        akkor $\forall x A$ és $\exists x A$ jólformált formulák
+	(rendre univerzális egzisztenciális illetve közös 
+        elnevezéssel kvantált formulák).
+     4) Minden jólformált formula az előző szabályok véges sokszori alkalmazásával áll elő.
+** Másodrendű logika 
+*** Definíció
+**** Másodrendű logika formulái
+     - A másodrendű logika annyiban bővíti az elsőrendű logikát,
+       hogy a 3) szabályban az $x$ változó egyaránt lehet 
+       individuum és predikátum változó is.
+     - A(z $n$ változós) predikátum változók ekvivalensek a(z $n$
+       szeres) direkt-szorzattal, ugyanis:
+       - a $P(t_1,t_2,\ldots,t_n)=\top$ pontosan akkor, 
+	 $(t_1,t_2,\ldots,t_n)\in U'\subset U^n$ definícióból
+	 látszik, hogy a $P$ predikátum és az $U'\subset U^n$ 
+         részhalmaz kölcsönösen meghatározzák egymást
+*** Példa és alkalmazás
+**** Példa
+     - Legyen az univerzum $U=\mathbb{R}$
+     - $\forall H (\exists x )$

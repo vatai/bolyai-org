@@ -191,7 +191,7 @@
 **** Konstansok
      + Atomok (string konstans): kisbetűvel kezdődnek, betűt, számot vagy aláhúzást tartalmaznak "~_~", vagy
        aposztrófok közötti tetszőleges karakterek.
-       - Például: a, almaFa, mogyoro_bokor, 'Sárga Rigó'
+       - Például: ~a~, ~almaFa~, =mogyoro_bokor=, 'Sárga Rigó'
      + Sámok: ..., -2, -1, 0, 1, 2, ... 
        - A valós számok nem olyan érdekesek
 **** Összetett termek
