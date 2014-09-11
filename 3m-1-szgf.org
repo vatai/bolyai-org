@@ -87,7 +87,7 @@
      - Több memória címezhető (és érhető el) ha nem csak 1 regisztert használunk
        - pl Memória cím = (bázis regiszter)*10h + (cím regiszter)
        - és így már van komoly 1Mbyte
-*** DMI
+*** DMA
 **** Direct memory access
      - Közvetlen memória elérés
      - A CPU indítja a memória átvitelt egy eszköz (pl HDD vagy GPU) és a RAM között
