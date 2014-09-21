@@ -207,3 +207,14 @@ begin
 end.
 
 #+END_SRC
+*** Feladat
+**** Tetszőleges méretű mátrix szorzás
+     - Valósítsuk meg a *mátrix szorzást*, 
+     - *tetszőleges* $n\times n$ méretű mátrixokra, ahol 
+     - az $n$ értékét a felhasználó *olvassa be*.
+     - (A többi feltétel hasonló mint az előző feladatnál).
+*** Megoldás (mulnmat-decl)
+*** Megoldás (mulnmat-randnmat)
+*** Megoldás (mulnmat-mulnmat)
+*** Megoldás (mulnmat-writenmat)
+*** Megoldás (mulnmat)

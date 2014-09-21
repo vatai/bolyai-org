@@ -8,7 +8,6 @@ function randmat : matrix;
 var 
    i,j : integer;
 begin
-   randomize;
    for i := 1 to N do
       for j := 1 to N do
          randmat[i,j] := random(100)+1;
@@ -25,6 +24,7 @@ begin
 end;
 var A : matrix;
 begin
+   randomize;
    A := randmat;
    writemat(A);
 end.

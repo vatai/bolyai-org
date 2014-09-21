@@ -1,30 +1,23 @@
-program randmat;
-const 
-   N =  4;
-type 
-   matrix = array[1..N,1..N] of integer;
+program unittest;
 
-function randmat : matrix;
-var
-   i,j : integer;
-begin
-   for i:=1 to N do
-      for j:=1 to N do
-	 randmat[i,j] := random(100)+1;
-end;
+uses utest;  { <------ USES }
 
-procedure writemat(m : matrix);
 var
-   i,j : integer;
+   x : integer ;
 begin
-   for i:=1 to N do begin
-      for j:=1 to N do write(m[i,j]:3);
-      writeln;
-   end;
-end;
-var
-   a : matrix;
-begin
-   a := randmat;
-   writemat(a);
+   writeln('-----------------');
+   uproc;   { <--- ez a 'utest' unitból jött!}
+   x := mul(13,14);
+   writeln(x);
 end.
+
+{ 
+írni még egy programot, hogy használja az
+első példa unitot.
+---
+  Át kell írni a matmul programo hogy
+  unitot használjon!
+Például:
+matmul2.pas - a főprogram
+mmunit.pas - a 'unit rész'
+}

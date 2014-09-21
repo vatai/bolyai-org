@@ -5,11 +5,11 @@ var
    i,j : integer;
 begin
    randomize; 
-   for j:=1 to 4 do       {-----Feltöltés}
-      for i:=1 to 4 do
+   for i:=1 to 4 do       {-----Feltöltés}
+      for j:=1 to 4 do
          M[i,j] := random(10);
-   for j:=1 to 4 do begin {-----Kiírás}
-      for i:=1 to 4 do 
+   for i:=1 to 4 do begin {-----Kiírás}
+      for j:=1 to 4 do 
          write(M[i,j]:3);
       writeln; 
    end;
