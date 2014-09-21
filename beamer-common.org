@@ -11,3 +11,7 @@
 #+LATEX_HEADER: \usepackage[]{babel}
 #+LATEX_HEADER: \usepackage{lmodern}
 
+#+LATEX_CLASS_OPTIONS: [10pt,a4paper,xcolor=dvipsnames,xcolor=table]
+#+LATEX_HEADER: \definecolor{pmsGreen}{RGB}{0,156,121}
+#+BEAMER_HEADER: \setbeamercolor{math text}{fg=pmsGreen}
+#+BEAMER_HEADER: \setbeamercolor{math text displayed}{fg=pmsGreen}
