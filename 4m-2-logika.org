@@ -4,7 +4,10 @@
 #+INCLUDE: "beamer-common.org"
 #+DATE: 2014-2015
 #+TITLE: Logika bevezető
-
+#+LATEX_HEADER: \def\tru{\top}
+#+LATEX_HEADER: \def\fls{\perp}
+#+LATEX_HEADER: \def\iff{\Leftrightarrow}
+#+LATEX_CLASS_OPTIONS: [xcolor=dvipsnames]
 * Bevezető
 ** Általános
 *** Logika tárgya
@@ -132,6 +135,19 @@ Logikai alapozás alkalmazásokhoz - Pásztorné Varga Katalin - ELTE Budapest 1
 	(rendre univerzális egzisztenciális illetve közös 
         elnevezéssel kvantált formulák).
      4) Minden jólformált formula az előző szabályok véges sokszori alkalmazásával áll elő.
+*** Hatáskör, Változó előfordulása
+**** Definíció
+    - Ha $Q$ egy kvantor ($\forall$ vagy $\exists$) és $x$ egy individuumváltozó, akkor
+      az $Q$ hatásköre az $Qx$-et követő legszűkebb részformula.
+    - Legyen $A$ egy formula és $x$ egy változója, akkor
+    - Az $x$ változó egy *előfordulása szabad* az $A$-ban, ha nem esik $x$-re vonatkozó kvantor hatáskörébe.
+    - Az $x$ változó egy *előfordulása kötött* az $A$-ban, ha  $x$-re vonatkozó kvantor hatáskörébe esik.
+    - Az $x$ változó *kötött* az $A$-ban, ha minden előfordulása kötött.
+    - Az $x$ változó *szabad* az $A$-ban, ha minden előfordulása szabad.
+    - Az $x$ változó vegyes előfordulású, ha van szabad és kötött előfordulása is.
+    - Az $A$ formula *zárt formula*, vagy mondat, ha minden változója kötött.
+    - Az $A$ formula *nyitott formula*, ha legalább egy változójának van szabad előfordulása.
+    - Az $A$ formulát *kvantormentes formula*, ha minden változója szabad.
 ** Másodrendű logika 
 *** Definíció
 **** Másodrendű logika formulái
@@ -144,7 +160,250 @@ Logikai alapozás alkalmazásokhoz - Pásztorné Varga Katalin - ELTE Budapest 1
 	 $(t_1,t_2,\ldots,t_n)\in U'\subset U^n$ definícióból
 	 látszik, hogy a $P$ predikátum és az $U'\subset U^n$ 
          részhalmaz kölcsönösen meghatározzák egymást
+*** Példa 2.
+**** Példa 
+     - Legyen az univerzum $U=\mathbb{N}$ !
+     - $\forall P ([{\color{Magenta} P(0)} \land {\color{CornflowerBlue}\forall y (P(y) \Rightarrow P(y+1))}] \Rightarrow \forall x P(x))$
+     - Mit fejez ez ki?
+#+BEAMER: \pause
+     - Teljes indukció!
 *** Példa és alkalmazás
 **** Példa
-     - Legyen az univerzum $U=\mathbb{R}$
-     - $\forall H (\exists x )$
+     - Legyen az univerzum $U=\mathbb{R}$ !
+     \begin{align*}
+     &  \forall A ( [{\color{red}\exists w (w \in A)} \land 
+       {\color{green}\exists z (\forall u (u\in A \Rightarrow u\le z ))}] \Rightarrow \\
+     &{\color{blue}\exists x (\forall y [\forall w (w \in A \Rightarrow w\le y) 
+       \Leftrightarrow (x\le y)])})
+     \end{align*}
+#+BEAMER: \pause
+     - Minden ${\color{red}\text{nem üres}}$, ${\color{green}\text{korlátos}}$ $A$ halmaznak ${\color{blue}\text{van legkisebb felső korlátja}}$.
+** Szabályok
+*** 0-adrendű logika néhány szabálya
+**** Szabályok
+   | $A \land  B \iff  B \land  A$, $A \lor  B \iff  B \lor  A$    | kommutativitás   |
+   | $( A \land  B) \land  C \iff  A \land ( B \land  C)$          | asszociativitás  |
+   | $( A \lor  B) \lor  C \iff  A \lor ( B \lor  C)$              | asszociativitás  |
+   | $A\land ( B \lor  C) \iff ( A \land  B ) \lor ( A \land  C)$, | disztributivitás |
+   | $A\lor ( B \land  C) \iff ( A \lor  B ) \land ( A \lor  C)$   | disztributivitás |
+   | $A\land( A \lor  B) \iff  A$, $A\lor( A \land  B)\iff  A$     |                  |
+   | $A\land A\iff A$, $A\lor A\iff A$                             | idempotencia     |
+   | $A\lor\lnot A$                                                |                  |
+   | $\lnot( A\land\lnot A)$                                       |                  |
+   | $\lnot(\lnot( A))\iff A$                                      |                  |
+*** 0-adrendű logika néhány szabálya
+**** Szabályok
+   | $A\land\tru\iff A$                                                         |          |
+   | $A\land\fls\iff\fls$                                                       |          |
+   | $A\lor\tru\iff\tru$                                                        |          |
+   | $A\lor\fls\iff A$                                                          |          |
+   | $\lnot( A\land B)\iff\lnot A\lor\lnot B$                                   | DeMorgan |
+   | $\lnot( A\lor B)\iff\lnot A\land\lnot B$                                   | DeMorgan |
+   | $A\Rightarrow B \iff \lnot B \Rightarrow \lnot  A$                         |          |
+   | $( A\Rightarrow B)\land A \Rightarrow  B$                                  |          |
+   | $( A\Rightarrow B)\land\lnot B \Rightarrow \lnot  A$                       |          |
+   | $( A\Rightarrow  B) \land ( B\Rightarrow C) \Rightarrow ( A\Rightarrow C)$ |          |
+   | $(( A\Rightarrow B)\land( B\Rightarrow A))\iff( A\iff B)$                  |          |
+*** Szabály bizonyítása
+**** Igazságtáblával
+    | $A$  | $B$  | $(A\land B)$ | $\lnot(A\land B)$ | $\lnot A$ | $\lnot B$ | $\lnot A \lor \lnot B$ |
+    | \tru | \tru | \tru         | $\fls$            | $\fls$    | $\fls$    | $\fls$                 |
+    | \tru | $\fls$ | $\fls$         | \tru              | $\fls$      | \tru      | \tru                   |
+    | $\fls$ | \tru | $\fls$         | \tru              | \tru      | $\fls$      | \tru                   |
+    | $\fls$ | $\fls$ | $\fls$         | \tru              | \tru      | \tru      | \tru                   |
+*** Elsőrendű logika néhány szabálya
+**** Szabályok
+    1) $\lnot\forall x P(x) \iff \exists x \lnot P(x)$
+    2) $\lnot\exists x P(x) \iff \forall x \lnot P(x)$
+    3) $\forall x \forall y P(x,y) \iff \forall y \forall x P(x,y)$
+    4) $\exists x \exists y P(x,y) \iff \exists y \exists x P(x,y)$
+    5) $\exists x \forall y P(x,y) \Rightarrow \forall y \exists x P(x,y)$
+* Normál formák
+** Speciális alakú formulák
+*** Literálok, elemi diszjunkciók és konjunkciók
+**** Definíció
+     - Ítélet változók, predikátumok (azaz prímformulák) vagy ezeknek 
+       negáltjai *literálok*. A literál alapja a prímformula jele.
+     - *Azonos alapú literálok* azok a literálok, amelyek ugyanazt a 
+       prímformulát tartalmazzák.
+     - *Különböző literálok* különböző alapú literálok.
+     - *Elemi konjunkciónak* nevezzük különböző literálok konjunkcióját.
+     - *Elemi diszjunkciónak* (vagy *klózoknak*) nevezzük különböző 
+       literálok diszjunkcióját.
+     - *Diszjunktív normálforma (DNF)* elemi konjunkcióknak diszjunkciója.
+     - *Konjunktív normálforma (KNF)* elemi diszjunkcióknak konjunkciója.
+     - *Teljes elemi konjunkciónak* az olyan elemi konjunkció, amely egy 
+       formulában szereplő minden ítélet változóból alkotott literálpár
+       valamelyikét tartalmazza.
+     - *Teljes elemi diszjunkciónak* az olyan elemi diszjunkció, amely egy 
+       formulában szereplő minden ítélet változóból alkotott literálpár
+       valamelyikét tartalmazza.
+*** Normálformák 
+     - *Kitüntetett diszjunktív normálforma (KDNF)* 
+       teljes elemi konjunkcióknak diszjunkciója.
+     - *Kitüntetett konjunktív normálforma (KKNF)* 
+       teljes elemi diszjunkcióknak konjunkciója.
+**** Példák
+    - Ha $A$ ítélet változó és $P(x)$ predikátum akkor 
+      $A$, $\lnot A$, $P(x)$ és $\lnot P(x)$ literálok.
+    - $A$ és $\lnot A$ azonos, $A$ és $\lnot B$ különböző alapú literálok
+    - Legyen $\mathcal{F}=A\land(B\lor C)$
+      - $(A\land B)$, $(A\land\lnot B)$, két elemi konjunkciók, 
+      - $(\lnot A\land\lnot B\land C)$ egy teljes elemi konjunkció
+      - $(A\lor B)$, $(A\lor\lnot B)$, két elemi diszjunkciók, 
+      - $(A\lor\lnot B\lor C)$ teljes elemi diszjunkció
+      - DNF: $(A\land B)\lor (A\land\lnot B)$, KNF: $(A\lor B)\land(A\lor\lnot B)$
+      - KDNF: $(\lnot A\land\lnot B\land C)\lor(A\land\lnot B\land C)$
+      - KKNF: $(A\lor\lnot B\lor C)\land(\lor A\lor\lnot B\lor\lnot C)$
+** Alkalmazás
+*** KDNF előállítása
+**** Példa
+   | $A$    | $B$    | $C$    | $\mathcal{F}$ | telj. elemi konj.                       |
+   |        |        |        |               | <c>                                     |
+   | $\tru$ | $\tru$ | $\tru$ | $\fls$        |                                         |
+   | $\tru$ | $\tru$ | $\fls$ | $\tru$        | $(A \land B \land \lnot C)$             |
+   | $\tru$ | $\fls$ | $\tru$ | $\fls$        |                                         |
+   | $\tru$ | $\fls$ | $\fls$ | $\tru$        | $(A \land \lnot B \land \lnot C)$       |
+   | $\fls$ | $\tru$ | $\tru$ | $\tru$        | $(\lnot A \land B \land C)$             |
+   | $\fls$ | $\tru$ | $\fls$ | $\tru$        | $(\lnot A \land B \land \lnot C)$       |
+   | $\fls$ | $\fls$ | $\tru$ | $\fls$        |                                         |
+   | $\fls$ | $\fls$ | $\fls$ | $\tru$        | $(\lnot A \land \lnot B \land \lnot C)$ |
+   
+   \begin{multline*}
+   \mathcal{F} = (A \land B \land \lnot C) \lor (A \land \lnot B \land \lnot C) \lor \\
+   \lor(\lnot A \land B \land C)\lor (\lnot A \land B \land \lnot C)\lor (\lnot A \land \lnot B \land \lnot C)
+   \end{multline*}
+*** KKNF előállítása
+**** Példa (az előző példa másképp)
+   | $A$    | $B$    | $C$    | $\mathcal{F}$ | telj. elemi diszj.                    |        | $i$    | $ii$   | $iii$  | $i\land ii \land iii$ |
+   |        |        |        |               | <c>                                   |        |        |        |        | <c>                   |
+   | $\tru$ | $\tru$ | $\tru$ | $\fls$        | $(\lnot A \lor \lnot B \lor \lnot C)$ | <$i$   | $\fls$ | $\tru$ | $\tru$ | $\fls$                |
+   | $\tru$ | $\tru$ | $\fls$ | $\tru$        |                                       |        | $\tru$ | $\tru$ | $\tru$ | $\tru$                |
+   | $\tru$ | $\fls$ | $\tru$ | $\fls$        | $(\lnot A \lor B \lor \lnot C)$       | <$ii$  | $\tru$ | $\fls$ | $\tru$ | $\fls$                |
+   | $\tru$ | $\fls$ | $\fls$ | $\tru$        |                                       |        | $\tru$ | $\tru$ | $\tru$ | $\tru$                |
+   | $\fls$ | $\tru$ | $\tru$ | $\tru$        |                                       |        | $\tru$ | $\tru$ | $\tru$ | $\tru$                |
+   | $\fls$ | $\tru$ | $\fls$ | $\tru$        |                                       |        | $\tru$ | $\tru$ | $\tru$ | $\tru$                |
+   | $\fls$ | $\fls$ | $\tru$ | $\fls$        | $(A \lor B \lor\lnot C)$              | <$iii$ | $\tru$ | $\tru$ | $\fls$ | $\fls$                |
+   | $\fls$ | $\fls$ | $\fls$ | $\tru$        |                                       |        | $\tru$ | $\tru$ | $\tru$ | $\tru$                |
+
+   $$\mathcal{F}=(\lnot A \lor \lnot B \lor \lnot C)\land (\lnot A \lor B \lor \lnot C)\land (A \lor B \lor\lnot C)$$
+*** Normálformák egyszerűsítése
+**** Egyszerűsítési szabály
+     Elemi konjunkciók egyszerűsítése:
+     $(X \land Y) \lor (X \land\lnot Y) = X \land (Y \lor \lnot Y) = X \land \tru = X$
+     
+     Ha több literálban különböznek, akkor nem lehet egyszerűsíteni:
+     $(X \land Y \land Z) \lor (X\land \lnot Y \land \lnot Z) = X\land ((Y\land Z)\lor(\lnot Y\land \lnot Z))=\tru$
+     függetlenül $X$ értékétől ha $Y=\tru=Z$
+**** Példa
+     | 1 | $(A \land B \land \lnot C)$             | 
+     | 2 | $(A \land \lnot B \land \lnot C)$       | 
+     | 3 | $(\lnot A \land B \land C)$             | 
+     | 4 | $(\lnot A \land B \land \lnot C)$       | 
+     | 5 | $(\lnot A \land \lnot B \land \lnot C)$ | 
+     Minden formulát tudtunk egyszerűsíteni!
+*** Egyszerűsítés
+**** Mindent mindennel egyszerűsítünk
+    | 1 | $(A \land \lnot C)$       | (1,2) |                  |
+    | 2 | $(B \land \lnot C)$       | (1,4) |                  |
+    | 3 | $(\lnot B \land \lnot C)$ | (2,5) |                  |
+    | 4 | $(\lnot A \land B)$       | (3,4) | $\to\mathcal{F}$ |
+    | 5 | $(\lnot A \land \lnot C)$ | (4,5) |                  |
+    A 4-es formulát nem tudtuk semmivel sem egyszerűsíteni így az
+    része a végeredménynek.
+
+    | 1 | $(\lnot C)$ | (2,3)=(1,5) | $\to\mathcal{F}$ |
+
+    Két elemi konjunkció került bele $\mathcal{F}$-be, azaz a végeredmény
+    $\mathcal{F}=(\lnot A \land B)\lor (\lnot C)$.
+    Speciálisan: tautológiák eredménye az üres klóz.
+*** Logikai következmény fogalma
+**** Definíció
+     Legyenek $K_1, K_2, \ldots K_n$ és $B$ klózok (elemi diszjunkciók).
+     A $\{K_1,K_2,\ldots,K_n\}$ klózhalmaz *logikai következménye* $B$
+     ha minden interpretációra amelyre minden $K_1,K_2,\ldots,K_n$ igaz,
+     $B$ is igaz. Jelölése: 
+     \begin{equation}
+     \label{eq:models}
+     \{K_1,K_2,\ldots,K_n\} \models B
+     \end{equation}
+**** Tételek
+     Belátható, hogy: $\eqref{eq:models}\iff 
+     \{K_1,K_2,\ldots,K_{n-1}\} \models K_n\Rightarrow B$. Általánosabban:
+     $\eqref{eq:models}\iff \models K_1\Rightarrow K_2 \Rightarrow \cdots 
+     \Rightarrow K_n \Rightarrow B$, azaz ahol a $\models \mathcal{F}$ azt jelenti,
+     hogy $\mathcal{F}$ tautológia és az implikáció "jobbra asszociatív", azaz
+     $(A\Rightarrow B \Rightarrow C) \iff (A\Rightarrow (B\Rightarrow C)) \not\iff 
+     ((A\Rightarrow B) \Rightarrow C)$.
+*** Logikai következmény bizonyítása
+**** Átalakítás
+     - Igazságtáblával belátható hogy $(A\Rightarrow B) \iff (\lnot A \lor B)$.
+       Továbbá 
+     \begin{align*}
+     A\Rightarrow(B \Rightarrow C)& \iff A\Rightarrow(\lnot B\lor C)\\
+     &\iff \lnot A \lor (\lnot B \lor C) \\
+     &\iff (\lnot A \lor\lnot B)\lor C \\
+     &\iff \lnot(A\land B)\lor C \\
+     &\iff (A\land B)\Rightarrow C \text{ másrészt}\\
+     &\iff \lnot(A\land B\land \lnot C)
+     \end{align*}
+     - Az utolsó sor alapján, \eqref{eq:models} belátható úgy, hogy 
+       bebizonyítjuk a $K_1\land K_2 \land \cdots \land K_n \land \lnot B$
+       formuláról, hogy azonosan hamis.
+*** Példa: Logikai következmény
+**** Példa
+     Legyen $K=\{B\lor \lnot C, A\lor C, \lnot A\lor \lnot B,\lnot A\lor C\}$
+     klózhalmaz, akkor belátható, hogy $K\models C$.
+
+     Ha $A$ és $B$ is igaz, akkor a harmadik klóz hamis, ezért $A=\fls$ 
+     vagy $B=\fls$ kell, hogy teljesüljön hogy $K$-ban minden klóz igaz legyen.
+     Ezen felül, tegyük fel, hogy ha $C$ nem igaz: ebben az esetben vagy a 
+     második vagy a negyedik klóz sem lesz igaz. Tehát $K$ minden eleme akkor 
+     lesz igaz ha $B=\tru$, $A=\fls$ és $C=\tru$, de 
+     ebben az esetben $C=\tru$ tehát $K\models C$.  
+*** Rezolúció
+**** Rezolúciós fa
+     :PROPERTIES:
+   :BEAMER_col: 0.4
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC dot :file images/test-dot.png :exports results
+digraph Ped_Lion_Share           {
+# page = "8.2677165,11.692913" ;
+ratio = "auto" ;
+mincross = 2.0 ;
+margin=0;
+4 -> "5*"; 1 -> "3*"; 2 -> "3*"; "3*" -> "5*";
+6 -> "8*"; 7 -> "8*"; "5*" -> "9*"; "8*" -> "9*";
+}
+#+END_SRC
+**** Formulák
+     :PROPERTIES:
+   :BEAMER_col: 0.4
+   :BEAMER_env: block
+   :END:
+     - 1=$B\lor \lnot C$
+     - 2=$\lnot A \lor C$
+     - 3*=$\lnot A \lor B$
+     - 4=$\lnot A \lor \lnot B$
+     - 5*=$\lnot A$
+     - 6=$\lnot C$
+     - 7=$A \lor C$
+     - 8*=$A$
+     - 9*=$\Box$ az *üres klóz*, vagyis /azonosan hamis/
+*** Horn klózok
+**** Definíció
+     - Egy klózt (elemi diszjunkciót) *Horn-klóznak* nevezünk, ha
+       legfeljebb egy nem negált literált tartalmaz.
+     - Az $A\Rightarrow B\iff \lnot A \lor B$ szabály miatt, a Horn-klózok
+       megfelelnek $(A_1\land A_2 \land \cdots \land A_n)\Rightarrow B$
+       illetve $(A_1\land A_2 \land \cdots \land A_n)\Rightarrow \lnot B$
+       formuláknak melyekre a rezolúciós algoritmus gyorsan (lineáris időben)
+       le tud futni.
+**** Példák
+    - Horn-klózok: $\lnot A\lor \lnot B \lor \lnot C$, 
+      $\lnot A \lor B \lor \lnot C$, $A$, $\lnot A$.
+    - Nem Horn-klózok: $A\lor B \lor C$, $A\lor B\lor \lnot C$.
+**** Megjegyzés
+     Csak Horm-klózokat tartalmazó klózhalmazból /lineáris input rezolúcióval/ 
+     (ez egy gyorsított rezolúciós algoritmus) levezethető az üres klóz.Ő

@@ -7,6 +7,6 @@ parent('István','Sarolta').
 parent('Gizella','Civakodó Henrik').
 parent('Gizella','Burgundi Gizella').
 
-granparent(Child, GrandParent) :-
+grandparent(Child, GrandParent) :-
     parent(Child, Parent),
     parent(Parent, GrandParent).

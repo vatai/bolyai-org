@@ -198,7 +198,7 @@
      + Aritás, a paraméterek száma.
 ** Gyakorlás
 *** Tudásbázis 1 =kb1.pl=
-#+BEGIN_SRC prolog :tangle kb1.pl
+#+BEGIN_SRC prolog :tangle prolog/kb1.pl
   % -*- mode: prolog -*-
   % ez egy comment
   /* ez is egy comment */
@@ -233,7 +233,7 @@
   false. % (vagy error)
 #+END_SRC
 *** Tudásbázis 2 =kb2.pl=
-#+BEGIN_SRC prolog :tangle kb2.pl
+#+BEGIN_SRC prolog :tangle prolog/kb2.pl
   % -*- mode: prolog -*-
   happy(yolanda). 
   listens2Music(mia). 
@@ -250,7 +250,7 @@
   true.
 #+END_SRC
 *** Tudásbázis 3 =kb3.pl=
-#+BEGIN_SRC prolog :tangle kb3.pl
+#+BEGIN_SRC prolog :tangle prolog/kb3.pl
   % -*- mode: prolog -*-
   happy(vincent). 
   listens2Music(butch). 
@@ -278,9 +278,9 @@
      | Logika  | Magyar | Prolog            |
      |---------+--------+-------------------|
      | $\land$ | és     | , (vessző)        |
-     | $\lor$  | and    | ; (pontos vessző) |
+     | $\lor$  | vagy   | ; (pontos vessző) |
 *** Tudásbázis 4 =kb4.pl=
-#+BEGIN_SRC prolog :tangle kb4.pl
+#+BEGIN_SRC prolog :tangle prolog/kb4.pl
   % -*- mode: prolog -*-
   woman(mia). 
   woman(jody). 
@@ -304,7 +304,7 @@
 
 *** Tudásbázis 5 =kb5.pl=
 **** =kb5.pl=
-#+BEGIN_SRC prolog :tangle kb5.pl
+#+BEGIN_SRC prolog :tangle prolog/kb5.pl
   % -*- mode: prolog -*-
   loves(vincent,mia). 
   loves(marsellus,mia). 
@@ -321,7 +321,7 @@
 
 *** Tudásbázis 6 
 **** =family.pl=
-#+BEGIN_SRC prolog :tangle family.pl
+#+BEGIN_SRC prolog :tangle prolog/family.pl
   % -*- mode: prolog -*-
   parent('Imre','István').
   parent('Imre','Gizella').
@@ -330,7 +330,7 @@
   parent('Gizella','Civakodó Henrik').
   parent('Gizella','Burgundi Gizella').
 
-  granparent(Child, GrandParent) :-
+  grandparent(Child, GrandParent) :-
       parent(Child, Parent),
       parent(Parent, GrandParent).
 #+END_SRC
