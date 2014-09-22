@@ -81,7 +81,7 @@
        (package manager).
        - Ez kb olyan mint az "App Store" a mobilokon (és most már a komerciális
        	 operációs rendszereken is).
-       - Egy adatbázis ahonnan programokat lehet letölteni, (vagy megvásárolni).
+       - Egy adatbázis (repository, vagy repo) ahonnan programokat lehet letölteni, (vagy megvásárolni).
 *** Disztribúciók csomag kezelők szerint
 **** Debian család
      + =.deb= csomagok, =apt-get= csomag kezelő (PPA személyes repo-k)
