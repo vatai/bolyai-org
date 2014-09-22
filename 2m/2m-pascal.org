@@ -1,4 +1,4 @@
 # -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
 
 * Több dimenziós tömbök
-
+* Stringek
