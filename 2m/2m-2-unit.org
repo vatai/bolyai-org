@@ -1,0 +1,128 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Unit
+
+* Unitok
+** Alkalmazása
+*** Korábbról ismert unit
+**** Pascalban
+     - CRT unit
+     - Programban =uses crt;=
+     - Eljárásai: =GotoXY= vagy =ClrScr=
+**** Más nyelvekben
+     - C/C++-ban: =#include <stdio.h>=
+     - Java-ban, Python-ban =import glob=
+** Általában
+*** Általános leírás
+**** Moduláris programozás
+     - Nagy programok bonyolultságuknál fogva "kezelhetetlenek"
+     - Ezért a nagy programok fel kell osztani kisebb
+       átláthatóbb részekre (modulokra)
+     - A modulok különböző fájloknak felelnek meg, 
+       amelyekből felépül egy nagyobb program
+**** Kód újrafelhasználás 
+     - Vannak modulok, azaz programrészek, melyek 
+       "újra felhasználhatóak"
+     - Ezek olyan program részek, melyek elég általános
+       szerepet látnak el, más program részeként is használható
+       (feltéve ha jól van megírva a programrész)
+*** Könyvtárak
+**** Library-k, könyvtárak, unitok
+     - A közös, újra felhasználható modulokból fejlődtek ki 
+       a *könyvtárak* (angolul library)
+     - Pascal esetén ezek egységek (angolul unit)
+**** Céljuk
+     - Egy "könyvtár" szerepét töltik be
+     - "A könyvtárba megyünk ha szükségünk van valamire"
+     - A =uses= paranccsal /használjuk/ vagy /alkalmazzuk/ 
+       a könyvtárat és így hozzáférünk az eljárásaihoz,
+       azaz "képességeihez".
+** Pascal unit részei
+*** Pascal unit három része
+**** Első sor
+     Minden unit a =unit <UNITNÉV>;= sorral kezdődik. Célszerű hogy
+     a =<UNITNÉV>= megegyezzen a fájl névvel (leszámítva a =.pas= végződést).
+**** Interface
+     Ezután következik az =interface= kulcsszó, majd az interfész rész amely az
+     =implementation= kulcsszóig tart.
+     Ide kell felsorolni azokat a konstansokat (=const=), típusokat (=type=), 
+     változókat (=var=), függvény szignatúrákat (=fucntion= + paraméter típusok +
+     visszatérési érték), procedúra szignatúrákat (=procedure= + paraméter típusok)
+     amelyeket használhatunk a programban melyek használják (=uses=) a unitunkat. 
+*** Pascal unit három része
+**** Implementation
+     Az implementáció rész az =implementation= kulcsszó és az utolsó =begin=, 
+     =end.= blokk (vagy ha nincs ilyen akkor =end.=) között található.
+     Az implementációban ismét fel kell sorolni a függvényeket 
+     (illetve procedúrákat) a megfelelő szignatúrákkal (paraméterek 
+     és/vagy visszatérési értékek), és az implementációt 
+     azaz függvény (illetve procedúra) törzsét (a megszokott módon
+     =begin= és =end;= között) kell megadni
+**** A unit törzse
+     Opcionálisan, meg lehet adni egy utolsó =begin= =end.= pár között
+     egy unit törzset is, melyben azokat az utasításokat kell felsorolni,
+     melyeket a fő program =uses= kiadásakor (azaz a program legelején)
+     szeretnénk végrehajtani.
+* Példa
+** Egyszerű példa
+*** Fájlok
+**** Egy mappába (direktóriumba)
+     Hozzuk létre a következő fájlokat (a fájlok tartalmát 
+     később adjuk meg):
+     - =testunit.pas=: egy "saját" unit, amit mi írunk meg
+     - =prog1.pas=: a program ami használja a unitot
+       (Lazarus-ban =prog1.lpr= és nem =.pas= a program fájl)
+     - Próbáljuk ki a =prog1= futtatását, figyeljük meg,
+       hogy olyan függvényeket használhatunk, melyeket nem 
+       a =prog1= fájlban írtunk meg
+     - Próbáljuk ki a =testunit= törlése után lefordítani
+       a =prog1= fájlt, nem kellene hogy sikerüljön a fordítás
+*** Másik program
+**** Ugyanabba a mappába
+     Később bővítsük a direktórium tartalám:
+     - =testunit.pas=: egy "saját" unit, amit mi írunk meg
+     - =prog1.pas=: a program ami használja a unitot
+       (Lazarus-ban =prog1.lpr= és nem =.pas= a program fájl)
+     - =prog2.pas=: a program ami használja a unitot
+       (Lazarus-ban =prog2.lpr= és nem =.pas= a program fájl)
+*** A unit
+**** =testunit.pas=
+#+BEGIN_SRC pascal :tangle pascal/testunit.pas
+  unit testunit;
+  interface
+    procedure pubproc(x:integer);
+  implementation
+    procedure pubproc(x:integer);
+    begin
+      writeln('Ez a testunit pubproc(',x,')');
+    end;
+  begin { a unit törzse }
+    writeln('Ebben a programban szerepel az hogy "uses testunit;"');
+  end.
+#+END_SRC
+*** Az első program
+**** =prog1.pas=
+#+BEGIN_SRC pascal :tangle pascal/prog1.pas
+  program prog1;
+  uses testunit;
+  begin
+    writeln('Ez az első program');
+    pubproc(10);
+  end.
+#+END_SRC
+
+*** A második program
+**** =prog2.pas=
+#+BEGIN_SRC pascal :tangle pascal/prog2.pas
+  program prog2;
+  uses testunit;
+  begin
+    writeln('Ez az második program');
+    pubproc(20);
+  end.
+#+END_SRC
+** Életszerű példa
+*** =matmul.pas=

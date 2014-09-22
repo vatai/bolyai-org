@@ -3,6 +3,7 @@
 *~
 ignored
 *.vrb
-pascal/*
-!pascal/*.pas
 *.o
+*.ppu
+*/pascal/*
+!*/pascal/*.pas
