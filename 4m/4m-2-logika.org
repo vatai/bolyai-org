@@ -293,8 +293,8 @@ Logikai alapozás alkalmazásokhoz - Pásztorné Varga Katalin - ELTE Budapest 1
      $(X \land Y) \lor (X \land\lnot Y) = X \land (Y \lor \lnot Y) = X \land \tru = X$
      
      Ha több literálban különböznek, akkor nem lehet egyszerűsíteni:
-     $(X \land Y \land Z) \lor (X\land \lnot Y \land \lnot Z) = X\land ((Y\land Z)\lor(\lnot Y\land \lnot Z))=\tru$
-     függetlenül $X$ értékétől ha $Y=\tru=Z$
+     $(X \land Y \land Z) \lor (X\land \lnot Y \land \lnot Z) = X\land ((Y\land Z)\lor(\lnot Y\land \lnot Z))=\fls$
+     függetlenül $X$ értékétől ha $Y=\lnot Z=Z$
 **** Példa
      | 1 | $(A \land B \land \lnot C)$             | 
      | 2 | $(A \land \lnot B \land \lnot C)$       | 
@@ -377,6 +377,10 @@ margin=0;
 6 -> "8*"; 7 -> "8*"; "5*" -> "9*"; "8*" -> "9*";
 }
 #+END_SRC
+
+#+RESULTS:
+[[file:images/test-dot.png]]
+
 **** Formulák
      :PROPERTIES:
    :BEAMER_col: 0.4

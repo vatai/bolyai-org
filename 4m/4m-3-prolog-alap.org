@@ -1,0 +1,254 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Prolog alapok
+* Alap fogalmak Prologban
+** Termek
+*** Termekről
+**** Termek: a prolog alkotó elemei
+    A prolog, mint nyelv, termekből épül fel[fn:: 
+    Ezek hasonlítanak a logikában szereplő termekre, 
+    de különbséget kell tenni a  kettő között.].
+    
+    Négy fajta term van a prologban:
+    1. Atom
+    2. Szám
+    3. Változó
+    4. Összetett term
+**** Konstansok
+     Egy *konstans* alatt egy számot vagy atomot értünk.
+*** Atomok
+**** Három fajta atom
+     Atomok a következők lehetnek:
+     1. Kisbetűvel kezdődő karaktersorozat (string) amely 
+        tartalmazhat: kisbetűt, nagybetűt, számjegyeket
+	és az aláhúzás =_= karaktert.
+	Példák: *=butch=* , =big_kahuna_burger=, 
+        *=listens2Music=* és =playsAirGuitar=
+     2. Tetszőleges karaktersorozat (string) aposztrófok között.
+	
+        Példák: *=’ Vincent ’=*, =’ The  Gimp ’=, *=’ Five_Dollar_Shake ’=*, 
+        
+        =’ &^%&#@$  &* ’=, és *=’   ’=*.
+     3. Speciális karakterek sorozata: ~@=~, ~====>~,
+	=;=, =:-=. Ezeknek általában valamilyen különleges (előre meghatározott)
+        jelentésük van.
+*** Számok
+**** Valós számok
+     - A prolog nem "szómolós" program nyelv. 
+     - Többnyire támogatják a különböző prolog implementációk 
+       a valós (lebegőpontos) számokat
+     - Nem nagyon szokták alkalmazni prologban.
+     
+     - Valós számokat a megszokott módon tudunk ábrázolni, például:
+       3.14169265
+**** Egész számok
+     - Az egész számokat hasznosabbak
+     - Alap aritmetikai műveleteket tudunk végezni rajtuk
+     - Prologban oda kell figyelni néhány apróságra 
+       (később tanuljuk részletesebben!)
+
+     - Ábrázolás a megszokott: -1, 0, 1, 2 stb.
+*** Változók
+**** Változók
+     - Nagybetűvel vagy aláhúzással =_= kezdődő 
+     - karaktersorozat  (string) amely 
+     - tartalmazhat:  kisbetűt, nagybetűt, számjegyeket
+       és az aláhúzás =_= karaktert.
+     - Példák: =X= , =Y= , =Variable= , 
+       =_tag= , =X_526= , =List= , =List24= , =_head= , =Tail= , 
+       =_input= , =Output=
+     - Az egy darab aláhúzás karakter =_= is változó, de ez a 
+       speciális /névtelen/ vagy /anonim/ változó.
+*** Összetett termek
+**** Összetett termek felépítése
+     - Az *összetett termek*, *struktúrák* 
+       konstansokból és változókból épülnek fel.
+       - Egy összetett term egy funktorból és $n$ darab
+	 argumentumból áll. 
+       - Az *argumentumok* zárójelek között, vesszővel vannak elválasztva,
+	 és tetszőleges termek lehetnek.
+       - A funktor egy atom, amelyet közvetlenül követ az argumentumokat 
+	 körülvevő nyitott zárójel.
+     - Példák: =playsAirGuitar(jody)=, =loves(vincent,mia)=,
+       =jealous(marsellus,W)=, =hide(X,father(father(father(butch))))=
+*** Aritás
+**** Aritás
+     - Egy funktor argumentumainak számát *aritásnak* 
+       nevezzük (angolul *arity*).
+     
+     - Az aritás fontos, mert a prolog akkor is 
+       megkülönböztet két funktort, ha csak aritásban 
+       különböznek (de ugyan az a nevük).
+
+     - Jelölés: a funktor neve után
+       írjuk, egy per jellel elválasztva. 
+
+     Példák:
+     - =woman(mia)=: a =woman= aritása 1.
+     - =loves(vincent,mia)=: a =loves= aritása 2.
+     - A =love(vincent,mia)= és a =love(vincent,marsellus,mia)=
+       két különböző =love= funtorból áll, az első aritása 2 a 
+       másodiknak három, és az elsőt =love/2=-vel jelöljük
+       a másodikat =love/3=-mal.
+** Tudásbázis
+*** Tudásbázis
+**** Prolog alap fogalmai
+     A következő három alap konstrukcióból áll a Prolog:
+     1. Tények
+     2. Szabályok
+     3. Lekérdezések
+**** Tudásbázis
+     - Egy "Prolog programot" *tudásbázisnak* hívnak 
+     - tényekből és szabályokból áll. 
+     - Egyszerű szöveg fájlok =.pl= kiterjesztéssel.
+
+     - Prolog értelmezővel (interpreterrel) tudunk
+     beolvasni
+     - lekérdezésekkel tudjuk működtetni.
+
+*** Tények
+**** Tények
+    - A tények olyan állítások melyeket igaznak tartunk adott 
+      szituációban (adott programban).
+    - Egy tény egy termből áll és egy pont van a végén.
+    - A =kb1.pl= tudásbázisban 5 tény van.
+**** =kb1.pl=
+#+BEGIN_SRC prolog 
+  woman(mia). 
+  woman(jody). 
+  woman(yolanda). 
+  playsAirGuitar(jody). 
+  party.
+#+END_SRC
+*** Szabályok
+**** Szabályok
+     Egy szabály két részekből, a szabály *fejéből* és *testéből*, 
+     áll amelyeket a =:-= (nyak?) választ el:
+     - Fej (head): egy term a szabály bal oldalán
+     - Test (body): egy vagy több termből áll, 
+       melyek vesszővel (, jelentése $\land$ ) vagy 
+       pontosvesszővel (=;= jelentése $\lor$)
+       vannak elválasztva és pont van a végén.
+       - A test termjeit *céloknak* nevezzük!
+**** Példák
+#+BEGIN_SRC prolog 
+   playsAirGuitar(mia):-  listens2Music(mia).
+#+END_SRC
+vagy   
+#+BEGIN_SRC prolog 
+   playsAirGuitar(X):-  listens2Music(X).
+#+END_SRC
+*** Klózok, Predikátumok
+**** Klózok
+     A tényeket és szabályokat közös néven *klózoknak* 
+     nevezzük[fn:: Ismét hasonlít a logikai klóz fogalomra, de
+     tegyünk különbséget].
+**** Predikátumok
+     A *predikátumokat* következő módon határozhatók meg:
+     - A klózok által definiált (általában összetett) termek
+     - Pontosabban: a tények és a szabályok "fejében" levő
+       funktorok
+     - A predikátumokat le lehet kérdeni, 
+     - "Prolog eljárások"
+*** Lekérdezések
+**** Lekérdezések
+     - Lekérdezések a parancsok amit a prolog értelmezőbe (SWI Prolog)  írunk be.
+     - Az értelmező mindig egy =?-= promptal jelzi hogy várja a lekérdezést.
+     - Lekérdezés lehet tetszőleges term, vagy termsorozat logikai jelekkel 
+       elválasztva (vessző , vagy pontosvessző =;=).
+     - A lekérdezés végén pont van.
+     
+     - Prologban a lekérdezésekre a válasz igaz vagy hamis 
+       (vagy hiba üzenet). 
+     - Amennyiben változó is szerepelt a lekérdezésben
+       akkor a prolog megpróbálja megkeresni a megfelelő termet,
+       melyet behelyettesítve a változóba igazat ad a lekérdezés.
+     - Ha több ilyen van, akkor a pontosvessző =;= ismételt lenyomásával
+       kapjuk meg az összes ilyen lehetőséget.
+* Gyakorlatok és példák
+** Kérdések
+*** Első gyakorlat
+   A következő karaktersorozatok közül melyek atomok és melyek változók 
+   és melyek egyik sem?
+   1. =vINCENT=
+   2. =Footmassage=
+   3. =variable23=
+   4. =Variable2000=
+   5. =big_kahuna_burger=
+   6. =’big  kahuna  burger’=
+   7. =big  kahuna  burger=
+   8. =’Jules’=
+   9. =_Jules=
+   10. =’_Jules’=
+*** Megoldás
+   1. =vINCENT= atom
+   2. =Footmassage= változó
+   3. =variable23= atom
+   4. =Variable2000= változó
+   5. =big_kahuna_burger= atom
+   6. =’big  kahuna  burger’= atom
+   7. =big  kahuna  burger= semmi
+   8. =’Jules’= atom
+   9. =_Jules= változó
+   10. =’_Jules’= atom
+*** Második gyakorlat
+    Jelöljük meg az atomokat, változókat, összetett termeket, és 
+    azokat amik egyáltalán nem termek.  A funktoroknál írjuk le az aritást is!
+    1. =loves(Vincent,mia)=
+    2. =’loves(Vincent,mia)’=
+    3. =Butch(boxer)=
+    4. =boxer(Butch)=
+    5. =and(big(burger),kahuna(burger))=
+    6. =and(big(X),kahuna(X))=
+    7. =_and(big(X),kahuna(X))=
+    8. =(Butch  kills  Vincent)=
+    9. =kills(Butch  Vincent)=
+    10. =kills(Butch,Vincent=
+*** Megoldás
+    1. =loves(Vincent,mia)= összetett =loves/2=
+    2. =’loves(Vincent,mia)’= atom
+    3. =Butch(boxer)= semmi
+    4. =boxer(Butch)= összetett =boxer/1=
+    5. =and(big(burger),kahuna(burger))= összetett =and/2=, =big/1=, =kahuna/1=
+    6. =and(big(X),kahuna(X))= összetett =and/2=, =big/1=, =kahuna/1=
+    7. =_and(big(X),kahuna(X))= semmi
+    8. =(Butch  kills  Vincent)= semmi
+    9. =kills(Butch  Vincent)= semmi
+    10. =kills(Butch,Vincent= semmi
+*** Harmadik gyakorlat
+    A következő tudásbázisban hány tény, szabály, klóz, predikátum van a következős
+    tudásbázisban.  Melyek a szabály fejek, és milyen célokat tartalmaznak
+    1. =woman(vincent).=
+    2. =woman(mia).=
+    3. =man(jules).=
+    4. =person(X):-  man(X);  woman(X).=
+    5. =loves(X,Y):-  father(X,Y).=
+    6. =father(Y,Z):-  man(Y),  son(Z,Y).=
+    7. =father(Y,Z):-  man(Y),  daughter(Z,Y).=
+*** Negyedik gyakorlat
+    Reprezentáljuk a következőket prologban.    
+    1. Butch gyilkos. (Butch is a killer.)
+    2. Mia és Marsellus házasok. (Mia and Marsellus are married.)
+    3. Zed halott. (Zed is dead.)
+    4. Marsellus mindenkit megöl aki Mia lábát megmasszírozza. (Marsellus kills everyone who gives Mia a footmassage.)
+    5. Mia mindenki szeret aki jó táncos. (Mia loves everyone who is a good dancer.)
+    6. Jules mindent eszik ami tápláló és finom. (Jules eats anything that is nutritious or tasty.)
+*** Ötödik gyakorlat
+    Tegyük fel hogy beolvastuk az alábbi tudásbázist:
+    1) =wizard(ron).=
+    2) =hasWand(harry).=
+    3) =quidditchPlayer(harry).=
+    4) =wizard(X):-  hasBroom(X),  hasWand(X).=
+    5) =hasBroom(X):-  quidditchPlayer(X).=
+       
+    Mit fog a prolog válaszolni a következő lekérdezésekre?
+    1. =wizard(ron).=
+    2. =witch(ron).=
+    3. =wizard(hermione).=
+    4. =witch(hermione).=
+    5. =wizard(harry).=
+    6. =wizard(Y).=
+    7. =witch(Y).=

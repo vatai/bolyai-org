@@ -1,0 +1,252 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Egyesítése és bizonyítás keresés
+
+* Bevezetés
+** Bevezető példa
+*** Példa: kb5.pl
+#+BEGIN_SRC prolog
+loves(vincent,mia). 
+loves(marsellus,mia). 
+loves(pumpkin,honey_bunny). 
+loves(honey_bunny,pumpkin). 
+
+jealous(X,Y):-  loves(X,Z),  loves(Y,Z).
+#+END_SRC
+*** Példa: kb5.pl
+**** Mikor történik egyesítés?
+     - Amikor megkérdezzük hogy =?- jealous(marsellus,V).=
+     - Az =X= változó összes előfordulásába behelyettesíti a
+       =marsellus= konstanst, - ezt hívják
+       *egyesítésnek* (vagy angolul unification).
+     - Utána megpróbálja (ezzel és további egyesítésekkel)
+       igazzá tenni az állítást (azaz a célokat) - ezt hívják
+       *bizonyítás keresésnek* (vagy angolul proof search).
+* Egyesítés
+** Példák
+*** Emlékeztető
+**** Négy fajta term van
+     - Atomok és számok: ezek a konstansoknak 
+     - Változók
+     - Összetett termek
+**** Mi az egyesítés?
+     - Valójában egyfajta (egyenlőség vizsgálat + behelyettesítés)
+*** Definíció 
+    Legyenek $t_1$ és $t_2$ termek!
+    - Ha $t_1$ és $t_2$ azonos *atomok* vagy azonos *számok* akkor $t_1$
+      és $t_2$ egyesíthető
+    - Ha $t_1$ vagy $t_2$ *változó*:
+      - Ha $t_1$ változó és $t_2$ tetszőleges term, akkor
+        egyesíthetőek a $t_1$ változó felveszi a $t_2$ értékét.
+      - Hasonlóan, amikor $t_2$ a változó és $t_1$ tetszőleges, akkor
+        $t_2$ veszi fel a $t_1$ értékét egyesítéskor
+      - Ha mindkettő változó, akkor az egyesítés után, azonos változók
+        lesznek
+    - A $t_1$ és $t_2$ *összetett term* pontosan akkor egyesíthető ha:
+      - megegyezik a funktoruk és az aritásuk
+      - a megfelelő argumentumok is egyesíthetők
+      - a változó egyesítések kompatibilisek, azaz egy változó nem
+        vehet fel két különböző értéket (az =X= változó felveheti a
+        =mia= értéket és a =vincent= értéket is, de nem veheti fel
+        egyszerre mindkettő értéket egy összetett term egyesítése
+        során).
+    - $t_1$ és $t_2$ pontosan akkor egyesíthető ha az előző szabályok
+      szerint egyesíthető
+*** Egyesítés ellenőrzése prologban
+**** A ~=/2~ predikátum
+     - Az egyenlőség predikátummal tudjuk leellenőrizni, hogy két term
+       egyesíthető e?
+     - A ~=(X,Y)~ lekérdezés egyenértékű a =X=Y= lekérdezéssel!
+**** Példa
+     - =?- =(mia,mia).= > true
+     - =?- mia = mia.= > true
+     - =?- =(mia, vincent).= > false
+     - =?- mia = vincent.= > false
+*** Konstansok egyesítése
+**** Két atom vagy szám egyesítése
+     - =mia=mia.= és =42=42.= > true: triviális.
+     - =mia=vincent.= és =42=21.= > false: triviális.
+     - ~mia='mia'.~ > true: mert az aposztrófok nem részei az atomnak
+       így a =mia= valójában megegyezik a '=mia=' atommal.
+     - ~2='2'.~ > false: ugyanis a =2= az szám és a '=2=' az atom,
+       így a kettő nem egyenlő!
+*** Változók egyesítése
+**** Változók egyesítése
+    - =X=mia.= és =mia=X.= ugyan azt jelenti.
+    - ~X=mia,X=vincent.~ > false: mert az egyesítés nem kompatibilis.
+    - Ha azt írjuk, hogy =X=Y.= akkor a Prolog a háttérben létrehoz egy
+      rejtet =_G123= változót (ahol az =123= helyett bármilyen szám lehet)
+      és valójában nyilvántartja hogy =X=_G123= és =Y=_G123= is teljesül.
+*** Összetett termek egyesítése
+**** Összetett termek egyesítése
+    - =k(s(g),Y)=k(X,t(k)).= eredménye: =X=s(g)= és =Y=t(k)=.
+    - vagy =k(s(g),t(k))=k(X,t(Y)).= eredménye =X=s(g).= és =Y=k=.
+    - =loves(X,X)=loves(marcellus,mia).= > false: ugyanis
+      =X=marcellus= és =X=mia= egyesítések nem kompatibilisek.
+*** Előfordulás ellenőrzés
+**** Occurs check
+    - Az egyesítés pontos definíciója szerint az =X=f(X).= egyesítés
+      nem kompatibilis, ugyanis nem lehet =X=-nek olyan értéket adni,
+      hogy =X= egyenlő egyen =f(X)=-szel.
+    - A Prolog ezt megengedi!
+    - Ha teljesen pontos, definíció szerinti egyesítést akarunk
+      végrehajtani akkor a ~=/s~ predikátum helyett a
+      =unify_with_occurs_check/s= predikátumot használjuk.
+    - Ezért =X=f(X).= true és =unify_with_occurs_check(X,f(X)).=
+      false.
+*** Programozás egyesítéssel
+**** lines.pl
+#+BEGIN_SRC prolog :tangle prolog/lines.pl :shebang % -*- mode: prolog; -*-
+  vertical(line(point(X,Y),point(X,Z))). 
+  horizontal(line(point(X,Y),point(Z,Y))).
+#+END_SRC
+     - A =point(X,Y)= az =X= és =Y= koordinátájú pontot jelenti.
+     - A =line(P1,P2)= a =P1= és =P2= által meghatározott egyenes.
+     - A =vertical(L)= és =horizontal(L)= predikátumok azt jelölik
+       hogy az =L= vonal függőleges illetve vízszintes.
+*** Lekérdezések
+**** Lekérdezések
+     - ~?- vertical(line(point(1,1),point(1,3))).~ > true: ugyanis az
+       $(1,1)$ és $(1,3)$ pontokon áthaladó egyenes függőleges.
+     - ~?- vertical(line(point(1,1),point(3,2))).~ > false: ugyanis a $(1,1)$
+       és a $(3,2)$ pontokon áthaladó egyenes nem függőleges.
+     - ~?- horizontal(line(point(1,1),point(2,Y))).~ lekérdezésre a
+       válasz a =Y=1=.
+    
+     - Ha azt szeretnénk megtudni, hogy: milyen pontok tartoznak ahhoz
+       az vízszintes egyeneshez amelyhez a $(2,3)$ pont is tartozik
+       akkor a =?- horizontal(line(point(2,3),P)).= kérdéssel
+       megkapjuk a =P=point(_1972,3)= választ, ahol a =_1972= változó
+       tetszőleges értéket vehet fel.
+    
+* Bizonyítás keresés
+** Bizonyítás keresés lépései
+*** Bizonyítás keresés lépései
+**** Az algoritmus
+     Megjegyzés: a tényekre úgy tekintünk mint egy szabály üres
+     testtel.
+     - A kielégítendő célok először a lekérdezések.
+     - A célok balról jobbra vannak feldolgozva.
+     - A minden egyes célt fentről lefele próbál a Prolog egyesíteni a
+       tudás\-bázisban található tényekkel vagy szabályok fejével.
+     - Sikeres egyesítés esetén, az egyesített term helyettesítődik a
+       szabály testével (a megfelelő behelyettesítésekkel)
+     - Ha a Prolog nem talál egyesíthető klózt, akkor visszalép
+       (backtarack), és más egyesítéssel próbálkozik.
+     - Ha sikerül az összes klózt igazzá tenni, akkor kiírja a
+       változók értékeit melyeket az egyesítések során kaptak
+     - Ha a felhasználó ";"-vel további válaszokat kér, akkor
+       visszalépéssel tovább folytatja a keresést
+*** Egyszerű példa
+**** ps.pl
+#+BEGIN_SRC prolog :tangle prolog/ps.pl :shebang % -*- mode: prolog; -*-
+  f(a). f(b). 
+  g(a). g(b). 
+  h(b). 
+  k(X)  :-  f(X),  g(X),  h(X).
+#+END_SRC
+**** Lekérdezés
+    - ~?- k(Y).~: nyilván ~Y=b~ lesz a válasz! De miért?
+    - A válasz a "bizonyítás keresés" (proof search) algoritmus! 
+    - A Prolog lekérdezések is valójában állítások melyeket a Prolog
+      próbál bebizonyítani (igazzá tenni).
+*** Példa
+**** A =?- k(Y).= lekérdezésre a bizonyítás keresés
+   | Lépés | Kielégítendő célok     | Egyesítés                          |
+   |     1 | ~k(Y)~                 | ~k(X):-f(X),g(X),h(X).~ és ~Y=_G1~ |
+   |     2 | ~f(_G1),g(_G1),h(_G1)~ | ~f(a)~ és ~_G1=a~                  |
+   |     3 | ~g(a),h(a)~            | ~g(a)~                             |
+   |     4 | ~h(a)~                 | ilyen nincs, visszalépés 2-re      |
+   |    2' | ~f(_G1),g(_G1),h(_G1)~ | ~f(b)~ és ~_G1=b~                  |
+   |    3' | ~g(b),h(b)~            | ~g(b)~                             |
+   |    4' | ~h(b)~                 | Igaz!                              |
+*** Bizonyítás keresés ábrázolása
+**** Lépések						      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :BEAMER_env: block
+     :END:
+     A fát mélységi bejárással kell felépíteni:
+     - Fentről kezdünk és mindig "balra--le" haladunk, ameddig csak
+       lehet
+     - majd visszajövünk az első (nem bejárt) elágazásig és jobbra
+       fojtatjuk ha lehet (vagy megyünk még feljebb).
+     - A fa csúcsaiba a kielégítendő célokat soroljuk fel
+     - Az élekre a megfelelő változók értékeit írjuk fel az egyesítés után
+**** Bizonyítás keresés					      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.4
+     :BEAMER_env: block
+     :END:
+#+BEGIN_SRC dot :exports results :file images/ps.pdf
+  digraph G {
+    node [shape=box,fontname="Courier"];
+    edge [fontname="Courier"];
+    k [label="?- k(X)"];
+    k -> fgh [label="X=_G1"];
+    fgh [label="?- f(_G1),g(_G1),h(_G1)."];
+    fgh-> gh [label="_G1=a"];
+    gh [label="?- g(a),h(a)."];
+    gh -> h;
+    h [label="?- h(a)."];
+    h -> cross;
+    cross [label="+++"];
+    fgh -> gh2 [label="_G1=b"];
+    gh2 [label="?- g(b),h(b)"];
+    gh2 -> h2;
+    h2 [label="?- h(b)."];
+    h2 -> true;
+    true [label=""];
+  }
+#+END_SRC
+*** =loves/2= példa
+**** =loves.pl= 
+#+BEGIN_SRC prolog
+  loves(vincent,mia). 
+  loves(marcellus,mia). 
+      
+  jealous(A,B):-loves(A,C),loves(B,C).
+#+END_SRC
+**** Lekérdezés
+     - =?- loves(X,Y).=
+*** =loves/2= és =?- jealous(X,Y).= példa
+**** Lépések						      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :BEAMER_env: block
+     :END:
+     Mi történik ha ";"-vel megkeressük az összes választ?
+     - ~X=vincent~ és ~Y=vincent~;
+     - ~X=vincent~ és ~Y=marcellus~;
+     - ~X=marcellus~ és ~Y=vincent~;
+     - ~X=marcellus~ és ~Y=marcellus~.
+**** Bizonyítás keresés					      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.65
+     :BEAMER_env: block
+     :END:
+#+BEGIN_SRC dot :exports results :file images/loves.pdf
+  digraph G {
+    node [shape=box,fontname="Courier"];
+    edge [fontname="Courier"];
+    j [label="?- jealous(X,Y)"];
+    j -> ll [label="X=_G1\nY=_G2"];
+    ll [label="?- loves(_G1,_G3),loves(_G2,_G3)."];
+    ll -> l1 [label="_G1=vincent\n_G3=mia",labeljust=l];
+    l1 [label="?- loves(_G2,mia)."];
+    l1 -> end1 [label="_G2=vincent"];
+    l1 -> end2 [label="_G2=marsellus"];
+    ll -> l2 [label="_G1=marcellus\n_G3=mia"];
+    l2 [label="?- loves(_G2,mia)."];
+    l2 -> end3 [label="_G2=vincent"];
+    l2 -> end4 [label="_G2=marsellus"];
+    end1 [label=""];
+    end2 [label=""];
+    end3 [label=""];
+    end4 [label=""];
+  }
+#+END_SRC
+
