@@ -25,18 +25,26 @@
      - Ez alkalmas például rendszámtábla vagy hasonló rövid szövegek tárolásánál.
      
 *** Értékadás
-*** Konkatenáció
-*** Hossz
-*** Karakterenkénti hozzáférés
-** String függvények 
-#+BEGIN_SRC pascal :tangle pascal/stringek.pas :noweb no-export
-  program stringek;
-  <<stringek-decl>>
-  begin
+#+NAME: stringek-ertekadas
+#+BEGIN_SRC pascal 
      s1 := 'Hello world';
      writeln(s1); 
 
-
+     // s3 := readln; // READ NEM JÓ!!! 
+#+END_SRC
+**** Értékadás
+     Az értékadás hasonlóan történik mint a többi változókkal.
+     
+     Érdemes megjegyezni, hogy ha egy stringet a felhasználótól szeretnénk
+     beolvasni, a =readln= függvényt kell használnunk, mert a =read= nem fog 
+     működni.
+     
+**** Egyenlőség vizsgálat
+     Természetesen a strgingeken is működik az egyenlőség vizsgálat, azaz írhatunk
+     olyat hogy =if s = 'yes' then ...=
+*** Konkatenáció
+#+NAME: stringek-concat
+#+BEGIN_SRC pascal 
      s2 := '12345';
      s3 := concat(s1,s2);
      writeln(s3);
@@ -44,51 +52,172 @@
      s3 := '!@#$%';
      writeln('plus: '+s1+s2+s3);
      writeln(concat('concat: ',s1,s2,s3));
-     
+#+END_SRC
+**** Egymásután írás
+     Több stringből egy hosszabb stringet kaphatunk, ha egymásután írjuk őket, 
+     azaz össze "konkatenáljuk".
+
+     Ezt a =concat= paranccsal, vagy a =+= művelettel tudjuk. Például ha 
+     =s1=, =s2=, =s3= stringek, akkor ezeknek egymásután írását a
+     =concat(s1,s2,s3)= függvény hívással kapjuk meg (a visszatérési érték is
+     egy string).
+     Ezzel egyenértékű az =s1+s2+s3=.
+*** Hossz
+#+NAME: stringek-length
+#+BEGIN_SRC pascal 
      i := length(s2);
      // writeln('length: '+i); // NEM MŰKÖDIK!!!
-     write('length: ');
-     writeln(i);
+     // integer és string nem fűzhető össze
+     writeln('length: ', i);
 
-     write('ord(s2[0]): ');
-     writeln(ord(s2[0]));
+     writeln('ord(s2[0]): ', ord(s2[0]));
      // s[0] 'ord()'-ja = length(s)
-
-     // s3 := readln; // READ NEM JÓ!!! 
-
-     {for i:=1 to length(s2) do begin
+#+END_SRC
+**** Length
+     A =length(s1)= függvény az =s1= string hosszát adja vissza (ami =integer=
+     típusú).  
+     
+     Megjegyzés: a string valójában karakterek tömbje, és a 0-adik karakter,
+     számértéke (amit az =ord()= függvénnyel kaphatunk meg), mindig, 
+     a string hosszával egyenlő.
+*** Karakterenkénti hozzáférés
+#+NAME: stringek-char
+#+BEGIN_SRC pascal 
+     for i:=1 to length(s2) do 
+     begin
         c := s2[i];
-        writeln(c);
         writeln(ord(c));
      end;
-     }
+#+END_SRC
+**** Karakter lánc
+     Egy string valójában egy karakterlánc, amely karakterenként is elérhető 
+     ahogy a fenti példa is mutatja.
 
-
+     /Nem javasolt/, de működik a stringek karakterenkénti módosítása is!
+     A string karaktereit módosíthatjuk egyenként is, azaz ha =s2=='12345',
+     akkor az ~s2[2]:=~'a' művelet után =s2=='1a345' lesz.
+     Továbbá a string nulladik karakterének módosításával a hossz is 
+     megváltoztatható, például ~s2[0]:=chr(10)~ művelet után az =s2=
+     10 hosszú string lesz.
+** String függvények 
+*** Pos: részstring keresés
+#+NAME: stringek-pos
+#+BEGIN_SRC pascal 
      i := pos('23', s2);
      // ha nincs találat, 0-t add vissza!
      write('pos: ');
      writeln(i);
-
+#+END_SRC
+**** Pozíció
+    A =pos(subs,s : string) : integer= függvény az =s= string azt az indexet 
+    adja vissza,  amelytől a =subs= részstring megtalálható benne.
+    
+    Ha a =subs= string nem részstringje =s=-nek, akkor 0 a visszatérési érték.
+*** Copy: részstring (ki)másolása
+#+NAME: stringek-copy
+#+BEGIN_SRC pascal 
      s3 := copy(s2,2,3);
      writeln('copy: ' + s3);
      s3 := copy(s2,3,10);
      writeln('copy: ' + s3);
-     
+#+END_SRC
+**** Másolás
+     A =copy( s : string; p, l : integer) : string= függvény,
+     az =s= string =p= indexétől kezdődő =l= hosszú részstringet adja vissza.
+
+     Ha túl hosszú részstringet akarunk kimásolni, akkor az eredeti string 
+     végénél le fogja az "vágni".
+*** Delete: részstring törlése
+#+NAME: stringek-delete
+#+BEGIN_SRC pascal 
      delete(s2,2,3);
      writeln('delete: ' + s2);
-     
+#+END_SRC
+**** Törlés
+    A =delete(var s : string, p, l : integer)= procedúra kitörli
+    az =s= string =p= indextől kezdődő =l= hosszú részstringjét.
+
+    A =delete= a copyval ellentétben "helyben" végzi el a műveletet,
+    azaz nem egy másik, módosított stringet add vissza, hanem 
+    az eredeti =s= stringet módosítja.
+*** Insert: string beszúrása
+#+NAME: stringek-insert
+#+BEGIN_SRC pascal 
      s2 := '12345';
      insert(s1,s2,3);
-     writeln(s2);
-     
+     writeln('insert: ' + s2);
+#+END_SRC
+**** Beszúrás
+     Az =insert(s, var d : string; p : integer)= procedúra, a =d= string
+     =p= indexétől kezdődő, és a string végéig tartó részstringet eltolva,
+     a =p= indextől kezdődően az =s= stringet "szúrja" be.
+*** Str: számból stringet
+#+NAME: stringek-str
+#+BEGIN_SRC pascal 
      i:=12345;
      str(i,s2);
-     writeln('s2: '+s2);
-
+     writeln('str: '+s2);
+#+END_SRC
+**** Szám > String konverzió
+     A =str(x ; var s : string)= procedúra, az =x= szám értékét (ami lehet 
+     =integer= vagy =real= is) átalakítja stringre és az =s= stringbe menti el.
+     A konverzió azt jelenti, hogy a 123 integerből lesz egy '123' string.
+*** Val: stringből számot
+#+NAME: stringek-val
+#+BEGIN_SRC pascal 
      s2 := '123a';
      val(s2,i,k); 
-     writeln(i);
-     writeln('k: ',k);
+     writeln('val: ',i, '; k: ', k);
+#+END_SRC
+**** String > Szám konverzió
+     A =val( s : string; var x; p : integer)= az =s= stringnek
+     megfelelő számot tárolja el =x=-ben (ami lehet =integer= vagy =real= is).
+     Amennyiben az =s= string nem számot tartalmaz, akkor =x= értéke 0 lesz,
+     és =p= értéke az az index lesz, amely helyen az első nem számot ábrázoló
+     karakter található.
      
+** Példa program
+*** Program stringek;
+    Az órán bemutatott programot úgy kapjuk hogy a megfelelő részeket bemásoljuk
+    az alábbiak szerint.
+#+BEGIN_SRC pascal :tangle pascal/stringek.pas :noweb no-export
+  program stringek;
+  <<stringek-decl>>
+  begin
+  <<stringek-ertekadas>>
+  <<stringek-concat>>
+  <<stringek-length>>
+  <<stringek-char>>
+  { string függvények}
+  <<stringek-pos>>
+  <<stringek-copy>>
+  <<stringek-delete>>
+  <<stringek-insert>>
+  <<stringek-str>>
+  <<stringek-val>>
+  end.
+#+END_SRC
+** Feladat
+*** Leírás
+**** Feladat leírása
+    Egy beolvasott stringet tördeljünk 10 karakter szélességben.
+    Azaz, az első sorba írjuk ki a string első 10 karakterét, majd a
+    második sorba a második 10 karakterét és így végig. 
+*** Megoldás
+**** strcut.pas
+#+BEGIN_SRC pascal :tangle pascal/strcut.pas :noweb no-export
+  program strcut;
+  var
+    s,a : string;
+    j : integer;
+  begin
+    // s := '1234567890oisadjfoisadj oisasda';
+    readln(s);
+    j := 1;
+    while j <= length(s) do begin
+      a := copy(s,j,10);
+      writeln(a);
+      j := j + 10;
+    end;
   end.
 #+END_SRC
