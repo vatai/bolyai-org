@@ -1,0 +1,97 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: String
+
+* Halmaz típus
+** Deklaráció
+*** Deklaráció (sets-decl) 
+#+NAME: sets-decl
+#+BEGIN_SRC pascal
+  program sets;
+  type
+     basic_colors = (red_color,yellow_color,blue_color);
+     color        = set of basic_colors;
+     digit_set    = set of 0..9;
+     abc_set      = set of 'a'..'z';
+  <<sets-write>> // lásd később!
+  var
+    red,orange,yellow : color;
+    digits : digit_set;
+    letters : abc_set;
+#+END_SRC
+**** Halmaz deklaráció
+     A halmazokat deklarálhatunk a ~set of típus~ deklarációval tudunk
+     halmazokat deklarálni (hasonlóan mint a tömböket).
+
+     Megjegyzés: Egy halmaz legfeljebb 256 különböző elemet tartalmazhat.
+** Értékadás
+*** Halmazok létrehozása (sets-assign)
+    #+NAME: sets-assign
+    #+BEGIN_SRC pascal 
+    red := [red_color]; yellow := [yellow_color];
+    orange := [red_color,yellow_color];
+    digits := [4,2];
+    letters := ['a','b','c'];
+    #+END_SRC
+**** Halmazok létrehozása
+     A halmazokat szintén ~:=~-val tudunk értékül adni.  Halmazokat
+     meg szögletes zárójelekkel tudunk létrehozni, azaz szögletes
+     zárójelek között kell felsorolni a halmaz elemeit.
+** Műveletek
+*** Únió, Metszet, Különbség (sets-oper)
+    #+NAME: sets-oper
+    #+BEGIN_SRC pascal
+      if orange = ([red_color] + [yellow_color]) then 
+        writeln('Union works');
+      if digits = ([1,2,3,4] * [2,4,6,8]) then 
+        writeln('Intersection works');
+      if letters = (['a','b','c','d'] - ['d']) then 
+        writeln('Difference works');
+    #+END_SRC
+**** Únió, metszet, különbség
+     Az unió a ~+~ (plusz), a metszet a ~*~ (csillag) és a különbség a
+     ~-~ (mínusz).
+*** Halmazok bejárása és az ~in~ kulcsszó (sets-write)
+    #+NAME: sets-write
+    #+BEGIN_SRC pascal
+      procedure write_set(s : color);
+      var c :  basic_colors;
+      begin
+         write('{');
+         for c := red_color to blue_color do
+            if c in s then break;
+         if s <> [] then write(c); 
+         inc(c); // az inc(c) beállítja a 'küvetkező' színt
+         for c:= c to blue_color do
+            if c in s then write(',',c);
+         writeln('}');
+      end;
+    #+END_SRC
+**** "Write" függvény
+     Ebben a függvényben lehet látni, hogy hogyan kell feldolgozni egy
+     halmaz elemeit: az összes lehetséges elemen futtatjuk a ~for~
+     ciklust, az ~e in s~ pontosan akkor fog igazat visszaadni ha az
+     ~e~ eleme az ~s~ halmaznak (ezért csak ezeket írjuk ki).
+       - házifeladat: írjuk meg a ~write_digit_set~ és a ~write_abc_set~
+         függvényt.
+** Összefoglalva
+*** Példa program
+    #+BEGIN_SRC pascal :tangle pascal/sets.pas :noweb no-export
+      <<sets-decl>>
+      begin
+      <<sets-assign>>
+      <<sets-oper>>
+      write_set(orange);
+      end.
+    #+END_SRC
+**** Magyarázat a =write_set(s)= függvényhez
+     - Először kiír egy nyitott kapcsos zárójelet.
+     - A ciklus változót csak az első elemig megy ami a halmazban van,
+       utána kilép.
+     - Ha volt valami a halmazban akkor az első ~c~ elemet kiírja és a
+       következőre lép (az ~inc~ eljárással).
+     - Majd kiírja a többi elemet (és egy vesszőt mindegyik előtt).
+     - A végén egy csukott kacsos zárójellel zár.
