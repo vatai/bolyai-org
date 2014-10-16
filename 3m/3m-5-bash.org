@@ -5,23 +5,121 @@
 #+DATE: 2014-2015
 #+TITLE: Operációs rendszerek
 
-* A paranccsor 
-** Története
-* stdin, stdout és stderr
-* Átirányítás
-* Pipe
-* Behelyettesítés
-* BASH programozás
-** Változók
-** Program struktúrák
-* man
-* mkdir
-* cd
-* touch
-* echo
-* cat
-* sed
-* cut
-* tar
-* apt-get
-* gcc és g++
+* Programok a parancs sorban
+** Csatlakozási pontok
+*** stdin, stdout és stderr
+**** Standard bemenet, kimenet és hiba csatornák
+    - Minden programnak három (szöveges) csatlakozási pontja van: A
+      standard bemenet (stdin), a standard kimenet (stdout) és a
+      standard hiba kimenet (stderr). A stdout értéke 1, a stderr
+      értéke 2.
+
+    - A két kimenet azért van hogy meg tudjuk különböztetni a
+      felhasználható (várt) kimenetet, a hiba üzenetektől. Alapvetően
+      a stdout és a stderr külön van kezelve.
+
+    - Alapvetően egy program a stdin-t a billentyűzetről várja, míg a
+      stdout és a stderr a képernyőre íródik ki (a parancssorban).
+*** Átirányítás
+    Az átirányítás a =>= és =>>= jelekkel történik.
+**** Felülírás és Hozzáírás
+     - A =cmd > file.txt= a =cmd= parancs stdout-ját írja bele a
+       =file.txt= fájlba (felülírva azt). Ez egyenértékű a =cmd 1>
+       file.txt= paranccsal.
+     - A =cmd >> file.txt= a =cmd= parancs stdout-ját írja hozzá a
+       =file.txt= fájl végéhez. Ez egyenértékű a =cmd 1>> file.txt=
+       paranccsal.
+**** StdErr kezelése
+     - A =cmd 2 > errorfile.txt= a =cmd= parancs stderr-ját írja ki az
+       =errorfile.txt= fájlba. Hasonlóan a =cmd 2 >> errorfile.txt= a
+       =cmd= parancs stderr-ját írja hozzá =errorfile.txt= végéhez.
+     - A stderr átirányítható a stdout-ra is, =&= segítségével vagy
+       fordítva. Például a =cmd 2>&1= a stderr-t irányítja át a
+       stdout-ra.
+*** Példák
+#+BEGIN_SRC sh
+  vatai@thundr:~$ ls ilyenfilenincs > ures.txt
+  ls: cannot access ilyenfilenincs: No such file or directory
+  vatai@thundr:~$ cat ures.txt 
+  vatai@thundr:~$ ls ilyenfilenincs > ures.txt 2>&1
+  vatai@thundr:~$ cat ures.txt 
+  ls: cannot access ilyenfilenincs: No such file or directory
+  vatai@thundr:~$ 
+#+END_SRC
+*** Pipe
+*** Behelyettesítés
+*** BASH programozás
+**** Változók
+**** Idézőjelek
+     - A szimpla idézőjelek meggátolja a változók behelyettesítését
+       mindent úgy ad át ahogy be van írva.
+     - A dupla idézőjelek a speciális karaktereket is átadja (pl space)
+       de a változókat is behelyettesíti.
+**** $PATH változó
+     - A $PATH változóban van azoknak a direktóriumok listája
+       melyben található programok bárhonnan elérhetőek.
+     - A =which= paranccsal lehet megnézni pontosan melyik parancsról
+       van szó.
+     - Új direktórium adható a $PATH változóhoz, a következő módon:
+       =PATH=/pelda/dir:$PATH=
+**** Program struktúrák
+*** Parancsok
+**** pwd
+     Ki írja az aktuális direktóriumot.
+**** =mkdir= és =rmdir=
+     =mkdir dirnev= létrehozza a =dirnev= nevű direktóriumot.
+     
+     A =-p= paraméterrel több mélységbe tudunk direktóriumokat
+     létrehozni, pl =mkdir dir1/dir2/dir3= hiba üzenetet add ha nem
+     létezik =dir1/dir2=, de =mkdir -p dir1/dir2/dir3= már jól
+     működik.
+
+     =rmdir= paranccsal tudunk üres direktóriumokat törölni.
+**** =rm=
+     Az =rm= (azaz remove rövidítése) paranccsal tudunk törölni. Pl
+     =rm file.txt= törli a =file.txt= fájlt.
+
+     A =-r= paraméterrel tudunk, rekurzívan (nem üres direktóriumokat)
+     /mindent/ törölni.
+**** cd
+     Módosítja az aktuális direktóriumot, pl. =cd path/to/dir= a
+     =path/to/dir= direktóriumba.     
+**** ls
+     Az =ls= parancs kilistázza az aktuális direktórium tartalmát.
+
+     A =-l= (long) paraméter részletes listát készít.
+     
+     A =-a= (all) paraméterrel a rejtet fájlokat is kilistázzuk.
+
+     A =-t= (time) paraméter a módosítási idő szerint rendezi a listát.
+
+     A =-r= (reverse) fordított sorrendben írja ki a listát.
+**** man
+     =man parancs= utasítással tudunk segítséget kérni a
+     =parancs=-ról.
+
+     =/= jellel tudunk keresni, és =n=-nel tudjuk megismételni a
+     keresést.
+
+     =q=-val tudunk kilépni.
+**** gcc és g++
+**** touch
+*
+**** echo
+**** cat
+**** cut
+     A =cut OPT file.txt= parancs soronként feldolgozza a =file.txt=
+     fájlt.
+     
+     Az =OPT= a következő lehet:
+     - karakterek kivágása: =-cN-M= kivágja minden sor =N=-ik
+       karakterétől az =M=-ik karakteréig található részeket. (=N=
+       vagy =M= elhagyható).
+     - mezők kivágása: =-fN-M= kivágja minden sor =N=-ik mezőjétől az
+       =M=-ik mezejéig található részeket. (=N= vagy =M= elhagyható).
+       A mezőt =-d= (delimiter) lehet megadni.
+       
+**** grep
+**** sed
+**** tar
+*** apt-get
