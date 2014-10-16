@@ -2,3 +2,6 @@
 
 * Több dimenziós tömbök
 * Stringek
+  - Házi: sortname
+* Halmazok
+* Rekordok
