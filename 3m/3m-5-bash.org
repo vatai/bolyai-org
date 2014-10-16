@@ -47,14 +47,54 @@
   vatai@thundr:~$ 
 #+END_SRC
 *** Pipe
-*** Behelyettesítés
-*** BASH programozás
-**** Változók
-**** Idézőjelek
-     - A szimpla idézőjelek meggátolja a változók behelyettesítését
-       mindent úgy ad át ahogy be van írva.
-     - A dupla idézőjelek a speciális karaktereket is átadja (pl space)
-       de a változókat is behelyettesíti.
+**** Szintaxis
+     ~cmd1 | cmd2~
+**** Szemantika
+     Pipe vagy csővezetéknek nevezzük azt a konstrukciót, amikor az
+     egyik parancs kimenetét (stdout) átirányítjuk a másik parancs
+     bemenetére. Azaz a ~cmd1 | cmd2~ parancs nagyjából annak felel
+     meg hogy átirányítjuk a ~cmd1~ egy fájlba (például ~cmd1 > tmp~),
+     majd ezt a fájlt adjuk meg a ~cmd2~ parancs paramétereként (azaz
+     ~cmd2 tmp~).
+
+     A pipe a hatékonyabb a fenti átirányításos módszernél:
+     - nem kell létrehozni az ideiglenes fájlt
+     - a két program párhuzamosan fut, és soronként dolgozza fel a
+       második parancs az első parancs kimeneteit.
+*** Kiértékelés
+**** Szintaxis 
+     ~`cmd`~ vagy ~$(cmd)~
+     - A második javasolt, mert az beágyazható.
+**** Szemantika
+     A ~$(cmd)~ (vagy ~`cmd`~) utasítás végrehajtja a ~cmd~ parancsot
+     és kiértékeli a kimenetet, azaz olyan mintha a ~cmd~ parancs
+     kimenetét begépelnénk a ~$(cmd)~ helyére és egy entert nyomnánk.
+
+     Megjegyzés: a kiértékelés kombinálható más parancsokkal is.
+**** Példa
+     - Az ~echo ls~ kimenete az, hogy ~ls~ ezért az ~$(echo ls)~ az ~ls~
+       parancsot hajtja végre.
+     - A ~$(cat cmd.txt)~ a ~cmd.txt~-ben található parancsot fogja
+       végrehajtani.
+     - Az ~ls $(cat param.txt)~ az ~ls~ parancsot hívja meg a
+       ~param.txt~ fájlban szereplő paraméterekkel
+
+** BASH programozás
+*** Változók
+**** Szintaxis
+     - Értékadás: ~VAR=value~
+     - Hivatkozás: ~$VAR~
+**** Szemantika
+     A változónak tetszőleges string értéket tudunk adni. (Oda kell
+     figyelni, hogy a változó név és az ~=~ között ne legyen szünet.)
+     
+     Amikor használni akarjuk a változó értékét, akkor egy ~$~ jelet
+     kell elé tenni.
+*** Idézőjelek
+    - A szimpla idézőjelek meggátolja a változók behelyettesítését
+      mindent úgy ad át ahogy be van írva.
+    - A dupla idézőjelek a speciális karaktereket is átadja (pl space)
+      de a változókat is behelyettesíti.
 **** $PATH változó
      - A $PATH változóban van azoknak a direktóriumok listája
        melyben található programok bárhonnan elérhetőek.
@@ -63,7 +103,7 @@
      - Új direktórium adható a $PATH változóhoz, a következő módon:
        =PATH=/pelda/dir:$PATH=
 **** Program struktúrák
-*** Parancsok
+*** GNU Parancsok
 **** pwd
      Ki írja az aktuális direktóriumot.
 **** =mkdir= és =rmdir=
