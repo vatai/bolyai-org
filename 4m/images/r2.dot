@@ -1,0 +1,51 @@
+  digraph G {
+    node [shape=box,fontname="Courier"];
+    edge [fontname="Courier"];
+
+    rax [label="?- r2(a,X)."];
+    rax -> fat;
+    fat [label="?- f(a,T),r2(T,X)."];
+    fat -> rbx [label="T=b"];
+    rax -> fax;    
+    fax [label="?- f(a,X)."];
+    fax -> t1 [label="X=b"];
+    t1 [label=" "];
+
+    rbx [label="?- r2(b,X)."];
+    fbt [label="?- f(b,T),r2(T,X)."];
+    fbt -> rcx [label="T=c"];
+    rbx -> fbx;    
+    fbx [label="?- f(b,X)."];
+    fbx -> t2 [label="X=c"];
+    t2 [label=" "];
+    rbx -> fbt;
+
+    rcx [label="?- r2(c,X)."];
+    fct [label="?- f(c,T),r2(T,X)."];
+    fct -> rdx [label="T=d"];
+    rcx -> fcx;    
+    fcx [label="?- f(c,X)."];
+    fcx -> t3 [label="X=d"];
+    t3 [label=" "];
+    rcx -> fct;
+    
+    rdx [label="?- r2(d,X)."];
+    fdt [label="?- f(d,T),r2(T,X)."];
+    fdt -> rex [label="T=e"];
+    rdx -> fdx;    
+    fdx [label="?- f(d,X)."];
+    fdx -> t4 [label="X=e"];
+    t4 [label=" "];
+    rdx -> fdt;
+
+    rex [label="?- r2(e,X)."];
+    fet [label="?- f(e,T),r2(T,X)."];
+    fet -> t6;
+    rex -> fex;    
+    fex [label="?- f(e,X)."];
+    fex -> t5 ;
+    t5 [label="+++"];
+    rex -> fet;
+    t6 [label="+++"];
+  }
+

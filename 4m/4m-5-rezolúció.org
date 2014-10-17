@@ -1,0 +1,22 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Rezolúció
+* 
+** 
+*** 
+**** Bizonyítás keresés 				      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.4
+     :BEAMER_env: block
+     :END:
+#+BEGIN_SRC dot :exports results :file images/ps.pdf
+  digraph G {
+    node [shape=box,fontname="Courier"];
+    edge [fontname="Courier"];
+    rax [label="?- r1(a,X)."];
+    
+  }
+#+END_SRC
