@@ -2,6 +2,17 @@
 #+TITLE: Prolog
 
 18+14 alkalom
+* Ellenőrző 1
+** Logika
+   - 0-ad rendű logika
+   - 1. rendű logika
+   - Logikai szabályok
+   - KDNF és DDNF előállítása és egyszereűsítése
+   - Rezolúció Horn klózokkal
+** Prolog elmélet/alapok
+   - atomok, számok, változók, összetett termek
+   - egyesítési szabály
+   - bizonyítás keresés és fa rajzolása
 * Áttekintés
 | Anyagrérsz           | Órák | Hét |
 |----------------------+------+-----|
