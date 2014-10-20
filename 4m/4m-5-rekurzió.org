@@ -1,0 +1,80 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Rekurzió
+
+* Rekurzió
+** Rekurzió
+*** Definíció 
+**** Rekurzió a matematikában
+     Egy sorozat akkor rekurzív ha hivatkozik az előző elemeire.
+**** Rekurzió a programozásban
+     Egy eljárás akkor rekurzív ha saját magát hívja meg.
+**** Prologban a rekurzió
+     Prologban egy predikátum rekurzív, ha van egy olyan szabály
+     definiálja melyben önmaga is szerepel.
+*** Helyes rekurzió általában
+**** Terminálás
+     Minden rekurzív függvény hívás kell hogy termináljon, azaz kell
+     hogy legyen egy ága, amelyben nincs rekurzió (különben a
+     végtelenségig fut).
+**** Helyes rekurzió a prologban
+     #+NAME: r1
+     #+BEGIN_SRC prolog
+       r1(X,Y):-f(X,Y).
+       r1(X,Y):-f(X,T),r1(T,Y).
+     #+END_SRC
+     - A termináló ág kell hogy a rekurzív ág előtt szerepeljen.
+     - A rekurzív szabályokban, a rekurzív hívás mindig a végén kell
+       hogy legyen.
+*** ad
+**** 								      :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END:      
+#+BEGIN_SRC dot :exports results :file images/ps.pdf
+  digraph G {
+    node [shape=box,fontname="Courier"];
+    edge [fontname="Courier"];
+    
+    rax [label="?- r1(a,X)"];
+
+    rax -> fax;
+    fax [label="?- f(a,X)"];
+    fax -> t1 [label="X=b"];
+    t1 [label=" "];
+
+    rax -> fat;
+    fat [label="f(a,T),r1(T,X)"];
+    fat -> rbx [label="T=b"];
+    rbx [label="r1(b,X)"];
+    rbx -> fbx;
+    fbx [label="f(b,X)"];
+    fbx -> t2 [label="X=c"];
+    t2 [label=" "];
+
+    rbx -> fbt;
+    fbt [label="f(b,T),r1(T,X)"];
+    fbt -> rcx [label="T=c"];
+    rcx [label="r1(c,X)"];
+    rcx -> fcx;
+    fcx [label="f(c,X)"];
+    fcx -> t3 [label="X=d"];
+    t3 [label=" "];
+
+    rcx -> fct;
+    fct [label="f(c,T),r1(T,X)"];
+    fct -> rdx [label="T=d"];
+    rdx [label="r1(d,X)"];
+    rdx -> fdx ;
+    fdx [label="f(d,X)"];
+    fdx -> t4 [label="X=e"];
+    t4 [label=" "]; 
+  }
+#+END_SRC
+
+#+RESULTS:
+[[file:images/ps.pdf]]
+

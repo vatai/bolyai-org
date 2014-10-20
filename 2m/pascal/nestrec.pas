@@ -35,7 +35,6 @@ begin
    else person_before := false;
 end;
    
-
 {procedure sort(var db : db_t);
 var
    p1, p2 :  person_t;
