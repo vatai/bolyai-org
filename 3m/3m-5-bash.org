@@ -203,7 +203,9 @@
     - mezők kivágása: =-fN-M= kivágja minden sor =N=-ik mezőjétől az
       =M=-ik mezejéig található részeket. (=N= vagy =M= elhagyható).
       A mezőt =-d= (delimiter) lehet megadni.
-      
+*** head és tail
+*** wc   
+*** regexp 
 *** grep
 *** sed
 *** tar
