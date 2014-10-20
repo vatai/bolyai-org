@@ -26,6 +26,7 @@
        r1(X,Y):-f(X,Y).
        r1(X,Y):-f(X,T),r1(T,Y).
      #+END_SRC
+     *FONTOS!!!*
      - A termináló ág kell hogy a rekurzív ág előtt szerepeljen.
      - A rekurzív szabályokban, a rekurzív hívás mindig a végén kell
        hogy legyen.
