@@ -168,6 +168,13 @@ vagy
        melyet behelyettesítve a változóba igazat ad a lekérdezés.
      - Ha több ilyen van, akkor a pontosvessző =;= ismételt lenyomásával
        kapjuk meg az összes ilyen lehetőséget.
+*** Összefoglaló
+    - Tények: =term.=
+    - Szabályok: =term :- term1, term2,...,termn.=
+    - Klóz: tény vagy szabály!
+    - Tudásbázis: file.pl ami klózokat tartalmaz!
+    - Lekérdezés. =term1,term2,...,termn=. amit a Prolog értelmezőbe,
+      a =? -= után írunk be.
 * Gyakorlatok és példák
 ** Kérdések
 *** Első gyakorlat

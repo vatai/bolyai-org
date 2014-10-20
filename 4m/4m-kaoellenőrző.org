@@ -22,3 +22,8 @@ például KKNF-re!
 A v !B (2,3)
 
 végeredmény: F = (!A v B v C) & (A v !B)
+
+2. Atom, Szám, Változó vagy összetett term?
+
+
+
