@@ -1,0 +1,24 @@
+* Kao ellenőrző
+1. Hozzuk KKNF (vagz KDNF)-re a következő igazság táblával megadott
+   formulát:
+    | $A$ | $B$ | $C$ | $\mathcal{F}$ |
+    |   1 |   1 |   1 |             1 |  
+    |   1 |   1 |   0 |             1 |  
+    |   1 |   0 |   1 |             1 |  
+    |   1 |   0 |   0 |             0 | !A v B v C
+    |   0 |   1 |   1 |             0 | A v !B v !C
+    |   0 |   1 |   0 |             0 | A v !B v C
+    |   0 |   0 |   1 |             1 | 
+    |   0 |   0 |   0 |             1 | 
+
+Megoldás KDNF (egyszerűsítés nélkül): 
+F = (A & B & C) v (A & B & !C) v ...
+
+Megoldás KKNF (egyserűsítés nélkül):
+F = (!A v B v C) & (A v !B v !C) & (A v !B v C)
+
+Egyszerűsítés: 
+például KKNF-re!
+A v !B (2,3)
+
+végeredmény: F = (!A v B v C) & (A v !B)
