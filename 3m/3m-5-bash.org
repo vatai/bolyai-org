@@ -233,6 +233,8 @@
     - ~?~ :: 0 vagy 1-szer a megelőző karakter
     - ~*~ :: 0 vagy többször a megelőző karakter
     - ~+~ :: 1 vagy többször a megelőző karakter
+    A fordított per \ az escape karakter, azaz ha a pontra mint
+    karakterre akarunk hivatkozni, akkor =\.=-ot kell írni.
 *** grep
     ~grep 'RE' vmi.txt~ kiírja a ~vmi.txt~ fájl azon sorait melyekre
     illeszkedik az ~RE~ regex. Az alapértelmezett input a ~stdin~.
@@ -248,8 +250,8 @@
       'mit' szó első előfordulását 'mire' változtatja.
     - 'mit' rész lehet egy regexp is!
     - Sőt, a regexp bővíthető, hogy a úgy hogy tudjunk bizonyos
-      részeire hivatkozni. '\(' és '\)' zárójel párral kell
-      meghatározni a regexp részét, és '\1', '\2'-vel, stb lehet rájuk
+      részeire hivatkozni. =\(= és =\)= zárójel párral kell
+      meghatározni a regexp részét, és =\1=, =\2=-vel, stb lehet rájuk
       hivatkozni.
     - ha a 'PRE' végére egy 'g'-t is írunk, azaz 's/mit/mire/g' a
       szabály, akkor nem csak az első, hanem az összes előfordulása a
