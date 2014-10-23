@@ -148,7 +148,7 @@
 *** Program struktúrák
 **** Szekvencia
      - 
-** GNU Parancsok
+* GNU Parancsok
 *** pwd
     Ki írja az aktuális direktóriumot.
 *** =mkdir= és =rmdir=
@@ -180,22 +180,29 @@
 
     A =-r= (reverse) fordított sorrendben írja ki a listát.
 *** man
-    =man parancs= utasítással tudunk segítséget kérni a
-    =parancs=-ról.
-
-    =/= jellel tudunk keresni, és =n=-nel tudjuk megismételni a
-    keresést.
-
-    =q=-val tudunk kilépni.
+    - =man parancs= utasítással tudunk segítséget kérni a
+      =parancs=-ról.
+    - =/= jellel tudunk keresni, és =n=-nel tudjuk megismételni a
+      keresést.
+    - =q=-val tudunk kilépni.
 *** gcc és g++
 *** touch
-*
+    ~touch xyz~ Létrehozza az ~xyz~ nevű fájlt vagy módosítja a
+    "módosítási dátumukat"
 *** echo
+    ~echo hello~ kiírja azt hogy ~hello~
+
+    ~-n~ nem tesz új sort a szöveg után
+    
+    ~-e~ bekapcsolja a ~\~ escape karaktert: például ~\n~ új sor, ~\t~
+    tabulátor stb. (ld ~man echo~)
 *** cat
+    A ~cat vmi.txt~ kiírja a ~vmi.txt~ tartalmát a ~stdout~-ra. 
+    Az alapértelmezett input az ~stdin~.
 *** cut
     A =cut OPT file.txt= parancs soronként feldolgozza a =file.txt=
-    fájlt.
-    
+    fájlt. Az alapértelmezett input az ~stdin~.
+**** Kapcsolók    
     Az =OPT= a következő lehet:
     - karakterek kivágása: =-cN-M= kivágja minden sor =N=-ik
       karakterétől az =M=-ik karakteréig található részeket. (=N=
@@ -204,8 +211,28 @@
       =M=-ik mezejéig található részeket. (=N= vagy =M= elhagyható).
       A mezőt =-d= (delimiter) lehet megadni.
 *** head és tail
-*** wc   
-*** regexp 
+    ~head -n3 vmi.txt~ illetve a ~tail -n2 vmi.txt~ kiírja a ~vmi.txt~ fájl első három
+    illetve utolsó 2 sorát. Az alapértelmezett input az ~stdin~.
+*** wc
+    A ~wc vmi.txt~ kiírja a ~vmi.txt~ fájlban található karakterek,
+    szavak és sorok számát.  Az alapértelmezett input az ~stdin~.
+**** Kapcsolók
+     ~-l~, ~-w~ és ~-c~ kapcsolókkal csak a sorok, szavak illetve
+     karakterek számát írja ki.
+*** Reguláris kifejezések (regexp)
+    A regex (vagy regexp) egy minta leíró nyelv, azaz mintákat leíró
+    szabályok:
+    - ~.~ :: tetszőleges karakter
+    - ~\^~ :: a sor eleje
+    - ~\$~ :: a sor vége
+    - ~[..]~ :: karakterek csoportja, azaz a zárójelekben szereplő
+                betűk közül akármelyik (pl [abc] a vagy b vagy c, de
+                lehet intervallumokat is használni, [0-9] tetszőleges
+                számjegy).  A szögletes zárójelek között a ~^~
+                negációt jelent, azaz akármi csak az nem!
+    - ~?~ :: 0 vagy 1-szer a megelőző karakter
+    - ~*~ :: 0 vagy többször a megelőző karakter
+    - ~+~ :: 1 vagy többször a megelőző karakter
 *** grep
 *** sed
 *** tar
