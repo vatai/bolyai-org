@@ -241,5 +241,31 @@
                illeszkedő sorokat írja ki.
      - ~-i~ :: ignorálja a kis és nagy betű közötti különbséget.
 *** sed
+    - A ~sed 'PRE' vmi.txt~ kiírja a ~vmi.txt~ fájl sorait a 'PRE'
+      szabály szerint módosítva.
+    - A 'PRE' egy Perl (az egy programozási nyelv) reguláris
+      kifejezés, ami általában 's/mit/mire/' ami azt teszi a hogy a
+      'mit' szó első előfordulását 'mire' változtatja.
+    - 'mit' rész lehet egy regexp is!
+    - Sőt, a regexp bővíthető, hogy a úgy hogy tudjunk bizonyos
+      részeire hivatkozni. '\(' és '\)' zárójel párral kell
+      meghatározni a regexp részét, és '\1', '\2'-vel, stb lehet rájuk
+      hivatkozni.
+    - ha a 'PRE' végére egy 'g'-t is írunk, azaz 's/mit/mire/g' a
+      szabály, akkor nem csak az első, hanem az összes előfordulása a
+      'mit' szónak ki lesz cserélve 'mire'
+    - Itt is az alapértelmezett bemenet a ~stdin~
+*** sed példák
+#+BEGIN_SRC sh
+vatai@thundr:~$ echo gabbagabbahey | sed 's/gabba/gaBBa/'
+gaBBagabbahey
+
+vatai@thundr:~$ echo gabbagabbahey | sed 's/gabba/gaBBa/g'
+gaBBagaBBahey
+
+vatai@thundr:~$ echo gabbagabbahey | sed 's/gab\(.a\)/\1\1/g'
+babababahey
+#+END_SRC
+
 *** tar
 *** apt-get
