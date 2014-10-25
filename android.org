@@ -1,0 +1,79 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+DATE: 2014-2015
+#+TITLE: Android programozás alapjai
+
+* Teendők 
+** Fejlesztői környezet
+   Az Android fejlesztéshez 3 dolog kell:
+   - Java
+   - Android SDK
+   - IDE
+
+*** Java (DOIT)
+    Többnyire mindenkinek van a gépén, ha nem akkor google Oracle JRE
+    vagy Oracle JDK.
+    - Oracle JRE: Java Runtime Environment, vagyis futás idejű
+      környezet, azaz minden ami kell hogy egy Java program fusson.
+    - Oracle JDK: Java Developement Kit, vagyis Java fejlesztői
+      csomag, azaz minden ami kell hogy Javaban tudj programozni.
+    - Az Android Java alapú: egy linux magon (kernelen) futtat egy
+      Java virtuális gépet, és erre kell írni a programot, ezért kell
+      a Java.
+    - DOIT: A megfelelő Java-t a következő címről kell letölteni: [[http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html][Oracle]]
+*** Android SDK és IDE
+    - Android Software Development Kit: Android szoftver fejlesztési
+      csomag. Itt találhatók az összes android specifikus kód ami kell
+      a fejlesztéshez (például az Activity osztály), build tools-ok és
+      az emulátor (ami virtuális telefonokat emulál).
+    - IDE (Integrated development environment): Egyszerű szöveg
+      szerkesztő (Notepad) + néhány *nagyon* hasznos funkció. Lehetővé
+      teszi a programok egyszerű módosítását és futtatását, az unalmas
+      feladatokat automatizálva.
+*** SDK és IDE választása (DOIT)
+    Két IDE javasolt:
+    - Eclipse ADT: Eclipse egy kiváló Java IDE. Bővíthető Android
+      funkcionalitással. Egyben is letölthető az SDK-val, ezt hívják
+      Eclipse ADT bundle-nak.
+    - Android Studio: IntelliJ IDEA alapú, SDK-val össecsomagolva
+
+    Én valószínűleg Android Studio-t fogok használni (ez az újabb) és
+    itt lehet letölteni (nagy kék gomb):
+    - (DOIT) http://developer.android.com/sdk/installing/studio.html
+*** SDK segédprogramjai: AVD és SDK manager
+    - Android Virtual Device (AVD) manager: a virtuális telefonokat
+      itt tudjuk kezelni. Elég egyszerű program, ha nincs Androidos
+      telefonod akkor itt tudsz egy "virtuális telefont" létrehozni
+      amint kipróbálhatod a programjaidat.
+    - SDK manage: az SDK részeit lehet vele kezelni. Itt tudjuk
+      kiválasztani (azaz telepíteni) a kívánt verzióját az Androidnak. 
+
+*** DOIT Első projekt
+    Java és Android Studio telepítés után:
+    1. New project (Next, next, next ...)
+    2. Frissítsük az SDK-t:
+       - Tools : Android : *SDK manager*
+       - *Deselect All*, majd select *Updates*
+       - Install N packages (N a frissítendő csomagok száma)
+    3. Szintén az SDK manageren belül telepítsük az Android 5.0
+       (API 21) alól az:
+       - SDK Platform és
+       - ARM EABI System Image csomagokat (kipipázni és install)
+    4. Csináljunk egy virtuális eszközt
+       - Tools : Android : *AVD manager*
+       - Create: az új ablakot ki kell tölteni értelemszerűen (meg
+         kell adni a virtuális telefonunk paramétereit).
+       - Ez csak akkor kell, ha nincs saját androidos telefonunk
+       - Ha van android telefonunk, akkor kapcsoljuk be a Developer
+         options : USB debugging-ot. (Általában a Settings : About
+         phone : Build numberra kell hétszer kattintani hogy
+         aktiváljuk a development optionst)
+    5. Futtassuk az Android Studioból a programunkat:
+       - Run : Run App (Ctrl+F10)
+       - Itt bírjuk kiválasztani hogy min szeretnénk futtani:
+	 - Lehet a virtuális eszközt választani amit a AVD managerben
+           csináltunk
+	 - lehet az USB-re csatlakoztatott mobilunkat is választani
+	 - Ha minden jól ment akkor egy "hello world" program fog
+           elindulni.
+       
