@@ -13,7 +13,7 @@ begin
       end;
       writeln;
    end;
-end; { Újrahasznosítás!!! }
+end; 
 function randmat(n:integer) : matrix;
 var 
    i,j : integer;
@@ -22,7 +22,7 @@ begin
       for j := 1 to n do
          randmat[i,j] := random(10)-5;
 end;
-   { Majdnem újrahasznosítás }
+
 function mulmat(n:integer; a,b : matrix):matrix;
 var 
    i,j,t : integer;

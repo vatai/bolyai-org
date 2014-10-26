@@ -268,8 +268,8 @@ type
 *** Megoldás (matnmul)
 #+BEGIN_SRC pascal :tangle pascal/2m-1-matnmul.pas :noweb no-export
 <<matnmul-decl>>
-<<matnmul-writemat>> { Újrahasznosítás!!! }
-<<matnmul-randmat>>   { Majdnem újrahasznosítás }
+<<matnmul-writemat>> 
+<<matnmul-randmat>>
 <<matnmul-mulmat>>
 var
    a,b,c : matrix;
