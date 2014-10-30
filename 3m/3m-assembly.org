@@ -1,6 +1,11 @@
 # -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
 #+TITLE: Assembly
 
+* Blokk <2014-10-30 чет> 
+** páros: * és ?
+  - 
+** Todo
+
 18+18 alkalom
 * Áttekintés
 ** Első félév

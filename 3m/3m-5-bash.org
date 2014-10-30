@@ -132,12 +132,12 @@
       $szunetes
     #+END_SRC
 *** Rendszer változók
-**** ~$HOME~ változó
+**** =$HOME= változó
      - A ~$HOME~ változóban tárolja a rendszer hogy melyik a "home"
        derektóriumunk. 
      - Például: ~echo $HOME~ olyasmit ír ki hogy ~/home/vatai~
      - vagy ~ls $HOME/assembly/~
-**** ~$PATH~ változó
+**** =$PATH= változó
     - A $PATH változóban van azoknak a direktóriumok listája melyben
       található programok bárhonnan elérhetőek (kettőspontokkal
       elválasztva).
