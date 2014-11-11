@@ -55,7 +55,7 @@ end;
 **** A =with= parancs
 ** Értékadás
 *** A fő program (records)
-    #+BEGIN_SRC pascal :tangle pascal/records.pas :noweb no-export
+    #+BEGIN_SRC pascal :tangle pascal/2m-5-records.pas :noweb no-export
       <<records-decl>>
       <<records-init>>
       <<records-write>>
@@ -72,3 +72,154 @@ end;
 **** Értékadás
      Két azonos rekord típusú változót értékül adhatunk egymásnak,
      és ilyenkor az egyes tagok értékül adódnak.
+* Uniók (record + case)
+** Szemléltetés
+*** Egy jó táska
+**** Szemléletes példa
+     - A hátizsák egy jó táska, mert használhatjuk iskola táskának is,
+       de kisebb kirándulásoknál utazó táskának is.
+       - Iskolában könyveket és füzeteket viszünk benne,
+       - kirándulásokon ruhát meg uzsonnát.
+     - Ez mind elférne egyszerre egy utazó táskában is, de milyen
+       furcsa lenn ha félig üres utazót táskákkal járnának a diákok
+       iskolába.
+     - Egy egyszerűsített példát fogunk leprogramozni:
+       - Programozott táskánkba a következő dolgok férnek:
+	 - vagy 2 füzet,
+	 - vagy egy könyv,
+	 - vagy egy laptop.
+** Deklaráció
+*** Egy jó táska (union-decl)
+#+NAME: union-decl
+#+BEGIN_SRC pascal
+     bag_t      = record
+                     color         : color_t;
+                     case contents : contents_t of
+                       notes       : (first:char; second:char);
+                       book       : (onlybook:integer);
+                       laptop     : (onlylaptop:longint);
+                     end;
+#+END_SRC
+**** Változó rekordok
+    - Egy ilyen több-funkciós táskát tudunk megvalósítani Pascal-ban a
+      =record=-on belül szereplő =case= deklarációval (táska tartalma
+      csak 2 füzet, 1 könyv vagy 1 laptop lehet).
+    - A =case=-ben szereplő =contents= (angolul tartalom) változóban
+      kell megadni, hogy a három eset közül hogyan használjuk a táskát.
+    - A különböző esetekre, deklaráljuk (létrehozzuk) a tárolandó
+      változókat, melyek csak az adott esetre (értelmesek).
+    - A táska színe (=color=) közös, ezért nem része a =case=
+      deklarációnak.
+*** Egy rossz táska (badbag-decl)
+#+NAME: badbag-decl
+#+BEGIN_SRC pascal
+  badbag_t = record
+                color    : color_t;
+                contents : contents_t;
+                first    : char;
+                second   : char;
+                onlybook : integer;
+                onlylaptop  : longint;
+             end;
+#+END_SRC
+**** Nem hatékony megvalósítás
+     - A rossz táska (jól működik, de problémás) az utazó
+       táska volt a példában.
+     - Az rossz táskába bele fér a 2 füzet, a könyv és a laptop is, de
+       több helyet is foglal, és nehezebb utazni vele.
+     - Ez a két probléma szó szerint igaz a programban is:
+       - A =sizeof= függvénnyel megnézhetjük, hogy több byte-ot foglal;
+       - A nagyobb dolgokat tovább tart átmásolni, és ha sok van
+         belőlük lelassítják a programot.
+*** sizeof
+#+NAME: sizeof
+#+BEGIN_SRC pascal
+  var
+     bag:bag_t;
+  begin                           { output: }
+     writeln(sizeof(bag_t));      { 12 }
+     writeln(sizeof(badbag_t));   { 16 }
+#+END_SRC
+**** sizeof (sizeof)
+     - A =sizeof(típus)= egy függvény ami az adott típus méretét adja
+       meg byte-okban.
+     - Egy =bag_t= típusú változó létrehozása után, kiírjuk a jó és a
+       rossz táska típus méretét és jól látható hogy a rossz táska
+       nagyobb (16 byte) mint a jó táska (12byte).
+     - Különböző gépeken, különböző adat-típusok más méretűek
+       lehetnek (nálam az =integer= 2 a =longint= 4 byte).
+*** Unió
+**** Más nyelvekben
+     - A C és C++ programozási nyelvben az ehhez hasonló adat típust uniónak
+       (=union=) hívják.
+     - A kisebb méretet úgy lehet megoldani mint a táskánál: ugyan
+       arra a helyre, több dolgot is tehetünk (de egyszerre csak
+       egyet).
+       - A rossz táska egyszerűen egymás után foglalja le az adatokat:
+         2 felsorolás (8 byte), 2 karakter (2 byte), 1 integer (2
+         byte), 1 longint (4 byte).
+       - A jó táska lefoglalja a két felsorolást (8 byte) és a
+         következő 4 byte-ra befér a longint (4 byte) az integer (2
+         byte) és a két karakter (2 byte) is!
+       - Oda kell figyelni, hogy ha felülírjuk pl a =bag.onlylaptop=
+         változót, akkor azt a memória részt módosítjuk ahova a többi
+         case beli tag is el van tárolva
+*** Az unió használata (notes)
+#+NAME: notes
+#+BEGIN_SRC pascal
+   bag.contents := notes;
+   bag.first:='a';
+   bag.second:='b';           { output: }
+   writeln(bag.first);        { a }
+   writeln(bag.second);       { b }
+   writeln(bag.onlybook);     { valami fura érték }
+   writeln(bag.onlylaptop);   { ugyan az a fura érték }
+#+END_SRC
+**** Helyes és helytelen használat
+      - Oda kell figyelni, hogy ha felülírjuk pl a =bag.onlylaptop=
+        változót, akkor azt a memória részt módosítjuk ahova a többi
+        case beli tag is el van tárolva
+      - Ha beállítjuk a táska tartalmát füzetekre (első sor), akkor a
+	füzeteket tárolhatunk benne, ezért a második és harmadik sor
+	helyes, ahogy a negyedik és az ötödik is.
+	- A hatodik és hetedik sor nem helyes, mert "ha füzeteket tettünk bele,
+	  akkor ne próbáljunk könyvet vagy laptopot kivenni"
+	  - Azaz a memóriának azt a részét fogja az utolsó két utasítás
+            kiírni (számként) ahova az 'a' és 'b' karakterek vannak
+            eltárolva (ezért írja ki a furcsa számot).
+*** Az unió használata (laptop)
+#+NAME: laptop
+#+BEGIN_SRC pascal
+   { felül írja a többi case-ben szereplő tagokat (first,second,onlybook)  }
+   bag.contents := laptop;
+   bag.onlylaptop:=1;       { output: }
+   writeln(bag.first);      { valami fura karakter}
+   // writeln(bag.second);  { valami fura karakter ami hibát okoz }
+   writeln(bag.onlybook);   { 1 }
+   writeln(bag.onlylaptop); { 1 }
+#+END_SRC
+**** Helyes és helytelen használat
+     - Második sor: átváltjuk a táskát laptop hordozásra
+     - Harmadik sor: a az egyes laptopot tesszük bele
+     - Negyedik és ötödik sor: az füzetetek kiolvasva valami furcsa
+       karaktert eredményez (az 'a' és 'b' felülíródott a második
+       sornál).
+     - Hatodik és hetedik sor: véletlen hogy pont ugyan az a címre
+       mutat az onlybook és onlylaptop tag és ezért írja ki az egyest
+       mindkettőre.
+     - Tehát a negyedik, ötödik és hatodik sor hibás (lefordul, de
+       hibás viselkedést okoz)!
+*** A többi
+Ami még lemaradt a főprogramból: 
+#+BEGIN_SRC pascal :tangle pascal/2m-5-union.pas :noweb no-export
+  program union;
+  type
+     contents_t = (notes,book,laptop);
+     color_t = (red,green,blue);
+  <<union-decl>>
+  <<badbag-decl>>
+  <<sizeof>>
+  <<notes>>
+  <<laptop>>
+end.
+#+END_SRC
