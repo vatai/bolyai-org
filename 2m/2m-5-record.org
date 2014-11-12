@@ -88,7 +88,7 @@ end;
 	 - vagy 2 füzet,
 	 - vagy egy könyv,
 	 - vagy egy laptop.
-** Deklaráció
+** Szintaxis
 *** Egy jó táska (union-decl)
 #+NAME: union-decl
 #+BEGIN_SRC pascal
