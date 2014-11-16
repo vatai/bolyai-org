@@ -5,7 +5,7 @@ var
    tfile : text;
    i	 : integer;
    c	 : char;
-   t	 : string;
+   t	 : string[5];
 begin
    assign(ifile,'int_file');
    assign(cfile,'char_file.txt');
@@ -28,7 +28,7 @@ begin
 
    readln(tfile,t);
    writeln(t);
-   readln(tfile,t);
+   read(tfile,t);
    writeln(t);
 
    close(ifile);

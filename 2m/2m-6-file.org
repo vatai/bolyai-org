@@ -4,3 +4,454 @@
 #+INCLUDE: "../beamer-common.org"
 #+DATE: 2014-2015
 #+TITLE: Fájlkezelés
+
+* Bináris fájlok
+** Fájl típusú változók
+*** File of type (fileof-decl)
+#+NAME: fileof-decl
+#+BEGIN_SRC pascal
+     ifile : file of integer;
+     cfile : file of char;
+#+END_SRC
+**** Szintaxis
+     =VÁLTOZÓNÉV : file of TÍPUS=
+     - A fájl típusú változó segítségével tudunk hozzáférni a
+       számítógépen található fájlokhoz
+     - Egy fájl tetszőleges adatokat tartalmaz (egy bit az 0 vagy 1,
+       egy byte 8 bit, és a fájlok byte-okból állnak)
+     - A deklarációban szereplő típus határozza meg, hogy a Pascal
+       milyen típusú adatnak értelmezi a fájl tartalmát
+     - Ha például =integer=-eket írunk egy fájlba, akkor minden
+       írásnál a fájl mérete =sizeof(integer)=-rel nő.
+       - Az =ifile= integereket a =cfile= karaktereket tartalmazó fájl
+         típusú változó
+** File változó inicializálása
+*** Assign (file-assign)
+#+NAME: file-assign
+#+BEGIN_SRC pascal
+     assign(ifile,'int_file');
+     assign(cfile,'char_file.txt');
+#+END_SRC
+**** Szintaxis és szemantika
+     - Az assign szignatúrája: =procedure assign(var f:file; n:string)=
+     - Az assign összeköti az első paraméterben szereplő fájl típusú
+       változót, egy fájlal a lemezen aminek a neve a második
+       paraméternek megadott string.
+     - A példa programokban =.txt= fájlokkal dolgozunk (hogy könnyű
+       legyen megnyitni notepaddel) de a következő dolgokat figyelembe
+       kell venni:
+       - *általában* a txt fájlok szöveget (karaktereket sorozatát)
+         tartalmaznak,
+       - de tetszőleges adatot írhatunk bele
+       - ha az 123 integert írunk egy '.txt' kiterjesztésű fájlba, nem
+         fog semmi hibát jelezni, csak ha megnyitjuk a fájlt, nem azt
+         fogjuk látni benne, hogy 123, hanem valami furcsa jeleket
+         (vagy szüneteket), mert nem az '1', '2' és '3' karaktereket
+         írtuk bele, hanem az '123 itegert'
+** Fájl megnyitása
+*** Rewrite (file-rewrite)
+**** (file-rewrite) 					      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :BEAMER_col: 0.3
+     :END:
+#+NAME: file-rewrite
+#+BEGIN_SRC pascal
+     rewrite(ifile);
+     rewrite(cfile);
+#+END_SRC
+**** (file-reset) 					      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :BEAMER_col: 0.3
+     :END:
+#+NAME: file-reset
+#+BEGIN_SRC pascal
+   reset(ifile);
+   reset(cfile);
+#+END_SRC
+**** (file-close) 					      :B_block:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :BEAMER_col: 0.3
+     :END:
+#+NAME: file-close
+#+BEGIN_SRC pascal
+     close(ifile);
+     close(cfile);
+#+END_SRC
+**** Szintaxis 
+     =rewrite(f:file)=, =reset(f:file)=, =close(f:file)=
+     - A =rewrite=, =reset= és =close= eljárás az =f= fájl típusú
+       változót megnyitja írásra, olvasásra illetve bezárja.
+     - Ha a fájl nem létezik a rendszeren, akkor létrehozza.
+     - A fájl írása és olvasása (Pascalban és programozásnál
+       általában) a következős lépésekből áll:
+       1. A fájl változó társítása egy valódi fájlhoz a lemezen (=assign=)
+       2. A fájl megnyitása írásra (=rewrite=) vagy olvasásra (=reset=)
+       3. A fájl írása (=write(f,...)=) vagy olvasása (=read(f,...)=)
+       4. A fájl bezárása (=close(f)=)
+** Fájlba írás és olvasása
+*** Write (file-write)
+#+NAME: file-write
+#+BEGIN_SRC pascal
+     { írjuk az 1 és 111 számokat ki az 'int_file.txt' fájlba }
+     write(ifile,1);
+     write(ifile,111);
+     { írjuk a '2' és 'm' karaktereket a 'char_file.txt' fájlba }
+     write(cfile,'2');
+     write(cfile,'m');
+#+END_SRC
+**** Fájlba írás
+     - A =read(f,...)= és =write(f,...)= eljárások abban különböznek a
+       megszokott =read()= és =write()= eljárásoktól, hogy fájlba
+       írnak és nem karakterekkel dolgoznak.
+       - Az első paraméter a fájlal összekötött változó amelybe/-bő
+         írunk/olvasunk.
+     - A =read(f,...)= akkor alkalmazható ha sikeresen megnyitottuk a
+       fájlt a =reset(f)= utasítással
+     - A =write(f,...)= akkor alkalmazható ha sikeresen megnyitottuk a
+       fájlt a =rewrite(f)= utasítással
+** Fájl megnyitása olvasásra
+*** Olvasás fájlból (iread)
+#+NAME: iread
+#+BEGIN_SRC pascal
+   assign(ifile,'int_file');
+   reset(ifile);
+   read(ifile,i);
+   writeln(i);
+   read(ifile,i);
+   writeln(i);
+   close(ifile);
+#+END_SRC
+**** Fájlok olvasása
+     - A =read(f,x)= utasítás egy =T= típusú elemeket tartalmazó =f=
+       fájlból kiolvas egy =T= típusú elemet az =x= változóba.
+** Fájl vége 
+*** Eof (cread)
+#+NAME: cread
+#+BEGIN_SRC pascal
+   assign(cfile,'char_file.txt');
+   reset(cfile);
+   while not eof(cfile) do begin
+     read(cfile,c);
+     writeln('cfile: ',c);
+   end;
+   close(cfile);
+#+END_SRC
+**** Fájl vége
+     - Az =eof(f)= =true= ha az =f= fájl végére értünk (vagyis ha már
+       nincs belőle mit olvasni.
+     - Egy =while not eof(f) do ...= ciklussal, addig olvasunk a
+       fájlból amíg lehet.
+* Szöveges fájlok
+** Szöveg fájl típusú változó 
+*** Text (text-decl)
+#+NAME: text-decl
+#+BEGIN_SRC pascal
+     tfile : text;
+#+END_SRC
+**** Szöveg fájlok
+     - Tetszőleges típusú elemeket tartalmazó fájlokat hasznos
+       használni, ha írunk hozzájuk megfelelő író *és* olvasó
+       programot is.
+     - Ha könnyen (pl notepaddel) olvasható fájlt akarunk létrehozni,
+       akkor =file of char= típusú fájlal dolgozhatunk, de az ilyen
+       típusú fájlok kezelése kényelmetlen, mert egyszerre csak egy
+       karaktert tudunk írni bele illetve olvasni belőle.
+     - A =text= típusú változók megoldják ezt a problémát:
+       - A =text= típusú változó = =file of char= típus + kényelmes műveletek
+       - A kényelmes műveletek: =write=, =writeln=, =read=, =readln=
+         ahol az első paraméter egy fájl, a többi paraméter meg akár
+         mi amit a /klasszikus/ (képernyőre kiíró) =write=, =writeln=,
+         =read=, =readln= függvények elfogadtak, 
+       - Ezek a műveletek a karaktereket nem a képernyőre, hanem a
+         fájlba írják (illetve fájlból olvassák)
+** Hozzáírás 
+*** Szokásos megnyitás (text-rewrite)
+#+NAME: text-rewrite
+#+BEGIN_SRC pascal
+     // irjuk a '2m' szoveget a 'text_file.txt' fájlba
+     assign(tfile, 'text_file.txt');
+     rewrite(tfile);
+     writeln(tfile,'2m');
+     close(tfile);
+#+END_SRC
+**** Text fájlok megnyitása
+     - A =text= fájlok megnyitása és bezárása megegyezik a szokásos
+       =file of T= fájlok megnyitása és bezárása.
+*** Append (text-append)
+#+NAME: text-append
+#+BEGIN_SRC pascal
+     assign(tfile, 'text_file.txt');
+     append(tfile);
+     writeln(tfile,42);
+     close(tfile);
+#+END_SRC
+**** Text fájlok megnyitása
+     - Ha =append=-del nyitjuk meg a fájlt, akkor a =write= és
+       =writeln= a fájl végéhez hozzáír (megtartva a fájl régi
+       tartalmát is).
+     - Ha =reset=-tel nyitjuk meg a fájlt, akkor a =write= és
+       =writeln= teljesen újra írja a fájlt.
+*** Szöveg olvasása (tread)
+#+NAME: tread
+#+BEGIN_SRC pascal
+   assign(tfile,'text_file.txt');
+   reset(tfile);
+   readln(tfile,t);
+   writeln(t);
+   readln(tfile,t);
+   writeln(t);
+   close(tfile);
+#+END_SRC
+**** Szöveg fájlok olvasás
+     - Az olvasás =read= vagy =readln= függvényekkel történhet.
+* Fő progik (2m-6-file-write.pas és 2m-6-file-read.pas)
+** Író program
+*** Író program (2m-6-file-write.pas)
+#+BEGIN_SRC pascal :tangle pascal/2m-6-file-write.pas :noweb no-export
+  program file_write;
+  var
+     <<fileof-decl>>
+     <<text-decl>>
+  begin
+     <<file-assign>>
+     <<file-rewrite>>
+     <<file-write>>
+     <<text-rewrite>>
+     <<text-append>>
+  end.
+#+END_SRC
+** Olvasó program
+*** Olvasó program (2m-6-file-read.pas)
+#+BEGIN_SRC pascal :tangle pascal/2m-6-file-read.pas :noweb no-export
+program file_read;
+var
+   <<fileof-decl>>
+   <<text-decl>>
+   i	 : integer;
+   c	 : char;
+   t	 : string;
+begin
+   <<iread>>
+   <<cread>>
+   <<tread>>
+end.
+#+END_SRC
+* További műveletek fájlokon
+** Példa fájl
+*** Példa fájl (file2-ex)
+#+NAME: file2-ex
+#+BEGIN_SRC pascal
+  assign(cf,'cfile.txt');
+  rewrite(cf);
+  { kiírjuk az első 12 karaktert }
+  for c := 'a' to chr(ord('a')+11) do write(cf,c);
+  close(cf);
+#+END_SRC
+**** Példa fájl
+     A =cfile.txt=-n mutatjuk be a következő műveleteket. A fájl az
+     angol ábécé első tizenkettő (kis) betű karaktereit
+     tartalmazza. (A =cf= egy karaktereket tartalmazó fájl).
+** Jelenlegi pozíció a fájlban
+*** filepos(f) : integer (file2-filepos)
+#+NAME: file2-filepos
+#+BEGIN_SRC pascal
+  reset(cf);
+  while not eof(cf) do begin
+    p:=filepos(cf);
+    read(cf,c);
+    writeln(p,c);
+  end;
+  close(cf); { cfile.txt: abcdefghijkl }
+#+END_SRC
+**** filepos
+     A =filepos= egyetlen paramétere egy fájl, a visszatérési értéke
+     meg a fájl "aktuális pozíciója".  A fájl kezelést úgy lehet
+     elképzelni, mint egy szalag és egy író/olvasó fej. A =reset=
+     szalag elejére teszi a fejet, és minden =read= vagy =write= olvas
+     illetve ír a szalagról és a fejet eggyel előre tolja. A =filepos=
+     a fej pozícióját adja vissza (a pozíció 0 ha a fájl elején van, a
+     =reset= hívása után).
+** Fájl méret
+*** filesize(f) : integer (file2-filesize)
+#+NAME: file2-filesize
+#+BEGIN_SRC pascal
+  reset(cf);
+  writeln('filesize: ', filesize(cf)); // 12
+  close(cf);
+  assign(zf,'cfile.txt'); reset(zf); 
+  writeln('zf filesize: ', filesize(zf)); // 3 vagy 6
+  close(zf);
+#+END_SRC
+**** filesize
+     A filesize megadja hogy hány elem van a fájlban. Egy karakter egy
+     byte ezért a =cf= fájl esetén az elemek száma megegyezik a fájl
+     méretével, de ha integerek fájlja ként nyissuk meg, akkor az eredmény
+     fájl méret (byte-okban) osztva =sizeof(integer)=.
+** Fej mozgatása
+*** seek(f,pos) (file2-seek)
+#+NAME: file2-seek
+#+BEGIN_SRC pascal
+  reset(cf);
+  seek(cf,3); write(cf,'x');
+  seek(cf,2); read(cf,c); writeln('pos 2=',c);
+  close(cf); { cfile.txt: abcxefghijkl }
+#+END_SRC
+**** seek
+     A =seek= paranccsal az író/olvasó fejet tudjuk adott pozícióra
+     állítani. A =seek= utasítást követő =read= vagy =write= művelet,
+     az adott pozícióról fog olvasni illetve írni.
+** Tartalom törlése
+*** truncate(f) (file2-trunc)
+#+NAME: file2-trunc
+#+BEGIN_SRC pascal
+  reset(cf);
+  seek(cf,8);
+  truncate(cf);
+  close(cf); { cfile.txt: abcxefgh }
+#+END_SRC
+**** truncate
+     A =truncate= függvény a fáj tartalmát törli, az író/olvasó fej
+     jelenlegi állapotától a fájl végéig (az aktuális pozíciót beleértve).
+     
+     A =rewrite= lényegében az egész fájlt törli és ezért =reset(f);
+     truncate(f);= utasítás sorozatnak felel meg.
+** Fájl átnevezése
+*** rename(f,str) (file2-rename)
+#+NAME: file2-rename
+#+BEGIN_SRC pascal
+  rename(cf,'cfile2.txt');
+  reset(cf);
+  write(cf,'A');
+  close(cf); { cfile.txt nincs! cfile2.txt: Abcxefgh }
+#+END_SRC
+**** rename
+     A =rename(f,s)= művelet az =f= változóhoz tartozó fájlt átnevezi
+     az =s= string névre (és a változó az új nevű fájlal lesz
+     összekapcsolva).
+
+     *Fontos!* A fájl be kell hogy legyen zárva (vagy =close=
+     művelettel vagy még a =reset= vagy =rewrite= hívás előtt, de
+     =assign= után) amikor meghívjuk rá az =rename= műveletet.
+** Fájl törlése
+*** erase(f) (file2-erase)
+#+NAME: file2-erase
+#+BEGIN_SRC pascal
+  erase(cf);
+#+END_SRC
+**** erase
+     Az =erase(f)= művelet egyszerűen törli a fájlt a lemezről ami az
+     =f= változóhoz tartozik.
+
+     *Fontos!* A fájl be kell hogy legyen zárva (vagy =close=
+     művelettel vagy még a =reset= vagy =rewrite= hívás előtt, de
+     =assign= után) amikor meghívjuk rá az =erase= műveletet.
+** Fő progi (2m-6-file2.pas)
+#+BEGIN_SRC pascal :tangle pascal/2m-6-file2.pas :noweb no-export
+  program file2;
+  var cf : file of char;
+      zf : file of integer;
+      c : char; p : integer;
+  begin
+    <<file2-ex>>
+    <<file2-filepos>>
+    <<file2-filesize>>
+    <<file2-seek>>
+    <<file2-trunc>>
+    <<file2-rename>>
+    <<file2-erase>>
+  end.
+#+END_SRC
+* További műveletek szöveg fájlokon
+** Példa fájl
+*** Példa fájl kiírása (text2-example)
+#+NAME: text2-example
+#+BEGIN_SRC pascal
+     assign(f,'problem.txt');
+     rewrite(f);
+     writeln(f,'1 2 3'); // 1. sor
+     writeln(f,'  10       20     30'); // 2. sor
+     writeln(f); // 3. sor 
+     writeln(f,'  100  200  300  '); // 4. sor
+     writeln(f); // 5. sor 
+     writeln(f,'     '); // 6. sor
+     close(f);
+#+END_SRC
+**** További műveletek szöveg fájlokon
+     A következő műveletek csak szöveg (=text=) fájlokra vonatkoznak.
+** Sor és fájl vége
+*** SeekEOF, EOLn, SeekEOLn
+**** eoln(f) : boolean
+     Az =eoln(f)= függvény pontosan akkor ad vissza =true= értéket ha
+     a következő karakter olvasása egy 'új sor' karakter (azaz ha a
+     sor végén vagyunk).
+**** seekeoln(f) : boolean
+     A =seekeoln(f)= függvény pontosan akkor ad vissza =true= értéket
+     ha már csak 'whitespace' karakterek (üres hely/szünet, vagy tab)
+     van a sor végéig. Más szóval, ha nincs már semmi érdemleges a sor
+     végéig, akkor azt átugorja és igazat ad vissza.
+     
+     Ha a =seekeoln(f)= igazat ad vissza, akkor át is fogja ugorni a
+     'whitespace' karaktereket.
+**** seekEOF(f) : boolean
+     Hasonlóan mint a =seekeoln(f)= az =seekeof(f)= is akkor ad vissza
+     =true=-t, ha csak 'whitespace' karakterek vagy új sor karakterek
+     vannak a fájl végéig, azaz át ugorja az üres hely/szünet, tab és
+     új sor karaktereket.
+*** Példa (text2-eo)
+#+NAME: text2-eo
+#+BEGIN_SRC pascal
+     reset(f); 
+     { '1 2 3' olvasása és kiírása: } read(f,i); writeln(i); read(f,i); writeln(i); read(f,i); writeln(i);
+     writeln(eoln(f));     // true: 3 után sor vége
+     { '  10       20     30' olvasása és kiírása: }  read(f,i); writeln(i); read(f,i); writeln(i); read(f,i); writeln(i);
+     writeln(eoln(f));     // true: 30 után sor vége
+     { '  100  200' olvasása és kiírása: } read(f,i); writeln(i); read(f,i); writeln(i); 
+     writeln(eoln(f));     // false: 200 után nincs sor vége
+     writeln(seekeoln(f)); // false: 200 után még van 300 
+     writeln(eoln(f));     // false: tehát nem ugrik előre 
+     { '  300  ' olvasása és kiírása: } read(f,i); writeln(i);
+     writeln(eoln(f));     // false: 300 után van pár üres hely
+     writeln(seekeoln(f)); // true: csak üres helyek vannak
+     writeln(eoln(f));     // true: előre ugrott
+     writeln(eof(f));     // false: nem a fájl vége
+     writeln(seekeof(f)); // true: csak üres helyek és sor végék maradtak
+     writeln(eof(f));     // false: seekeof nem ugri előre
+     close(f);
+#+END_SRC
+*** Tipikus használat (text2-while)
+#+NAME: text2-while
+#+BEGIN_SRC pascal
+     reset(f);
+     { ha csak eof => csomó '===' a végén }
+     while not seekeof(f) do begin 
+        { ha csak eoln => akkor egy 0 a 300 után }
+        while not seekeoln(f) do begin 
+           read(f,i);  writeln(i);
+        end;
+        writeln('==='); readln(f);
+     end;
+     close(f);
+#+END_SRC
+**** Magyarázat
+     A fenti program részben a külső ciklus olvas a fájl végéig
+     sorokat. Minden sor olvasását a belső ciklus valósítja meg ami
+     abból áll hogy egy-egy számot olvasunk a sor végéig.
+
+     A eof és eoln függvények helyett érdemes seekeof és seekeoln
+     függvényeket használni, hogy a felesleges haszontalan
+     karaktereket átugorják.
+*** Fő progi (2m-6-text2.pas)
+#+BEGIN_SRC pascal :tangle pascal/2m-6-text2.pas :noweb no-export
+  program file_advanced;
+  var
+     f : text;
+     i : integer;
+  begin
+     <<text2-example>>
+     <<text2-eo>>
+     <<text2-while>>
+  end.
+#+END_SRC
