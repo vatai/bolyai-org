@@ -1,12 +1,26 @@
 # -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
 #+TITLE: Assembly
 
+
 * Blokk <2014-10-30 чет> 
 ** páros: * és ?
   - 
 ** Todo
 
 18+18 alkalom
+* Óra <2014-11-24 пон>
+  Készülés az ellenőrzőre
+* Blokk <2014-11-20 чет> Páratlan
+  Assembly
+* Óra <2014-12-01 пон> Ellenőrző
+  - alap parancsok: echo, ls, cat, pwd, cd, mv, cp, mkdir, rm, rmdir, touch, wc
+  - filterek: cut, head, tail, less, 
+  - átirányítások, pipe, behehelyettesítés: >, >>, |, $(...)
+  - regexp: grep, sed
+  - változók. X=érték, echo $X
+  - ciklus: for (seq)
+
+
 * Áttekintés
 ** Első félév
 | Hardver+szoftver        |  2 |

@@ -230,9 +230,9 @@
                 lehet intervallumokat is használni, [0-9] tetszőleges
                 számjegy).  A szögletes zárójelek között a ~^~
                 negációt jelent, azaz akármi csak az nem!
-    - ~?~ :: 0 vagy 1-szer a megelőző karakter
+    - ~\\?~ :: 0 vagy 1-szer a megelőző karakter
     - ~*~ :: 0 vagy többször a megelőző karakter
-    - ~+~ :: 1 vagy többször a megelőző karakter
+    - ~\\+~ :: 1 vagy többször a megelőző karakter
     A fordított per \ az escape karakter, azaz ha a pontra mint
     karakterre akarunk hivatkozni, akkor =\.=-ot kell írni.
 *** grep
