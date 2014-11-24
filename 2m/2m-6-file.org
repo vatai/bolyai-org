@@ -302,7 +302,9 @@ end.
 **** seek
      A =seek= paranccsal az író/olvasó fejet tudjuk adott pozícióra
      állítani. A =seek= utasítást követő =read= vagy =write= művelet,
-     az adott pozícióról fog olvasni illetve írni.
+     az adott pozícióról fog olvasni illetve írni.  A
+     =seek(cf,filesize(cf))= parancs után az =eof(cf)= mindig =true=
+     értéket ad vissza.
 ** Tartalom törlése
 *** truncate(f) (file2-trunc)
 #+NAME: file2-trunc
