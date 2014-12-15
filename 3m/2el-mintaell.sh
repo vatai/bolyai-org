@@ -6,16 +6,18 @@
 # vatai@tanari:~/vatai-emil-2el$ ./vatai-emil-2el.sh # futtatás
 # 
 
-echo "Hello world"
+# 1. feladat (pipe)
+#
+# Számoljuk meg hány hány fájl vagy direktórium van az /usr/share/
+# könyvtárban.  Segítség: listázni tudunk, sorokat számolni is. Minden
+# fájl/direktórium 
+
 
 # 1. feladat (átirányítás)
 # listáz ki a /usr/share tartalmát az usr-lst.txt fájlba
 
 ls /usr/share > usr-lst.txt
 
-# 2. feladat (pipe)
-# Hogy lehet a "ls /usr/share" parancs kimenetét
-# megvizsgálni a less segítségével
 
 # 3. feladat (grep)
 # Az usr-bas.txt fájlba írjuk ki az usr-lst.txt fájl azon sorai 

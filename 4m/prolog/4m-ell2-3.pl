@@ -46,9 +46,12 @@ accsum([],A,A).
 accsum(L,S) :- accsum(L,0,S).
 
 % 
-%
+% 4. feladat max/3
 
 
-% 2.???
-geneven([],_,0).
-geneven([H|T],H,N) :- X is N-1, Y is H+2, geneven(T,Y,X).
+% 5. Írjuk meg a gl(N,L) predikátumot amely legenerálja az N hosszú
+% listát amely növekvő sorrendben tartalmazza az N legkisebb nem
+% negatív páratlan számot, azaz gl(3,L). esetén L=[1,3,5]
+
+gl(0,A,A).
+gl(N,A,R) :- N > 0, H is 2*N+1, Anew = [H|A], Nnew is N-1, gl(Nnew, Anew, R).
