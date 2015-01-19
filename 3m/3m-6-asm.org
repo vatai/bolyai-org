@@ -1,0 +1,79 @@
+# -*- mode: org; mode: flyspell; ispell-local-dictionary: "hu" -*-
+
+#+STARTUP: beamer
+#+INCLUDE: "../beamer-common.org"
+#+DATE: 2014-2015
+#+TITLE: Assembly
+
+* Assembly
+** Áttekintés
+*** Pragmák és utasítások
+**** Összehasonlítás
+     - Pragma :: 
+       - utasítás a fordítónak, hogy hogyan csinálja készítse el a
+         programot.
+       - Példa: a pascal programokban a =var=, =type= és a =const=
+         részek.
+     - Utasítás :: 
+       - egy utasítás amit a program fog végrehajtani futás közben.
+       - Példa: a pascal programokban az értékadás, függvényhívás és
+         lényegében minden ami a =begin= és az =end.=
+** Pragmák
+*** Pragmák
+**** Helyfoglalás
+     - Emu8086 és más
+       - =DB=: define byte (8bit), byteok lefoglalására
+       - =DW=: define word (16bit), szavak lefoglalása
+     - Más
+       - =DD=: define double word (32 bit), dupla szó 
+       - =DQ=: define quad word (64 bit), négyszeres szó
+**** Példák
+     - "=cimke1 DB 1=" vagy "=cimke2 DB 1,2,3,4="
+     - az utóbbi, azaz a "=cimke2 DB 1,2,3,4=" példa megegyezik a
+       "=cimke2 DW 18,52=" (ugyanis $18 = 1 \times 16 + 2$ és $52 = 3
+       \times 16 + 4$)
+     - pascalban az első kb a =char cimke1= deklarációnak felel meg, a
+       második kb a =short cimke2= deklarációnak (ha
+       =sizeof(shortint)=2=)
+** Utasítások
+*** Általános szabályok
+**** Jelölések
+     - OP dst, src:
+       - OP = operátor = művelet
+       - dst = destination = cél
+       - src = source = forrás
+**** Példák
+     | Assembly  | C      |
+     | =MOV x,y= | ~x=y~  |
+     | =ADD x,y= | ~x+=y~ |
+     | =SUB x,y= | ~x-=y~ |
+*** Regiszterek 1.
+**** Emu8086
+     1. AX (=AH,AL): akkumulátor (accumulator) regiszter
+	- Az AH és AL megnevezések, a high és low, azaz a felső és alsó
+          bytera vonatkozik
+     2. BX (=BH,BL): bázis cím (base address) regiszter
+     3. CX (=CH,CL): számláló (count) regiszter
+     4. DX (=DH,DH): adat (data) regiszter
+     5. SI: forrás (source) index regiszter
+     6. DI: cél (destination) index regiszter
+     7. BP: bázis mutató (base pointer)
+     8. SP: verem mutató (stack pointer)
+*** TODO Regiszterek 2.
+**** Nem emu8086 regiszterek
+*** Adatmásolás és memória elérés
+**** =MOV= utasítás
+     =MOV=: move (mozgat) szóból, de a másolás kicsit jobban leírja
+     - =MOV ax,bx= átmásolja a =bx= tartalmát az =ax= regiszterbe
+**** Memória elérése
+     - =MOV [bx],ax= az =ax= regiszter tartalmát átmásolja a =bx=
+       regiszterben található cím és utána követkő byteokra (mivel az
+       =ax= kétbyteos)
+     - =MOV ax,[bx]= átmásolja a =bx= regiszterben és utána található
+       byteokat az =ax= regiszterbe (mivel az =ax= kétbytos)
+     - =MOV [bx+4],ax= átmásolja az =ax= bytejait a =bx= regiszterben
+       található cím utáni negyedik és ötödik byteokat
+*** Aritmetika
+**** =ADD=, =SUB=
+     - ADD - addition - összeadás
+     - SUB - subtraction - kivonás
