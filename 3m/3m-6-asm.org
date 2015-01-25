@@ -7,9 +7,9 @@
 
 * Assembly
 ** Áttekintés
-*** Pragmák és utasítások
+*** Direktívák és utasítások
 **** Összehasonlítás
-     - Pragma :: 
+     - Direktíva :: 
        - utasítás a fordítónak, hogy hogyan csinálja készítse el a
          programot.
        - Példa: a pascal programokban a =var=, =type= és a =const=
@@ -18,8 +18,8 @@
        - egy utasítás amit a program fog végrehajtani futás közben.
        - Példa: a pascal programokban az értékadás, függvényhívás és
          lényegében minden ami a =begin= és az =end.=
-** Pragmák
-*** Pragmák
+** Direktíva
+*** Helyfoglalás direktíva
 **** Helyfoglalás
      - Emu8086 és más
        - =DB=: define byte (8bit), byteok lefoglalására
@@ -35,8 +35,55 @@
      - pascalban az első kb a =char cimke1= deklarációnak felel meg, a
        második kb a =short cimke2= deklarációnak (ha
        =sizeof(shortint)=2=)
+*** EQU direktíva
+     Fordítás idejű értékadás.  Használata:
+     : címke EQU érték
+     Megegyezik a =#define= preprocesszor direktívával és kicsit
+     hasonlít a Pascal =const= utasításra.  Például:
+     : num EQU 6
+     : MOV ax, num
+     : MOV bx, num
+     megegyezik a 
+     : MOV ax, 6
+     : MOV bx, 6
+     utasításokkal (ugyan azt a programot fogjuk kapni).
+*** Aritmetikai direktívák
+     Az assembly ismer alapvető aritmetikai műveleteket, de ezeket ne
+     keverjük össze az utasításokkal. Például írhatjuk, hogy
+     : MOV ax, 4*5+2
+     ha nem akarjuk kiszámolni hogy $4\times 5 + 2=22$. Az assembler
+     azt a kódot fogja legenerálni mintha a 
+     : MOV ax, 22
+     utasítást írtuk volna.
+*** ORG direktíva
+    - Az assembler soronként fordít. 
+      - Egy-egy utasításnak meg van a bináris megfelelője (régen,
+        amikor még assembly sem volt, akkor az emberek az assembly
+        utasítások helyett a bináris kódjaikat tanulták meg).
+    - Nézzük a következő példát: 
+      - Egy assembly program mondjuk 3 utasításból áll:
+	1. Byte-os MOV (például =MOV al, 10=) - lefordítva *3 byte-ot* foglal
+	2. Szavas MOV (például =MOV ax, 10=) - lefordítva *4 byte-ot* foglal
+	3. RET utasítás (később tanuljuk) - lefordítva *1 byte-ot* foglal
+      - Ha nincs előtte egy ORG direktíva, akkor 
+        1. az első utasítás 3 byteja a 0, 1 és 2 című byte-okra kerül.
+	2. a második utasítás 4 byte-ja a 3,4,5,6 című byte-okra kerül.
+	3. a harmadik utasítás byte-ja a 7 című byte-ra kerül.
+      - Ha a az első és a második utasítás köze egy =ORG 50=
+        direktívát teszünk, akkor a következőképp módosul a program:
+        1. az első utasítás 3 byteja a 0, 1 és 2 című byteokra kerül
+           (ahogy eddig is).  Itt jön az ORG utasítás, és attól előre
+           ugrik a fordító az adott címre (a példában ez az 50).
+	2. a második utasítás 4 byteja a 50,51,52,53 című byte-okra
+           kerül.
+	3. a harmadik utasítás byte-ja a 54 című byte-ra kerül.
 ** Utasítások
 *** Általános szabályok
+**** ORG 100h
+     Az assembly programot elindítva, az =IP= (instruction pointer)
+     regiszter a 100h=256-os értéket kapja meg, így a 256-ik byte-tól
+     kezdve hajtódnak végre az utasítások. Ezért kell minden programot
+     (legalább is az emu8086-ban) =ORG 100h=-val kezdeni.
 **** Jelölések
      - OP dst, src:
        - OP = operátor = művelet
@@ -49,6 +96,7 @@
      | =SUB x,y= | ~x-=y~ |
 *** Regiszterek 1.
 **** Emu8086
+     16 bites regiszterek:
      1. AX (=AH,AL): akkumulátor (accumulator) regiszter
 	- Az AH és AL megnevezések, a high és low, azaz a felső és alsó
           bytera vonatkozik
@@ -73,7 +121,43 @@
        byteokat az =ax= regiszterbe (mivel az =ax= kétbytos)
      - =MOV [bx+4],ax= átmásolja az =ax= bytejait a =bx= regiszterben
        található cím utáni negyedik és ötödik byteokat
-*** Aritmetika
+*** Aritmetika ADD és SUB
 **** =ADD=, =SUB=
      - ADD - addition - összeadás
      - SUB - subtraction - kivonás
+*** Aritmetika (I)MUL és (I)DIV
+**** MUL (előjel nélküli) és IMUL (előjeles) szorzás
+     - Byte-os verzió: $AX = AL\times OP$
+       - Például: =MUL BL= eredménye $AX = AL\times BL$, 
+	 - Ha $BL=64, AL=4$, az eredmény: $AX=256$ azaz $AH=1$ és
+           $AL=0$.
+     - Szavas verzió: $(DX|AX) = AX\times OP$
+       - Például: =MUL BX=, $(DX|AX) = AX\times BX$ vagyis a művelet
+         után teljesül az hogy $DX\times 2^{16}+AX = AX \times BX$.
+	 - Ha $BX=1024=2^{10}$ és $AX=64=2^{6}$, az eredmény: $DX=1$
+           és $AX=0$
+**** DIV (előjel nélküli) és IDIV (előjeles) osztás
+     - Byte-os verzió: $AL=AX/OP$ és $AH = AX \bmod OP$
+       - Például: =DIV BL= eredménye $AL=AX/BL$ és $AH=AX \bmod BL$ 
+     - Szavas-os verzió: $AX=(DX|AX)/OP$ és $DX = (DX|AX) \bmod OP$
+       - Például: =DIV BX= eredménye $AX=(DX|AX)/BX$ és
+         $DX=(DX|AX)\bmod BX$
+       
+*** Címkék és LEA
+**** Példa
+     Foglaljunk le négy szót ($4\times2$ byte):
+     : címke DW 1,2,3,4
+     Hogyan tudunk ezekhez a szavakhoz hozzáférni?
+**** LEA load effective address
+     A LEA utasítás beolvassa egy címkéhez tartozó memória címet
+     (offsettet azaz az eltérést a szegmens regisztertől emu8086
+     esetén).
+**** Példa folytatása
+     : LEA bx,cimke
+     : MOV ax,[cimke]   ; beolvassa az 1-est
+     : ADD ax,[cimke+2] ; beolvassa (hozzáadja) a 2-est 
+     : ; egy szó = 2 byte -> ezért kell 2-vel növelni
+     : ADD ax,[cimke+4] ; beolvassa (hozzáadja) a 3-ast
+     : ADD ax,[cimke+6] ; beolvassa (hozzáadja) a 4-est
+*** Flag-ek
+    | CF | carry | előjel nélküli túlcsordulás | 
