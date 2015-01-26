@@ -154,10 +154,14 @@
      esetén).
 **** Példa folytatása
      : LEA bx,cimke
-     : MOV ax,[cimke]   ; beolvassa az 1-est
-     : ADD ax,[cimke+2] ; beolvassa (hozzáadja) a 2-est 
+     : MOV ax,[bx]   ; beolvassa az 1-est
+     : ADD bx,2
+     : ADD ax,[bx] ; beolvassa (hozzáadja) a 2-est 
+     : ADD bx,2
      : ; egy szó = 2 byte -> ezért kell 2-vel növelni
-     : ADD ax,[cimke+4] ; beolvassa (hozzáadja) a 3-ast
-     : ADD ax,[cimke+6] ; beolvassa (hozzáadja) a 4-est
+     : ADD ax,[bx] ; beolvassa (hozzáadja) a 3-ast
+     : ADD bx,2
+     : ADD ax,[bx] ; beolvassa (hozzáadja) a 4-est
+     : ; ADD bx,2 ez már felesleges
 *** Flag-ek
     | CF | carry | előjel nélküli túlcsordulás | 
