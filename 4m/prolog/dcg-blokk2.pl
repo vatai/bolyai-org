@@ -50,3 +50,4 @@ kanga1(V,R,Q)  -->  roo(V,R),jumps(Q,Q),hops(V,Q),{marsupial(V,R,Q)}.
 g --> i,j,k.
 % g(A,D) :- i(A,B),j(B,C),k(C,D).
 g --> [x].
+% g([x|A],A).
