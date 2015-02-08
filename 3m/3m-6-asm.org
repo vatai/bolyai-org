@@ -163,5 +163,46 @@
      : ADD bx,2
      : ADD ax,[bx] ; beolvassa (hozzáadja) a 4-est
      : ; ADD bx,2 ez már felesleges
+*** Verem
+**** =PUSH=
+     A =PUSH= az adott regisztert a verembe teszi. Például a =PUSH
+     AX= a következő utasításoknak felel meg:
+     1. =INC SP= (azaz =SP++=)
+     2. =MOV [SP],AX=
+	
+**** =POP=
+     A =POP= az adott regiszterbe teszi a verem tetején található
+     szót. Például a =POP BX= a következő utasításoknak felel meg:
+     1. =MOV BX,[SP]=
+     2. =DEC SP= (azaz =SP--=)
 *** Flag-ek
-    | CF | carry | előjel nélküli túlcsordulás | 
+    | CF | carry    | előjel nélküli túlcsordulás | $255+1 \to 0$    |
+    | OF | overflow | előjeles túlcsordulás       | $127+1 \to -128$ |
+    | SF | sign     | az eredmény negatív         | $-1 - 2 \to -3$  |
+    | ZF | zero     | az eredmény nulla           | $3 - 3 \to 0$    |
+*** Jump-ok
+**** Feltétel nélküli utasítás =JMP=
+     A =JMP cimke= utasítás a =cimke= címre "ugrik".
+**** Feltételes ugrások
+    | JZ, JE        | Jump if Zero (Equal).                       | ZF = 1 | JNZ, JNE      |
+    | JC, JB, JNAE  | Jump if Carry (Below, Not Above Equal).     | CF = 1 | JNC, JNB, JAE |
+    | JS            | Jump if Sign.                               | SF = 1 | JNS           |
+    | JO            | Jump if Overflow.                           | OF = 1 | JNO           |
+    | JNZ, JNE      | Jump if Not Zero (Not Equal).               | ZF = 0 | JZ, JE        |
+    | JNC, JNB, JAE | Jump if Not Carry (Not Below, Above Equal). | CF = 0 | JC, JB, JNAE  |
+    | JNS           | Jump if Not Sign.                           | SF = 0 | JS            |
+    | JNO           | Jump if Not Overflow.                       | OF = 0 | JO            |
+*** CMP
+    A =CMP= utasítás egy kivonást végez el, de nem menti el az
+    eredményt, csak a flag regisztert állítja be.
+**** Példa
+     Ha $AL=12$ és $BL=12$
+     - =SUB AL,BL= után $AL=-1=255$, $CF=?$ és $OF=?$
+     - =CMP AL,BL= után $AL=12$, $CF=?$ és $OF=?$
+**** Gyakorlatban
+     : CMP AX,BX  ; Ha AX<BX akkor ugrik a cimke címre
+     : JL cimke   ; JL = jump LESS (<)
+     | Less (or Equal)    | Előjeles kisebb (vagy egyenlő)        |
+     | Greater (or Equal) | Előjeles nagyobb (vagy egyenlő)       |
+     | Below (or Equal)   | Előjel nélküli kisebb (vagy egyenlő)  |
+     | Above (or Equal)   | Előjel nélküli nagyobb (vagy egyenlő) |
