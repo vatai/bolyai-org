@@ -1,4 +1,9 @@
 AS := yasm
 ASFLAGS := -felf64
+CC := gcc
 
-p1 : p1.o p1sub.o
+mix: mixmain.o mixsub.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
+clean:
+	rm *.o *~
