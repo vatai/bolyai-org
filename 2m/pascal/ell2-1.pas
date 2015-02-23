@@ -2,6 +2,8 @@
 
 1. Lista alap műveletek! Insert, delete, find stb.  
 
+prcedure copylist(list_t src, dst);
+
 Például: deleteEven(lst) az lst listából kitörli a páros számokat.
 
 2. Prioritásos lista: mindig rendezett.  
