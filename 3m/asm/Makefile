@@ -2,6 +2,9 @@ AS := yasm
 ASFLAGS := -felf64
 CC := gcc
 
+array: arraymain.o arraysub.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 my: mymain.o mysub.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
