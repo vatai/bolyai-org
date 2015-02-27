@@ -27,18 +27,8 @@ begin
    if a = nil then begin { ures lista }
       a := tmp;
       tmp^.next := nil;
-   end else if a^.next = nil then begin
-      if a^.value < v then begin
-	 { tmp a vegere }
-	 a^.next := tmp;
-	 tmp^.next := nil;
-      end else begin
-	 { tmp az elejere }
-	 tmp^.next := a;
-	 a := tmp;
-      end      
-   end else begin
-      if a^.value > v then begin
+   end else begin { nem üres lista }
+      if v < a^.value then begin
 	 tmp^.next := a;
 	 a := tmp;
       end else begin
@@ -110,37 +100,18 @@ end;
 var
    l1,l2 : list_t;
    tmp	 : node_t;
+   x	 : integer;
 begin
 
    { HF: irj az adott muveletek segitsegevel egy rendezest }
    writeln('hello');
 
    l1 := nil;
-   insert(l1, 10);
-   writelist(l1); // 100, 42, 21, 7
-   insert(l1, 20);
-   writelist(l1); // 100, 42, 21, 7
-   insert(l1, 30);
-   writelist(l1); // 100, 42, 21, 7
+   x := 1;
+   while x <> 0 do begin
+      readln(x);
+      insert(l1, x);
+      writelist(l1); 
+   end;
 
-   insert(l1, 25);
-   writelist(l1); // 100, 42, 21, 7
-
-   exit;
-   l2 := nil;
-   insert(l2,100);
-   insert(l2,200);
-   insert(l2,300);
-   writelist(l2);
-   writeln('----');
-
-   // append(l1,l2);
-   // l1 := append2(l1,l2);
-   // writelist(l1); // 30, 20, 10, 300, 200, 100
-
-   
-   // tmp := find(l2,200)^ {<<-- itt a kalap!!!} ;
-   // writeln(tmp.value);
-   delete(l1,30);
-   writelist(l1);
 end.
