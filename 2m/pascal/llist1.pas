@@ -38,12 +38,17 @@ begin
 	 a := tmp;
       end      
    end else begin
-      t := a;
-      while (t^.next <> nil) and (t^.next^.value < v) do 
-	 t := t^.next;
-      { t^.next >= v }
-      tmp^.next := t^.next;
-      t^.next := tmp;
+      if a^.value > v then begin
+	 tmp^.next := a;
+	 a := tmp;
+      end else begin
+	 t := a;
+	 while (t^.next <> nil) and (t^.next^.value < v) do 
+	    t := t^.next;
+	 { t^.next >= v }
+	 tmp^.next := t^.next;
+	 t^.next := tmp;
+      end;
    end;
 end;
 
