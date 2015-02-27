@@ -11,8 +11,6 @@ Például: deleteEven(lst) az lst listából kitörli a páros számokat.
 Például: írjunk egy programot amely beolvas 10 elemet és rendezve írja
 ki őket!
 
-3. Fák! (Dalszöveg?)  Mélységi bejárás! Bináris keresés vagy rendezés.
-
 4. Duplán láncolt lista: van value, next, prev (azaz previous = előző).
 Ehhez a műveletek megírása: insert, delete, find.
 
