@@ -52,16 +52,22 @@ procedure delete(var a : list_t; v : integer);
 var
    tmp : list_t;
 begin
-   if a^.value <> v then begin
-      while a^.next^.value <> v do 
-	 a := a^.next;
-      tmp := a^.next;
-      a^.next := tmp^.next;
-      dispose(tmp);
-   end else begin
-      tmp := a^.next;
-      dispose(a);
-      a := tmp;
+   if a <> nil then begin
+      if a^.value <> v then begin
+	 while (a^.next <> nil) and (a^.next^.value <> v) do 
+	    a := a^.next;
+	 tmp := a^.next;
+	 if tmp <> nil then 
+	    a^.next := tmp^.next
+	 else
+	    a^.next := nil;
+	 dispose(tmp);
+      end else begin 
+	 { a^.value = v }
+	 tmp := a^.next;
+	 dispose(a);
+	 a := tmp;
+      end;
    end;
 end;
 
