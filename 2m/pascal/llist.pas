@@ -9,9 +9,10 @@ type
 procedure writelist(a : list_t);
 begin
    while a <> nil do begin
-      writeln(a^.value);
+      write(a^.value,',');
       a := a^.next;
    end;
+   writeln;
 end;
 
 procedure insert(var a : list_t; v : integer);
@@ -48,12 +49,13 @@ begin
    end;
 end;
 
-procedure delete(var a : list_t; v : integer);
+procedure delete(var b : list_t; v : integer);
 var
-   tmp : list_t;
+   tmp,a : list_t;
 begin
-   if a <> nil then begin
-      if a^.value <> v then begin
+   if b <> nil then begin
+      if b^.value <> v then begin
+	 a := b;
 	 while (a^.next <> nil) and (a^.next^.value <> v) do 
 	    a := a^.next;
 	 tmp := a^.next;
@@ -64,9 +66,9 @@ begin
 	 dispose(tmp);
       end else begin 
 	 { a^.value = v }
-	 tmp := a^.next;
-	 dispose(a);
-	 a := tmp;
+	 tmp := b^.next;
+	 dispose(b);
+	 b := tmp;
       end;
    end;
 end;
@@ -88,29 +90,31 @@ end;
 var
    l1,l2 : list_t;
    tmp	 : node_t;
+   x	 : integer;
 begin
-   writeln('hello');
+   //writeln('hello');
 
    l1 := nil;
    insert(l1, 10);
    insert(l1, 20);
    insert(l1, 30);
-   writelist(l1); // 100, 42, 21, 7
+   // writelist(l1); // 100, 42, 21, 7
 
    l2 := nil;
    insert(l2,100);
    insert(l2,200);
    insert(l2,300);
-   writelist(l2);
+   //writelist(l2);
    writeln('----');
 
    // append(l1,l2);
-   // l1 := append2(l1,l2);
-   // writelist(l1); // 30, 20, 10, 300, 200, 100
+   l1 := append2(l1,l2);
+   writelist(l1); // 30, 20, 10, 300, 200, 100
 
    
    // tmp := find(l2,200)^ {<<-- itt a kalap!!!} ;
    // writeln(tmp.value);
-   delete(l1,30);
+   readln(x);
+   delete(l1,x);
    writelist(l1);
 end.
