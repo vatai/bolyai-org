@@ -1,9 +1,10 @@
-	global 	asd
 	section	.text
 	;; rax == rv
 	;; rcx == i
 	;; rdi == n
+	global 	asd
 asd:	mov rax,0		; rv = 0;
+	;; az asd(n) kiszamolja az 0+1+2+...+n összeget
 	;; for(i=0; i<n; i++)
 	mov rcx,0		; i=0
 ciklus:	cmp rcx,rdi		; if !(i<=n)
