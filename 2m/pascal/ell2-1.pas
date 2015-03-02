@@ -1,3 +1,38 @@
+// procedure insert3( { lehet hogy ezt is ti kell hogy kitöltsétek } );
+// begin
+// a paraméte
+// 1. feladat: ezt kell megirni
+// end;
+
+
+{
+Egyszerűsített ellenőrző:
+
+1. Insert3, amelyik a lista 3. helyére teszi be az értéket. (ha a
+lista rövidebb mint 2, akkor az utolsó helyre teszi be az értéket).
+Példa:
+insert3(l,1);
+// l -> 1
+insert3(l,2);
+// l -> 1 -> 2
+insert3(l,3);
+// l -> 1 -> 2 -> 3
+insert3(l,10)
+// l -> 1 -> 2 -> 10 -> 3
+insert3(l,20)
+// l -> 1 -> 2 -> 20 -> 10 -> 3
+
+2. Lista alap műveletek! Insert, delete, find stb.  
+
+prcedure copylist(list_t src, dst);
+
+Például: deleteEven(lst) az lst listából kitörli a páros számokat.
+
+3. 
+
+
+}
+
 { 
 
 1. Lista alap műveletek! Insert, delete, find stb.  
@@ -46,6 +81,22 @@ begin
    a := tmp;
 end;
 
+procedure insert3(var a : list_t; v : integer);
+var
+   tmp : list_t;
+begin
+   new(tmp);
+   tmp^.value := v;
+   if a = nil then begin
+      a := tmp
+   end else if a^.next = nil then begin
+      a^.next := tmp
+   end else begin
+      tmp^.next := a^.next^.next;
+      a^.next^.next := tmp;
+   end;
+end;
+
 procedure delete_paros(var x : list_t);
 var
   a, tmp : list_t;
@@ -85,18 +136,18 @@ end;
 var
    l1:list_t;
 begin
-  insert(l1,1);
-  insert(l1,2);
-  insert(l1,3);
-  insert(l1,4);
-  insert(l1,5);
-  insert(l1,6);
-  insert(l1,7);
+  insert3(l1,1);
+  insert3(l1,2);
+  insert3(l1,3);
+  insert3(l1,4);
+  insert3(l1,5);
+  insert3(l1,6);
+  insert3(l1,7);
   writelist(l1);
   writeln('--------------------------');
 
   delete_paros(l1);
   writelist(l1);
 
-  readln;
+   // readln;
 end.
