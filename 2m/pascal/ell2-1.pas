@@ -28,8 +28,8 @@ prcedure copylist(list_t src, dst);
 
 Például: deleteEven(lst) az lst listából kitörli a páros számokat.
 
-3. 
-
+3. ListLength() megszámolja a lista hosszát. vagy
+SumList() Összegzi (összeadja) a lista elemeit.
 
 }
 
