@@ -8,6 +8,9 @@ array: arraymain.o arraysub.o
 my: mymain.o mysub.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
+my1: mymain1.o mysub1.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 mix: mixmain.o mixsub.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
