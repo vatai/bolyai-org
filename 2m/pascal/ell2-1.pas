@@ -34,6 +34,7 @@ Például: deleteEven(lst) az lst listából kitörli a páros számokat.
 }
 
 { 
+Nem egyszerűsített feladataok:
 
 1. Lista alap műveletek! Insert, delete, find stb.  
 
@@ -87,6 +88,7 @@ var
 begin
    new(tmp);
    tmp^.value := v;
+   tmp^.next := nil;
    if a = nil then begin
       a := tmp
    end else if a^.next = nil then begin
