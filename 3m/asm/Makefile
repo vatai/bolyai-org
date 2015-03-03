@@ -1,4 +1,5 @@
 AS := yasm
+CFLAGS := -std=gnu99
 ASFLAGS := -felf64
 CC := gcc
 
