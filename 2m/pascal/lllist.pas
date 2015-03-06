@@ -74,23 +74,6 @@ begin
    end;
 end;
 
-procedure delete(var a : list_t; v : integer);
-var
-   tmp : list_t;
-begin
-   if a^.value <> v then begin
-      while a^.next^.value <> v do 
-	 a := a^.next;
-      tmp := a^.next;
-      a^.next := tmp^.next;
-      dispose(tmp);
-   end else begin
-      tmp := a^.next;
-      dispose(a);
-      a := tmp;
-   end;
-end;
-
 function find(a	: list_t; v : integer): list_t;
 { vissza adja a pointert az elso 'v' erteku node_t-re }
 { n := find(lst, 55); // utana n^.value = 55 }
