@@ -109,6 +109,17 @@
      8. SP: verem mutató (stack pointer)
 *** TODO Regiszterek 2.
 **** Nem emu8086 regiszterek
+*** Regiszterek függvény híváskor
+**** Visszatérési értékek
+     Sorra: RAX, RDX
+**** Paraméterek átadása
+     Sorra: RDI, RSI, RDX, RCX, R8, R9
+**** Hívó által mentett regiszterek
+     RBX, RBP, R12, R13, R14, R15
+**** Ideiglenes (szabadon módosítható) regiszterek
+     R10, R11, 
+**** "Nem módosítható" 
+     RSP
 *** Adatmásolás és memória elérés
 **** =MOV= utasítás
      =MOV=: move (mozgat) szóból, de a másolás kicsit jobban leírja
