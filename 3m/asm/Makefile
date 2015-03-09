@@ -3,6 +3,9 @@ CFLAGS := -std=gnu99
 ASFLAGS := -felf64
 CC := gcc
 
+ell2-1: ell2-1.o ell2-1f.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 array: arraymain.o arraysub.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
