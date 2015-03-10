@@ -3,6 +3,9 @@ CFLAGS := -std=gnu99
 ASFLAGS := -felf64
 CC := gcc
 
+uj: uj.o ujasm.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 ell2-1: ell2-1.o ell2-1f.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
