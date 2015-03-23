@@ -6,12 +6,14 @@ type
 	       next  : ^node_t;
 	    end;     
 
-
+   
    list_t = object
       list : ^node_t;
       procedure writelist;
-      procedure insert(v : integer);
+      procedure push(v : integer);
+      function pop: integer;
    end;			 
+
 
 procedure list_t.writelist;
 var
@@ -26,7 +28,8 @@ begin
    writeln;
 end;
 
-procedure list_t.insert(v	: integer);
+
+procedure list_t.push(v	: integer);
 var
    elso	: ^node_t;
 begin
@@ -37,12 +40,32 @@ begin
    list := elso;
 end;
 
+
+function list_t.pop : integer;
+var
+   elso	: ^node_t;
+begin
+   if list <> nil then begin
+      pop := list^.value;
+
+      elso := list^.next;
+      dispose(list);
+      list := elso;
+   end;
+end;
+
+
 var
    L1, L2 : list_t;
+   x	  : integer;
 begin
-   L1.insert(4);
-   L1.insert(42);
-   L1.insert(21);
-   L1.insert(13);
-   L1.writelist;
+   x:=1;
+   while x <> 0 do begin
+      readln(x);
+      if x = -1 then 
+	 writeln(L1.pop)
+      else 
+	 L1.push(x);
+      L1.writelist;
+   end;
 end.
