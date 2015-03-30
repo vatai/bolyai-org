@@ -20,7 +20,7 @@ type
    end;			 
 
    priority_list_t = class(list_t)
-	 procedure push(v :  integer); override;
+	 procedure push(v :  integer); override; 
    end;
 
 procedure priority_list_t.push(v : integer);
@@ -59,7 +59,7 @@ end;
 
 destructor list_t.free;
 begin
-   writeln('free');
+   writeln('free TODO delete(list)');
    list := nil;
 end;
 
@@ -104,17 +104,28 @@ end;
 
 var
    L1	     : list_t;
-   // L1, L2 : list_t;
-   x	     : integer;
+   listarray : array[1..4] of list_t;
+   x,i	     : integer;
 begin
    x:=1;
-   L1 := priority_list_t.create;
-   L1.push(15);
+   {L1 := priority_list_t.create; // new(L1)}
+
+
+   listarray[1] := list_t.create;
+   listarray[2] := list_t.create;
+   listarray[3] := priority_list_t.create;
+   listarray[4] := priority_list_t.create;
+
+   for i := 1 to 20 do begin
+      listarray[(i mod 4)+1].push(random(100));
+   end;
+
+   {L1.push(15);
    L1.push(20);
    L1.push(5);
    L1.push(25);
    L1.push(10);
-   L1.writelist;
+   L1.writelist;}
    {while x <> 0 do begin
       readln(x);
       if x = -1 then 
@@ -124,7 +135,15 @@ begin
       L1.writelist;
    end;
    }
+   {L1.pop;
    L1.pop;
-   L1.pop;
-   L1.free;
+   L1.free;}
+
+   for i := 1 to 4 do begin
+      listarray[i].writelist;
+   end;
+   for i := 1 to 4 do begin
+      listarray[i].free;
+   end;
+
 end.
