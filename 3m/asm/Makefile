@@ -3,6 +3,9 @@ CFLAGS := -std=gnu99
 ASFLAGS := -felf64
 CC := gcc
 
+funcall: funcallc.o funcall.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 uj: uj.o ujasm.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
