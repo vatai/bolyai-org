@@ -3,6 +3,9 @@ CFLAGS := -std=gnu99
 ASFLAGS := -felf64
 CC := gcc
 
+jav: javmain.o javassembly.o
+	$(CC) $(CFLAGS) $^ -o $@ 
+
 funcall: funcallc.o funcall.o
 	$(CC) $(CFLAGS) $^ -o $@ 
 
