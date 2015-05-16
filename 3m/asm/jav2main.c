@@ -17,6 +17,17 @@ int f3test(int a, int b, int c)
   return (a+b+c)/3;
 }
 
+int f4test(int a, int b, int c, int d)
+{
+  return (a*b)/(c*d);
+}
+
+int f5test(int a, int b, int c, int d, int e)
+{
+  return 3+a*b/(c*d+e);
+}
+
+
 #define test3(NAME) for(i=0; i<n; ++i)			\
     {							\
       int a = rand();					\
@@ -34,4 +45,7 @@ int main()
   int i;
   int n=10;
   test3(f1);
+  test3(f2);
+  test3(f3);
+
 }
