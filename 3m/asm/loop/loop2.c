@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// tömb feltöltése
+
 void prn(long *p, long n){
   long i;
   for(i=0; i<n; i++) printf("%ld, ", p[i]);

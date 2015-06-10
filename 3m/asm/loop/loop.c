@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// sima ciklus long -> long
+
 long fc(long n){
   int i;
   long r=0;

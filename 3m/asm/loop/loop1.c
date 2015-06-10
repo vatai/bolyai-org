@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+// egy tömb feldolgozása, pl sum()
+
 long sc(long *p, long n){
   long r =0;
   long i;

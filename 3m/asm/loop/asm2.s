@@ -12,6 +12,11 @@ fa:
 	;; -- p[2] = b+a+a ...
 	;; r8 a ciklus valtozo
 
+
+	;; javítás: ha n=0 akkor nem kell semmit csinálni
+	cmp rsi,0
+	je vege
+	
 	mov r8,0
 	mov [rdi],rcx
 	
@@ -22,5 +27,5 @@ lup:
 	mov [rdi+r8*8],rcx
 	cmp r8,rsi
 	jne  lup
-	
+vege:	
 	ret
